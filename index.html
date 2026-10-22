@@ -183,6 +183,9 @@
       }
       .btn-secondary:hover { border-color: var(--green-hot); box-shadow: 0 6px 20px -8px var(--glow); }
       /* chapter-one email gate: the MailerLite form renders inside .ml-embedded */
+      #formES { display: none; }
+      body.lang-es #formEN { display: none; }
+      body.lang-es #formES { display: block; }
       .gate { background: var(--panel); border: 1px solid var(--panel-edge); padding: 1.15rem 1.25rem 1.25rem; max-width: 560px; margin: 0 0 1.5rem; }
       .gate h3 { font-family: "Cormorant Garamond", serif; font-size: 1.3rem; font-weight: 600; margin: 0 0 0.2rem; }
       .gate p { margin: 0 0 0.85rem; color: var(--dim); font-size: 0.95rem; }
@@ -442,7 +445,8 @@
             <div class="gate">
               <h3 data-i18n="gateH">Chapter One is free — for readers on the list.</h3>
               <p data-i18n="gateP">Join the Montavera Press list and the Prologue + Chapter One teaser (41 pages, the book&rsquo;s own print design) arrives in your inbox — and when Beck and Call goes on sale, you&rsquo;ll hear it first.</p>
-              <div class="ml-embedded" data-form="zc3fbl"></div>
+              <div id="formEN"><div class="ml-embedded" data-form="zc3fbl"></div></div>
+              <div id="formES"><div class="ml-embedded" data-form="PBY8JY"></div></div>
             </div>
 
             <div class="buy-row">
@@ -803,7 +807,7 @@
           heroPitch: 'Una promesa junto al lecho de un padre moribundo. Un viaje que nadie debería hacer. Una voz en la oscuridad, más vieja que la montaña.',
           prologueBtn: 'Lee el prólogo — Gratis',
           gateH: 'El Capítulo Uno es gratis — para los lectores de la lista.',
-          gateP: 'Únete a la lista de Montavera Press y el avance con el Prólogo y el Capítulo Uno (41 páginas, con el diseño impreso del libro) llegará a tu correo — y cuando Beck and Call salga a la venta, te enterarás primero. El avance está en inglés.',
+          gateP: 'Únete a la lista de Montavera Press y el avance con el Prólogo y el Capítulo Uno (45 páginas, con el diseño impreso del libro) llegará a tu correo — y cuando Beck and Call salga a la venta, te enterarás primero. El avance está en inglés.',
           shortBlurb: '<p>Primero la debilidad te embota los sentidos. Luego la fiebre te quita la cordura. Luego llegan las lágrimas negras — y después de las lágrimas, tus días están contados.</p><p>La llaman la Oscuridad, y se llevó a la madre y al padre de Tomek. Pero antes de quedar enterrado bajo la nieve y la piedra, su padre hizo que el chico jurara una promesa imposible: <em>Protégelos. A todos.</em></p><p>Así que un chico asustado se adentra en una naturaleza invernal y violenta, en busca de la única cura del mundo — con el cuchillo de su padre en el cinturón, la flauta de su madre colgando de un cordón sobre el pecho, y una niña pequeña e insoportable que nunca debió acompañarlo.</p>',
           pullHeal: 'Sanar es escuchar. Toda canción tiene un precio.',
           storyKicker: 'Sobre el libro',
