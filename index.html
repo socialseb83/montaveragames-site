@@ -297,6 +297,23 @@
       .file-meta b { color: var(--bone); font-weight: 600; }
       .index-cta { margin-top: 2.2rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
       .index-cta .buy-note { margin: 0; }
+      /* ---------- black index: character generator panel ---------- */
+      .gen-cta {
+        text-align: center; background: var(--bg-deep);
+        border: 1px solid rgba(233, 222, 197, 0.42);
+        outline: 3px double rgba(233, 222, 197, 0.42); outline-offset: -10px;
+        padding: 2.6rem 1.5rem 2.8rem; margin: 0.5rem 0 0.8rem;
+      }
+      .gen-cta h3 {
+        font-family: "Cormorant Garamond", serif; font-weight: 700;
+        font-size: clamp(2.1rem, 5vw, 3.1rem); letter-spacing: 0.05em;
+        line-height: 1.05; margin: 0 0 0.9rem; color: var(--bone);
+      }
+      .gen-cta p { color: var(--dim); max-width: 40rem; margin: 0 auto 1.7rem; font-size: 1.06rem; }
+      .gen-cta .btn { font-size: 1.06rem; padding: 0.8rem 1.8rem; }
+      .gen-link { margin: 1.2rem 0 0; color: var(--dim); font-size: 0.98rem; }
+      .gen-link a { color: var(--bone); text-decoration: underline; text-underline-offset: 3px; }
+      .gen-link a:hover { color: var(--green-hot); }
       .index-buy { margin-top: 2.2rem; }
       .index-buy.gap-after { margin-bottom: 2.8rem; }
 
@@ -495,6 +512,12 @@
           <p class="kicker" data-i18n="indexKicker">Tabletop Roleplaying · The Setting Books</p>
           <h2>The Black Index of Montavera</h2>
           <p class="index-sub" data-i18n="indexSub">A roleplaying game of bureaucratic cosmic horror.</p>
+          <div class="gen-cta">
+            <p class="kicker">The Office Is Open · Window 2</p>
+            <h3>FILE A CITIZEN</h3>
+            <p>The free character generator for The Black Index. A clerk will take your filing, station by station — no rulebook needed. Walk up with nothing; walk away with a citizen, ready to play.</p>
+            <a class="btn" href="character-generator.html">Begin Your Filing</a>
+          </div>
           <p class="kicker quotes-head" data-i18n="coversKicker">The Books, Front and Back</p>
           <div class="covers-show">
             <div>
@@ -630,6 +653,7 @@
             <button class="buy-soon" type="button" disabled aria-disabled="true" data-i18n="buyNowBtn">Buy Now</button>
             <p class="buy-note" data-i18n="indexBuyNote">Not yet on sale — the list hears first when the files open.</p>
           </div>
+          <p class="gen-link"><a href="character-generator.html">Or file a citizen first — the free character generator.</a></p>
         </div>
       </section>
       </div><!-- /view-index -->
