@@ -174,8 +174,18 @@
       .facts li::before { content: "·"; color: var(--green-hot); margin-right: 0.55rem; font-weight: 700; }
       .facts li:first-child::before { content: ""; margin: 0; }
 
-      /* read-the-prologue link, above the hero signup box */
-      .prologue-row { margin: 0 0 1.15rem; }
+      /* read-the-prologue button + chapter-one gate, above the hero signup box */
+      .prologue-row { margin: 0 0 1.15rem; display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+      .btn-secondary {
+        background: transparent; color: var(--bone);
+        border: 1px solid var(--panel-edge);
+        box-shadow: none;
+      }
+      .btn-secondary:hover { border-color: var(--green-hot); box-shadow: 0 6px 20px -8px var(--glow); }
+      /* chapter-one email gate: the MailerLite form renders inside .ml-embedded */
+      .gate { background: var(--panel); border: 1px solid var(--panel-edge); padding: 1.15rem 1.25rem 1.25rem; max-width: 560px; margin: 0 0 1.5rem; }
+      .gate h3 { font-family: "Cormorant Garamond", serif; font-size: 1.3rem; font-weight: 600; margin: 0 0 0.2rem; }
+      .gate p { margin: 0 0 0.85rem; color: var(--dim); font-size: 0.95rem; }
 
       /* signup */
       .signup { background: var(--panel); border: 1px solid var(--panel-edge); padding: 1.15rem 1.25rem 1.25rem; max-width: 560px; }
@@ -367,6 +377,15 @@
 
       @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
     </style>
+    <!-- MailerLite Universal -->
+    <script>
+        (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+        .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+        n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+        (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+        ml('account', '2732472');
+    </script>
+    <!-- End MailerLite Universal -->
   </head>
   <body>
     <header class="site-head">
@@ -404,7 +423,7 @@
             <p class="kicker" data-i18n="heroKicker">A Novel · Folk Horror</p>
             <h1 class="novel-title" data-i18n="heroTitle">Beck and Call</h1>
             <p class="byline" data-i18n="heroByline">by Sebastian A. Aguilar</p>
-            <p class="pitch" data-i18n="heroPitch">A boy with a broken power. A girl dying slowly of darkness. A mountain no one should climb in winter.</p>
+            <p class="pitch" data-i18n="heroPitch">A bedside promise to a dying father. A journey no one should make. A voice in the dark, older than the mountain.</p>
             <div class="blurb" data-i18n="shortBlurb">
               <p>First the weakness dulls your senses. Then the fever takes your sanity. Then come the black tears — and after the tears, your days are numbered.</p>
               <p>They call it the Darkness, and it took Tomek&rsquo;s mother and father. But before he was buried in snow and stone, his father made the boy swear an impossible promise: <em>Protect them. All of them.</em></p>
@@ -416,9 +435,15 @@
               <li data-i18n="factFormats">Hardcover · Paperback · Kindle</li>
             </ul>
 
-            <p class="prologue-row">
+            <div class="prologue-row">
               <a class="btn" id="prologueLink" href="read-the-prologue.html#english" data-i18n="prologueBtn">Read the Prologue — Free</a>
-            </p>
+            </div>
+
+            <div class="gate">
+              <h3 data-i18n="gateH">Chapter One is free — for readers on the list.</h3>
+              <p data-i18n="gateP">Join the Montavera Press list and the Prologue + Chapter One teaser (41 pages, the book&rsquo;s own print design) arrives in your inbox.</p>
+              <div class="ml-embedded" data-form="zc3fbl"></div>
+            </div>
 
             <div class="signup" data-signup>
               <h3 data-i18n="heroSignupH">Be first to know when it goes on sale</h3>
@@ -462,7 +487,7 @@
             <p>Every child knows the symptoms. They chant them in their clapping games and their mothers slap their hands for it: the weakness that takes you, the fever that brings fear, and then the black tears, for the ones who won&rsquo;t be seen long.</p>
             <p>Tomek is twelve, and he can hear what no one else can — the song inside a body, and the moment it begins to play out of tune. It was his mother&rsquo;s gift. It is the only warning his village ever gets.<br />His father was the clan&rsquo;s leader, a warrior weathered by decades of fighting to keep his people safe. And fed.</p>
             <p>The Darkness has taken both his parents. Over his deathbed, his father made Tomek swear an impossible promise: <em>Protect them. All of them.</em></p>
-            <p>Both parents are frozen in the ground now, and Tomek has nothing left but his father&rsquo;s hunting knife, his mother&rsquo;s carved flute — and a companion he never planned on — Yana. She&rsquo;s blunt, brave, and loud. And tiny. Very tiny, and always prepared to remind him how sure she is that he&rsquo;s going to get them both killed.</p>
+            <p>Both parents are frozen in the ground now, and Tomek has nothing left but his father&rsquo;s hunting knife, his mother&rsquo;s carved flute — and a companion he never planned on - Yana. She&rsquo;s blunt, brave, and loud. And tiny. Very tiny, and always prepared to remind him how sure she is that he&rsquo;s going to get them both killed.</p>
             <p>With her by his side, Tomek learns that healing requires listening, and that every song he hears has a price.</p>
           </div>
           <p class="story-fire" data-i18n="pullFire">It wants a place by the fire, like everyone else.</p>
@@ -743,12 +768,14 @@
           heroKicker: 'A Novel · Folk Horror',
           heroTitle: 'Beck and Call',
           heroByline: 'by Sebastian A. Aguilar',
-          heroPitch: 'A boy with a broken power. A girl dying slowly of darkness. A mountain no one should climb in winter.',
+          heroPitch: 'A bedside promise to a dying father. A journey no one should make. A voice in the dark, older than the mountain.',
           prologueBtn: 'Read the Prologue — Free',
+          gateH: 'Chapter One is free — for readers on the list.',
+          gateP: 'Join the Montavera Press list and the Prologue + Chapter One teaser (41 pages, the book&rsquo;s own print design) arrives in your inbox.',
           shortBlurb: '<p>First the weakness dulls your senses. Then the fever takes your sanity. Then come the black tears — and after the tears, your days are numbered.</p><p>They call it the Darkness, and it took Tomek&rsquo;s mother and father. But before he was buried in snow and stone, his father made the boy swear an impossible promise: <em>Protect them. All of them.</em></p><p>So a frightened boy sets out into a violent winter wilderness, looking for the only cure in the world — with his father&rsquo;s knife at his belt, his mother&rsquo;s flute on a cord at his chest, and a small and annoying girl who was never supposed to come along.</p>',
           pullHeal: 'Healing is listening. Every song has a price.',
           storyKicker: 'About the Book',
-          fullBlurb: '<p>Every child knows the symptoms. They chant them in their clapping games and their mothers slap their hands for it: the weakness that takes you, the fever that brings fear, and then the black tears, for the ones who won&rsquo;t be seen long.</p><p>Tomek is twelve, and he can hear what no one else can — the song inside a body, and the moment it begins to play out of tune. It was his mother&rsquo;s gift. It is the only warning his village ever gets.<br />His father was the clan&rsquo;s leader, a warrior weathered by decades of fighting to keep his people safe. And fed.</p><p>The Darkness has taken both his parents. Over his deathbed, his father made Tomek swear an impossible promise: <em>Protect them. All of them.</em></p><p>Both parents are frozen in the ground now, and Tomek has nothing left but his father&rsquo;s hunting knife, his mother&rsquo;s carved flute — and a companion he never planned on — Yana. She&rsquo;s blunt, brave, and loud. And tiny. Very tiny, and always prepared to remind him how sure she is that he&rsquo;s going to get them both killed.</p><p>With her by his side, Tomek learns that healing requires listening, and that every song he hears has a price.</p>',
+          fullBlurb: '<p>Every child knows the symptoms. They chant them in their clapping games and their mothers slap their hands for it: the weakness that takes you, the fever that brings fear, and then the black tears, for the ones who won&rsquo;t be seen long.</p><p>Tomek is twelve, and he can hear what no one else can — the song inside a body, and the moment it begins to play out of tune. It was his mother&rsquo;s gift. It is the only warning his village ever gets.<br />His father was the clan&rsquo;s leader, a warrior weathered by decades of fighting to keep his people safe. And fed.</p><p>The Darkness has taken both his parents. Over his deathbed, his father made Tomek swear an impossible promise: <em>Protect them. All of them.</em></p><p>Both parents are frozen in the ground now, and Tomek has nothing left but his father&rsquo;s hunting knife, his mother&rsquo;s carved flute — and a companion he never planned on - Yana. She&rsquo;s blunt, brave, and loud. And tiny. Very tiny, and always prepared to remind him how sure she is that he&rsquo;s going to get them both killed.</p><p>With her by his side, Tomek learns that healing requires listening, and that every song he hears has a price.</p>',
           pullFire: 'It wants a place by the fire, like everyone else.',
           factComplete: 'The complete novel',
           factPages: '522 pages',
@@ -820,8 +847,10 @@
           heroKicker: 'Una novela · Terror folclórico',
           heroTitle: 'Lo Que No Se Contesta',
           heroByline: 'de Sebastian A. Aguilar',
-          heroPitch: 'Un chico con un don roto. Una chica que muere lentamente de oscuridad. Una montaña que nadie debería escalar en invierno.',
+          heroPitch: 'Una promesa junto al lecho de un padre moribundo. Un viaje que nadie debería hacer. Una voz en la oscuridad, más vieja que la montaña.',
           prologueBtn: 'Lee el prólogo — Gratis',
+          gateH: 'El Capítulo Uno es gratis — para los lectores de la lista.',
+          gateP: 'Únete a la lista de Montavera Press y el avance con el Prólogo y el Capítulo Uno (41 páginas, con el diseño impreso del libro) llegará a tu correo. El avance está en inglés.',
           shortBlurb: '<p>Primero la debilidad te embota los sentidos. Luego la fiebre te quita la cordura. Luego llegan las lágrimas negras — y después de las lágrimas, tus días están contados.</p><p>La llaman la Oscuridad, y se llevó a la madre y al padre de Tomek. Pero antes de quedar enterrado bajo la nieve y la piedra, su padre hizo que el chico jurara una promesa imposible: <em>Protégelos. A todos.</em></p><p>Así que un chico asustado se adentra en una naturaleza invernal y violenta, en busca de la única cura del mundo — con el cuchillo de su padre en el cinturón, la flauta de su madre colgando de un cordón sobre el pecho, y una niña pequeña e insoportable que nunca debió acompañarlo.</p>',
           pullHeal: 'Sanar es escuchar. Toda canción tiene un precio.',
           storyKicker: 'Sobre el libro',
