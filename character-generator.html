@@ -1,0 +1,1480 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="File a citizen of Montavera. A free, guided character-creation window for The Black Index of Montavera — a roleplaying game of bureaucratic cosmic horror. No classes. No levels. No chosen ones." />
+    <link rel="icon" href="data:," />
+    <title>File a Citizen — The Black Index of Montavera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #14120f;
+        --bg-deep: #0b0a08;
+        --panel: #1d1a15;
+        --panel-2: #242019;
+        --panel-edge: rgba(233, 222, 197, 0.16);
+        --edge-strong: rgba(233, 222, 197, 0.45);
+        --bone: #e9dec5;
+        --dim: #c9bfa4;
+        --faint: #9a8f74;
+        --green: #2e7d4f;
+        --green-hot: #4fae74;
+        --green-deep: #1d5c38;
+        --glow: rgba(79, 174, 116, 0.45);
+        --shadow: rgba(0, 0, 0, 0.6);
+        --red: #a33b2e;
+        color-scheme: dark;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(120% 60% at 50% -10%, var(--bg-deep) 0%, transparent 60%),
+          var(--bg);
+        color: var(--bone);
+        font-family: "Spectral", Georgia, "Times New Roman", serif;
+        font-weight: 400;
+        line-height: 1.6;
+      }
+      ::selection { background: var(--green-deep); color: #e9dec5; }
+      a { color: inherit; }
+
+      /* ---------- top bar ---------- */
+      .topbar {
+        border-bottom: 1px solid var(--panel-edge);
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+      }
+      .topbar-in {
+        max-width: 980px; margin: 0 auto; padding: 0.8rem 1.25rem;
+        display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+      }
+      .wordmark {
+        font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700;
+        letter-spacing: 0.22em; font-size: 1.02rem; text-decoration: none; white-space: nowrap;
+      }
+      .wordmark .dot { color: var(--green-hot); }
+      .topbar .back-link { margin-left: auto; font-size: 0.92rem; color: var(--dim); text-decoration: none; }
+      .topbar .back-link:hover { color: var(--bone); }
+
+      .wrap { max-width: 980px; margin: 0 auto; padding: 2.2rem 1.25rem 4rem; }
+
+      /* ---------- the document ---------- */
+      .doc {
+        background: var(--panel);
+        border: 1px solid var(--edge-strong);
+        outline: 1px solid var(--panel-edge);
+        outline-offset: 5px;
+        box-shadow: 0 30px 60px -18px var(--shadow);
+        padding: clamp(1.4rem, 4vw, 3rem);
+        position: relative;
+      }
+      .form-head { border-bottom: 3px double var(--edge-strong); padding-bottom: 1.1rem; margin-bottom: 1.4rem; }
+      .form-head .form-no {
+        display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+        font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint);
+      }
+      .form-head h1 {
+        font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700;
+        font-size: clamp(1.9rem, 5vw, 2.9rem); line-height: 1.08; margin: 0.55rem 0 0.3rem;
+        letter-spacing: 0.01em;
+      }
+      .form-head .sub { color: var(--dim); font-style: italic; margin: 0; }
+      .office-line { font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-top: 0.5rem; }
+
+      .law {
+        border: 1px solid var(--edge-strong);
+        padding: 0.9rem 1.1rem; margin: 1rem 0;
+        background: var(--panel-2);
+      }
+      .law p { margin: 0.25rem 0; }
+      .law .law-tag { font-weight: 700; letter-spacing: 0.08em; }
+      .law .explain { color: var(--dim); font-size: 0.95rem; }
+
+      .clerk {
+        border-left: 3px solid var(--green);
+        padding: 0.4rem 0 0.4rem 1rem; margin: 1.2rem 0;
+        color: var(--dim);
+      }
+      .clerk .clerk-tag {
+        display: block; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--green-hot); margin-bottom: 0.25rem; font-style: normal;
+      }
+      .clerk p { margin: 0.3rem 0; }
+      .clerk em, .doc em { color: var(--bone); }
+
+      /* ---------- buttons ---------- */
+      .btn {
+        display: inline-block; border: 1px solid var(--green);
+        background: linear-gradient(180deg, var(--green-hot), var(--green-deep));
+        color: #f6ecd4; font-family: "Spectral", Georgia, serif; font-weight: 600;
+        font-size: 0.98rem; letter-spacing: 0.03em; text-decoration: none;
+        padding: 0.68rem 1.35rem; border-radius: 3px; cursor: pointer;
+        box-shadow: 0 2px 14px -4px var(--glow);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px -6px var(--glow); }
+      .btn-ghost {
+        display: inline-block; border: 1px solid var(--panel-edge); background: transparent;
+        color: var(--dim); font-family: "Spectral", Georgia, serif; font-weight: 600;
+        font-size: 0.95rem; padding: 0.68rem 1.2rem; border-radius: 3px; cursor: pointer;
+      }
+      .btn-ghost:hover { color: var(--bone); border-color: var(--edge-strong); }
+      .btn-row { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-top: 1.8rem; align-items: center; }
+      .btn-row .spacer { flex: 1; }
+
+      /* ---------- doors ---------- */
+      .doors { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin-top: 1.6rem; }
+      @media (max-width: 680px) { .doors { grid-template-columns: 1fr; } }
+      .door {
+        text-align: left; cursor: pointer; width: 100%;
+        border: 1px solid var(--panel-edge); background: var(--panel-2); color: var(--bone);
+        padding: 1.3rem 1.3rem 1.15rem; font: inherit; border-radius: 3px;
+        transition: border-color 0.15s ease, transform 0.15s ease;
+      }
+      .door:hover { border-color: var(--green); transform: translateY(-2px); }
+      .door .door-no { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
+      .door h3 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.45rem; margin: 0.35rem 0 0.4rem; font-weight: 700; }
+      .door p { margin: 0; color: var(--dim); font-size: 0.95rem; }
+
+      /* ---------- progress rail ---------- */
+      .rail {
+        display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0 0 1.6rem;
+        font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase;
+      }
+      .rail .rstep {
+        border: 1px solid var(--panel-edge); color: var(--faint);
+        padding: 0.32rem 0.6rem; border-radius: 2px; background: var(--panel-2);
+      }
+      .rail .rstep.now { color: var(--bone); border-color: var(--green); }
+      .rail .rstep.done { color: var(--green-hot); border-color: var(--green-deep); }
+      .rail .rstep.done::after { content: " · FILED"; }
+
+      .station-kicker { font-size: 0.76rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-hot); margin: 0 0 0.3rem; }
+      .station-title {
+        font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700;
+        font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.12; margin: 0 0 0.6rem;
+      }
+      .station-intro { color: var(--dim); max-width: 62ch; }
+      .station-intro em { color: var(--bone); }
+
+      /* ---------- option cards ---------- */
+      .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-top: 1.2rem; }
+      @media (max-width: 680px) { .cards { grid-template-columns: 1fr; } }
+      .opt {
+        border: 1px solid var(--panel-edge); background: var(--panel-2); border-radius: 3px;
+        padding: 1rem 1.1rem; cursor: pointer; position: relative;
+      }
+      .opt:hover { border-color: var(--edge-strong); }
+      .opt.sel { border-color: var(--green); box-shadow: 0 0 0 1px var(--green-deep), 0 4px 18px -8px var(--glow); }
+      .opt input[type="radio"], .opt input[type="checkbox"] { position: absolute; opacity: 0; pointer-events: none; }
+      .opt h4 {
+        font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.28rem; font-weight: 700;
+        margin: 0 0 0.3rem; padding-right: 4.5rem;
+      }
+      .opt .tick {
+        position: absolute; top: 0.9rem; right: 1rem; font-size: 0.66rem; letter-spacing: 0.16em;
+        text-transform: uppercase; color: var(--faint); border: 1px solid var(--panel-edge);
+        padding: 0.14rem 0.45rem; border-radius: 2px;
+      }
+      .opt.sel .tick { color: #f6ecd4; background: var(--green-deep); border-color: var(--green); }
+      .opt .fld { margin: 0.45rem 0; font-size: 0.94rem; color: var(--dim); }
+      .opt .fld b { color: var(--bone); font-weight: 600; }
+      .opt .fld.knack { border-top: 1px solid var(--panel-edge); padding-top: 0.5rem; margin-top: 0.6rem; }
+      .opt.wide { grid-column: 1 / -1; }
+
+      /* ---------- form fields ---------- */
+      .field { margin: 1.15rem 0; }
+      .field label, .field .flabel {
+        display: block; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--faint); margin-bottom: 0.35rem;
+      }
+      .field .hint { font-size: 0.9rem; color: var(--dim); margin: 0.2rem 0 0.45rem; text-transform: none; letter-spacing: 0; }
+      input[type="text"], textarea, select {
+        width: 100%; background: transparent; color: var(--bone);
+        border: 0; border-bottom: 1px solid var(--edge-strong); border-radius: 0;
+        font: inherit; font-size: 1.05rem; padding: 0.35rem 0.1rem;
+      }
+      textarea { border: 1px solid var(--panel-edge); background: rgba(0,0,0,0.18); padding: 0.6rem 0.7rem; min-height: 3.2em; resize: vertical; }
+      input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--green-hot); }
+      .checkline { display: flex; gap: 0.7rem; align-items: flex-start; margin: 1rem 0; cursor: pointer; }
+      .checkline input { margin-top: 0.35rem; accent-color: var(--green); width: 1.05rem; height: 1.05rem; flex: none; }
+      .err { color: #e08a7d; font-size: 0.92rem; min-height: 1.2em; margin-top: 0.8rem; }
+      .subsection {
+        border: 1px solid var(--panel-edge); background: rgba(0,0,0,0.16);
+        padding: 1.1rem 1.2rem; margin: 1.2rem 0; border-radius: 3px;
+      }
+      .subsection h3 {
+        font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.3rem; margin: 0 0 0.4rem; font-weight: 700;
+      }
+      .hidden { display: none !important; }
+
+      /* ---------- sealed ---------- */
+      .sealed {
+        border: 1.5px solid var(--edge-strong); margin: 0.9rem 0; padding: 1rem 1.1rem;
+        background:
+          repeating-linear-gradient(45deg, rgba(233,222,197,0.03) 0 10px, transparent 10px 20px),
+          var(--panel-2);
+        position: relative;
+      }
+      .sealed .seal-tag {
+        display: inline-block; border: 2px solid var(--red); color: #e08a7d;
+        font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 700;
+        padding: 0.18rem 0.6rem; transform: rotate(-2deg); border-radius: 2px; margin-bottom: 0.45rem;
+      }
+      .sealed p { margin: 0.2rem 0; color: var(--dim); }
+      .sealed .blank-line { border-bottom: 1px solid var(--panel-edge); height: 1.5em; margin-top: 0.4rem; }
+
+      /* ---------- the File Jacket (sheet) ---------- */
+      .jacket { position: relative; }
+      .jacket-head { border-bottom: 3px double var(--edge-strong); padding-bottom: 1rem; margin-bottom: 0.4rem; }
+      .jacket-head .form-no { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint); }
+      .citizen-name {
+        font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700;
+        font-size: clamp(2rem, 5.5vw, 3rem); line-height: 1.05; margin: 0.5rem 0 0.15rem;
+      }
+      .rank-line { display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center; color: var(--dim); }
+      .stamp {
+        display: inline-block; border: 2.5px solid var(--green-hot); color: var(--green-hot);
+        font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; font-size: 0.85rem;
+        padding: 0.3rem 0.8rem; transform: rotate(-3deg); border-radius: 3px;
+      }
+      .stamp.red { border-color: var(--red); color: #e08a7d; }
+      .jsec { border-bottom: 1px solid var(--panel-edge); padding: 1.05rem 0 0.95rem; }
+      .jsec:last-of-type { border-bottom: 0; }
+      .jsec h3 {
+        font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint);
+        margin: 0 0 0.55rem; font-family: "Spectral", Georgia, serif; font-weight: 600;
+      }
+      .jsec h3 .fno { color: var(--green-hot); }
+      .jsec p { margin: 0.35rem 0; }
+      .jsec .lbl { color: var(--faint); font-size: 0.86rem; letter-spacing: 0.06em; text-transform: uppercase; }
+      .jsec ul { margin: 0.3rem 0 0.3rem 1.1rem; padding: 0; }
+      .jsec li { margin: 0.2rem 0; }
+      .jsec .none-note { color: var(--dim); font-style: italic; }
+      .blank-line { border-bottom: 1px solid var(--panel-edge); height: 1.6em; }
+      .voice-table { width: 100%; border-collapse: collapse; font-size: 0.97rem; }
+      .voice-table td { padding: 0.28rem 0.4rem 0.28rem 0; border-bottom: 1px dotted var(--panel-edge); vertical-align: top; }
+      .voice-table td.vname { font-weight: 600; width: 7.5rem; }
+      .voice-table td.vdeg { color: var(--faint); width: 9rem; text-align: right; }
+      .tickboxes { letter-spacing: 0.35em; font-size: 1.05rem; }
+      .fineprint { font-size: 0.85rem; color: var(--faint); }
+      .jacket-foot { border-top: 3px double var(--edge-strong); margin-top: 1.2rem; padding-top: 0.9rem; color: var(--dim); font-size: 0.92rem; }
+
+      /* ---------- the window scene (screen chrome only; never prints) ---------- */
+      .window-scene {
+        border: 1px solid var(--edge-strong);
+        outline: 1px solid var(--panel-edge);
+        outline-offset: 5px;
+        background: linear-gradient(180deg, #100e0b 0%, var(--bg-deep) 100%);
+        box-shadow: 0 30px 60px -18px var(--shadow);
+        padding: clamp(1rem, 3vw, 2rem);
+        margin-bottom: 2.4rem;
+        position: relative;
+      }
+      .window-scene svg { display: block; width: 100%; height: auto; }
+      .window-scene .scene-cap {
+        text-align: center; font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
+        color: var(--faint); margin: 0.7rem 0 0;
+      }
+      /* the clerk breathes, barely */
+      #clerk-figure { animation: clerk-breathe 7s ease-in-out infinite alternate; }
+      @keyframes clerk-breathe { from { transform: translateY(0); } to { transform: translateY(2.5px); } }
+      /* the stamp press, on a completed filing */
+      #clerk-hand-r { transform-box: fill-box; transform-origin: 50% 0%; }
+      .window-scene.stamping #clerk-hand-r { animation: stamp-press 0.55s ease-in-out; }
+      @keyframes stamp-press {
+        0% { transform: translateY(0) rotate(0deg); }
+        35% { transform: translateY(10px) rotate(-2deg); }
+        60% { transform: translateY(10px) rotate(-2deg); }
+        100% { transform: translateY(0) rotate(0deg); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #clerk-figure { animation: none; }
+        .window-scene.stamping #clerk-hand-r { animation: none; }
+      }
+      /* the clerk's speech plate — a ledger line beneath the window */
+      .speech-plate {
+        border: 1px solid var(--panel-edge);
+        border-left: 3px solid var(--green);
+        background: var(--panel-2);
+        padding: 0.85rem 1.1rem;
+        margin-top: 1.1rem;
+      }
+      .speech-plate .clerk-tag {
+        display: block; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--green-hot); margin-bottom: 0.25rem;
+      }
+      .speech-plate p { margin: 0.3rem 0; color: var(--dim); }
+      .speech-plate p em { color: var(--bone); }
+      .speech-plate .speech-extra { border-top: 1px dotted var(--panel-edge); padding-top: 0.5rem; margin-top: 0.55rem; }
+
+      footer.site-foot {
+        max-width: 980px; margin: 0 auto; padding: 0 1.25rem 3rem; color: var(--faint);
+        font-size: 0.92rem; text-align: center;
+      }
+      footer.site-foot a { color: var(--dim); }
+      .no-print { }
+    </style>
+    <style>
+      /* ---------- print: the File Jacket as a clean black-on-bone document ---------- */
+      @page { margin: 16mm 14mm; }
+      @media print {
+        body { background: #fff !important; }
+        .no-print, .topbar, footer.site-foot, .window-scene { display: none !important; }
+        .wrap { max-width: none; padding: 0; }
+        .doc {
+          border: none; outline: none; box-shadow: none; background: #fff !important;
+          color: #191510 !important; padding: 0;
+          -webkit-print-color-adjust: exact; print-color-adjust: exact;
+        }
+        .doc * { color: #191510 !important; }
+        .jacket-head { border-bottom: 3px double #191510; }
+        .jacket-foot { border-top: 3px double #191510; }
+        .form-head { border-bottom: 3px double #191510; }
+        .jsec { border-bottom: 1px solid #b9ac8d; page-break-inside: avoid; }
+        .stamp { border-color: #191510 !important; }
+        .stamp.red { border-color: #7c2418 !important; }
+        .sealed { border: 1.5px solid #191510; background: #f4ecd8 !important; page-break-inside: avoid; }
+        .sealed .seal-tag { border-color: #7c2418 !important; color: #7c2418 !important; }
+        .blank-line { border-bottom: 1px solid #b9ac8d; }
+        .voice-table td { border-bottom: 1px dotted #b9ac8d; }
+        .clerk { border-left: 3px solid #191510; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar no-print">
+      <div class="topbar-in">
+        <a class="wordmark" href="index.html">MONTAVERA<span class="dot">.</span>GAMES</a>
+        <a class="back-link" href="index.html#black-index">&larr; The Black Index</a>
+      </div>
+    </header>
+
+    <main class="wrap">
+
+      <!-- ============ THE WINDOW (persistent scene; screen only, never prints) ============ -->
+      <div class="window-scene no-print" id="window-scene">
+        <svg viewBox="0 0 980 360" role="img" aria-label="A faceless clerk behind the window of the Office of Civic Identity, a form on the counter before it." xmlns="http://www.w3.org/2000/svg">
+          <!-- the dark of the Office -->
+          <rect x="0" y="0" width="980" height="360" fill="#0b0a08"/>
+          <!-- window interior -->
+          <rect x="162" y="38" width="656" height="254" fill="#0e0c09"/>
+          <circle cx="490" cy="168" r="128" fill="#2e7d4f" opacity="0.05"/>
+          <!-- shelves behind the clerk, barely filed -->
+          <g stroke="#e9dec5" opacity="0.14" stroke-width="1.5">
+            <line x1="352" y1="128" x2="628" y2="128"/>
+            <line x1="352" y1="158" x2="628" y2="158"/>
+            <line x1="352" y1="188" x2="628" y2="188"/>
+          </g>
+          <g stroke="#e9dec5" opacity="0.10" stroke-width="4">
+            <line x1="382" y1="112" x2="382" y2="126"/><line x1="398" y1="110" x2="398" y2="126"/>
+            <line x1="586" y1="142" x2="586" y2="156"/><line x1="602" y1="140" x2="602" y2="156"/>
+            <line x1="418" y1="172" x2="418" y2="186"/><line x1="566" y1="172" x2="566" y2="186"/>
+          </g>
+          <!-- stacks of filed paper on the counter, side panes -->
+          <g fill="none" stroke="#e9dec5" opacity="0.22">
+            <rect x="196" y="264" width="56" height="26"/>
+            <line x1="202" y1="272" x2="246" y2="272"/><line x1="202" y1="280" x2="240" y2="280"/>
+            <rect x="728" y="264" width="56" height="26"/>
+            <line x1="734" y1="272" x2="778" y2="272"/><line x1="734" y1="280" x2="772" y2="280"/>
+          </g>
+
+          <!-- ===== THE CLERK ===== -->
+          <g id="clerk-figure">
+            <!-- hood shadow -->
+            <ellipse cx="490" cy="102" rx="47" ry="57" fill="#060505"/>
+            <!-- robe -->
+            <path d="M490 116 C452 130, 428 156, 418 196 C408 234, 402 266, 400 294 L580 294 C578 266, 572 234, 562 196 C552 156, 528 130, 490 116 Z"
+                  fill="#171410" stroke="#e9dec5" stroke-opacity="0.8" stroke-width="1.5"/>
+            <!-- etched folds -->
+            <g stroke="#e9dec5" opacity="0.16" stroke-width="1.2" fill="none">
+              <path d="M452 168 C446 210, 444 248, 446 292"/>
+              <path d="M528 168 C534 210, 536 248, 534 292"/>
+              <path d="M490 190 C490 226, 490 258, 490 292"/>
+            </g>
+            <!-- the face: a smooth blank. No features. -->
+            <ellipse cx="490" cy="104" rx="33" ry="43" fill="#e9dec5"/>
+            <g stroke="#14120f" opacity="0.28" stroke-width="1.1">
+              <line x1="510" y1="122" x2="518" y2="125"/>
+              <line x1="512" y1="132" x2="519" y2="135"/>
+              <line x1="508" y1="112" x2="516" y2="115"/>
+            </g>
+            <!-- high collar -->
+            <path d="M450 150 C468 132, 512 132, 530 150 L523 169 C507 154, 473 154, 457 169 Z"
+                  fill="#0b0a08" stroke="#e9dec5" stroke-opacity="0.7" stroke-width="1.2"/>
+            <!-- left sleeve, down to the form -->
+            <path d="M434 186 C415 214, 406 238, 403 262 L425 267 C427 238, 429 210, 434 186 Z"
+                  fill="#14120e" stroke="#e9dec5" stroke-opacity="0.6" stroke-width="1.2"/>
+            <!-- right sleeve, down to the stamp -->
+            <path d="M546 186 C568 212, 579 230, 585 250 L564 255 C558 230, 552 208, 546 186 Z"
+                  fill="#14120e" stroke="#e9dec5" stroke-opacity="0.6" stroke-width="1.2"/>
+            <!-- the form on the counter, between visitor and clerk -->
+            <g>
+              <rect x="428" y="262" width="124" height="31" fill="#e9dec5" opacity="0.95"/>
+              <g stroke="#191510" opacity="0.6" stroke-width="1.4">
+                <line x1="438" y1="271" x2="520" y2="271"/>
+                <line x1="438" y1="279" x2="506" y2="279"/>
+                <line x1="438" y1="287" x2="492" y2="287"/>
+              </g>
+              <circle cx="537" cy="277" r="5.5" fill="none" stroke="#2e7d4f" stroke-width="1.6"/>
+            </g>
+            <!-- left hand, resting on the form -->
+            <path d="M420 262 C428 254, 446 254, 452 261 C455 266, 450 272, 438 273 C426 273, 417 269, 420 262 Z" fill="#e9dec5"/>
+            <!-- right hand, holding the stamp -->
+            <g id="clerk-hand-r">
+              <rect x="566" y="272" width="36" height="9" fill="#191510" stroke="#e9dec5" stroke-opacity="0.85" stroke-width="1.2"/>
+              <rect x="580" y="252" width="8" height="20" fill="#242019" stroke="#e9dec5" stroke-opacity="0.85" stroke-width="1.2"/>
+              <circle cx="584" cy="246" r="7" fill="#242019" stroke="#e9dec5" stroke-opacity="0.85" stroke-width="1.2"/>
+              <path d="M568 241 C574 231, 594 231, 600 241 C602 249, 596 255, 584 255 C572 255, 566 249, 568 241 Z" fill="#e9dec5"/>
+            </g>
+          </g>
+
+          <!-- counter ledge -->
+          <rect x="150" y="292" width="680" height="30" fill="#1d1a15" stroke="#e9dec5" stroke-width="2"/>
+          <line x1="150" y1="300" x2="830" y2="300" stroke="#e9dec5" stroke-opacity="0.25"/>
+          <rect x="150" y="322" width="680" height="24" fill="#14120f" stroke="#e9dec5" stroke-opacity="0.55"/>
+          <g stroke="#e9dec5" stroke-opacity="0.18">
+            <line x1="200" y1="326" x2="200" y2="342"/><line x1="250" y1="326" x2="250" y2="342"/>
+            <line x1="730" y1="326" x2="730" y2="342"/><line x1="780" y1="326" x2="780" y2="342"/>
+          </g>
+          <rect x="428" y="327" width="124" height="14" fill="none" stroke="#e9dec5" stroke-opacity="0.7"/>
+          <text x="490" y="338" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="10" letter-spacing="4" fill="#e9dec5">WINDOW 2</text>
+
+          <!-- window frame, mullions, transom -->
+          <rect x="150" y="26" width="680" height="320" fill="none" stroke="#e9dec5" stroke-width="3"/>
+          <rect x="162" y="38" width="656" height="254" fill="none" stroke="#e9dec5" stroke-opacity="0.45"/>
+          <line x1="162" y1="92" x2="818" y2="92" stroke="#e9dec5" stroke-opacity="0.6" stroke-width="1.5"/>
+          <line x1="330" y1="38" x2="330" y2="292" stroke="#e9dec5" stroke-opacity="0.5" stroke-width="1.5"/>
+          <line x1="650" y1="38" x2="650" y2="292" stroke="#e9dec5" stroke-opacity="0.5" stroke-width="1.5"/>
+          <line x1="162" y1="182" x2="330" y2="182" stroke="#e9dec5" stroke-opacity="0.35"/>
+          <line x1="650" y1="182" x2="818" y2="182" stroke="#e9dec5" stroke-opacity="0.35"/>
+          <g stroke="#e9dec5" opacity="0.09" stroke-width="5">
+            <line x1="196" y1="250" x2="286" y2="120"/>
+            <line x1="694" y1="250" x2="784" y2="120"/>
+          </g>
+          <text x="490" y="74" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="13" letter-spacing="5" fill="#e9dec5" opacity="0.85">OFFICE OF CIVIC IDENTITY</text>
+        </svg>
+
+        <div class="speech-plate" aria-live="polite">
+          <span class="clerk-tag">From the clerk at this window</span>
+          <p id="clerk-speech-text">There are no dice at this window, and nothing here is decided by chance. Every step is a choice, or a short answer in your own words. Answer as the citizen you mean to be. The city will supply the ink.</p>
+          <p id="clerk-speech-extra" class="speech-extra hidden"></p>
+        </div>
+      </div>
+
+      <!-- ============ LANDING ============ -->
+      <section id="view-landing" class="doc">
+        <div class="form-head">
+          <div class="form-no">
+            <span>Office of Civic Identity</span>
+            <span>Window 2 · Now Serving</span>
+          </div>
+          <h1>Application for Citizenship</h1>
+          <p class="sub">The Black Index of Montavera — a roleplaying game of bureaucratic cosmic horror</p>
+          <p class="office-line">This window produces Form F-1 · The File Jacket</p>
+        </div>
+
+        <p>The city has a file on you. The file is incomplete, which is the best thing a file can be. This window completes it — or as much of it as the city is willing to complete before you have lived here a while.</p>
+        <p>Everything strange in Montavera was already strange before you arrived. The drawers sing. The dead file complaints. The clocks keep time with holes in it. What the city has always needed is people willing to get involved.</p>
+
+        <div class="law">
+          <p><span class="law-tag">LAW · EVERY PLAYER CHARACTER IS HUMAN.</span></p>
+          <p class="explain">Not human-passing. Not human with a strange grandparent. Human. The strange is the setting. The human is the story.</p>
+        </div>
+        <div class="law">
+          <p><span class="law-tag">LAW · NO CLASSES. NO LEVELS. NO CHOSEN ONES.</span></p>
+          <p class="explain">You do not select a class that determines what sort of adventurer you are. No prophecy has reserved a place for you. You choose a kind of life. What makes one citizen different from another is three things: their <strong>trade</strong>, their <strong>ear</strong>, and their <strong>debt</strong> — plus their bonds, their pressures, and the part of their life the city keeps sealed.</p>
+        </div>
+
+        <div class="doors">
+          <button class="door" id="door-guided" type="button">
+            <span class="door-no">Door One</span>
+            <h3>File a New Citizen</h3>
+            <p>The guided stations, in order: name, trade, ear, debt, bonds, pressures, and the Prior Life File. You will leave with a complete citizen, ready to play tonight.</p>
+          </button>
+          <button class="door" id="door-quick" type="button">
+            <span class="door-no">Door Two</span>
+            <h3>Quick Filing</h3>
+            <p>Three citizens are already filed and waiting: Vesper, Idda, and Solla. Take one as they are, collect the jacket, and start playing tonight.</p>
+          </button>
+        </div>
+
+        <p class="fineprint" style="margin-top:1.6rem;">Every new citizen begins at rank <strong>PENDING</strong> — zero runes, no file, nobody. The first filing, to rank FILED, happens through play, at the end of the first session. Not here. Here, we prepare the jacket.</p>
+      </section>
+
+      <!-- ============ QUICK FILING ============ -->
+      <section id="view-quick" class="doc hidden">
+        <div class="form-head">
+          <div class="form-no"><span>Office of Civic Identity</span><span>Quick Filing</span></div>
+          <h1>Already Filed</h1>
+          <p class="sub">Three citizens, filed in full, waiting at the window.</p>
+        </div>
+        <div class="cards" id="quick-cards"></div>
+        <div class="btn-row">
+          <button class="btn-ghost" type="button" data-back="landing">Back to the doors</button>
+        </div>
+      </section>
+
+      <!-- ============ WIZARD ============ -->
+      <section id="view-wizard" class="doc hidden">
+        <div class="form-head no-print">
+          <div class="form-no"><span>Office of Civic Identity</span><span>Application in Progress</span></div>
+          <h1 id="wizard-heading">The Window</h1>
+          <p class="sub">Answer each station. You may go back. The window keeps what you have filed.</p>
+        </div>
+        <div class="rail no-print" id="rail"></div>
+
+        <!-- Station 0 — Name -->
+        <div class="station" id="st-0">
+          <p class="station-kicker">The Window · Before the Stations</p>
+          <h2 class="station-title">Your Name</h2>
+          <div class="field">
+            <label for="f-name">The citizen's name</label>
+            <input type="text" id="f-name" autocomplete="off" placeholder="As it should appear on the jacket" />
+            <p class="hint">The Office keeps no list of approved names. Yours will do. It usually does.</p>
+          </div>
+          <label class="checkline">
+            <input type="checkbox" id="f-human" />
+            <span>I acknowledge the two laws: this citizen is <strong>human</strong>, and has <strong>no class, no level, and no prophecy</strong>. They choose a kind of life.</span>
+          </label>
+        </div>
+
+        <!-- Station 1 — Trade -->
+        <div class="station hidden" id="st-1">
+          <p class="station-kicker">Station 1 of 6 · Field One</p>
+          <h2 class="station-title">Your Trade</h2>
+          <p class="station-intro">Choose a trade that interests you, troubles you, or feels uncomfortably familiar. Your trade is the work you did before the city began paying unusual attention to you. Each trade gives you three things: <em>Knowledge</em> — what experience lets you understand; <em>Connections</em> — who recognizes, admits, or employs you; and a <em>Knack</em> — a permission, not a bonus. A knack lets you attempt something with unusual confidence or access. It never guarantees success.</p>
+          <div class="cards" id="trade-cards"></div>
+          <div class="subsection hidden" id="custom-trade-box">
+            <h3>A New Filing</h3>
+            <p class="hint" style="color:var(--dim);">Build the trade in the same structure as the ten above. The Office accepts new filings; your Storyteller will witness it at the table.</p>
+            <div class="field">
+              <label for="ct-name">The trade's name</label>
+              <input type="text" id="ct-name" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="ct-knowledge">Knowledge — what experience lets this citizen understand</label>
+              <textarea id="ct-knowledge"></textarea>
+            </div>
+            <div class="field">
+              <label for="ct-connections">Connections — who recognizes, admits, or employs them</label>
+              <textarea id="ct-connections"></textarea>
+            </div>
+            <div class="field">
+              <label for="ct-carries">You carry — the trade's tools and traces</label>
+              <textarea id="ct-carries"></textarea>
+            </div>
+            <div class="field">
+              <label for="ct-knack-name">Knack — its name</label>
+              <input type="text" id="ct-knack-name" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="ct-knack-text">Knack — what it permits</label>
+              <textarea id="ct-knack-text"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Station 2 — The Ear -->
+        <div class="station hidden" id="st-2">
+          <p class="station-kicker">Station 2 of 6 · Field Two</p>
+          <h2 class="station-title">The Ear</h2>
+          <p class="station-intro">Everyone in Montavera hears a little. You are someone who did not — or could not — stop hearing. There are exactly two ways it begins. The Bureau recognizes both. It prefers neither.</p>
+          <div class="cards">
+            <label class="opt" id="path-a-card">
+              <input type="radio" name="earpath" value="A" />
+              <span class="tick">Select</span>
+              <h4>Stumbled Upon</h4>
+              <p class="fld">You heard something singing and could not unhear it — a drawer, a grave, a kettle that sang with the music of a person who had never entered the room. Nobody invited you. You put your ear against the wrong wall, and the wall noticed.</p>
+            </label>
+            <label class="opt" id="path-b-card">
+              <input type="radio" name="earpath" value="B" />
+              <span class="tick">Select</span>
+              <h4>Gifted Grace</h4>
+              <p class="fld">Someone taught you — a grandmother who hummed while she worked, a neighbor who heard lies like rain, a stranger on a bridge who told you to listen.</p>
+            </label>
+          </div>
+
+          <div class="subsection hidden" id="path-a-box">
+            <h3>The Voice You Hear Most Clearly</h3>
+            <p class="hint" style="color:var(--dim);">Choose one of the Seven Voices — the first aspect of the music that made itself unmistakable to you, where your attention naturally goes. This is not a score, not a permanent specialty, and not a promise that you will always hear the truth. Each Voice asks its question of everything it touches.</p>
+            <div class="cards" id="voice-cards"></div>
+          </div>
+
+          <div class="subsection hidden" id="path-b-box">
+            <h3>The Fragment You Were Taught</h3>
+            <p class="hint" style="color:var(--dim);">You begin with one musical fragment that someone taught you. The Office recognizes seven. (A grandmother hummed a Sustain while shelling peas. A Motif may be pressed into your hands like a coin.)</p>
+            <div class="cards" id="fragment-cards"></div>
+            <div class="field">
+              <label for="gb-teacher">Who taught you?</label>
+              <input type="text" id="gb-teacher" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="gb-called">What did they call the fragment?</label>
+              <input type="text" id="gb-called" autocomplete="off" />
+              <p class="hint">Their name for it, not the Office's. Both will be filed.</p>
+            </div>
+            <div class="field">
+              <label for="gb-asked">What did they ask in return, if anything?</label>
+              <input type="text" id="gb-asked" autocomplete="off" />
+            </div>
+            <div class="law" style="margin-top:1.2rem;">
+              <p><span class="law-tag">LAW · A GIFT HAS A HISTORY.</span></p>
+              <p class="explain">The teaching is recorded on your file. It does not automatically create a debt. Perhaps it was a promised visit, a kept secret, simple knowledge that the teacher will one day need you to listen. If it creates affection, gratitude, resentment, or uncertainty, the Office records that instead.</p>
+            </div>
+            <div class="field">
+              <span class="flabel">What did the gift create?</span>
+              <label class="checkline">
+                <input type="radio" name="gb-creates" value="debt" />
+                <span><strong>A debt.</strong> It will be filed at the next station, as my starting debt.</span>
+              </label>
+              <label class="checkline">
+                <input type="radio" name="gb-creates" value="other" />
+                <span><strong>Something else.</strong> Affection, gratitude, resentment, uncertainty — recorded here, not as a debt.</span>
+              </label>
+            </div>
+            <div class="field hidden" id="gb-feeling-box">
+              <label for="gb-feeling">What it created, in a few words</label>
+              <input type="text" id="gb-feeling" autocomplete="off" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Station 3 — Debt -->
+        <div class="station hidden" id="st-3">
+          <p class="station-kicker">Station 3 of 6 · Field Three</p>
+          <h2 class="station-title">Your Debt</h2>
+          <div class="field">
+            <label for="d-kind">Who or what holds the debt?</label>
+            <select id="d-kind">
+              <option value="">— Choose the shape of the creditor —</option>
+              <option value="A person">A person — a debt with a face</option>
+              <option value="An institution">An institution — the city itself comes knocking</option>
+              <option value="A group">A group — whose members disagree about what repayment means</option>
+              <option value="Someone who is dead">Someone who is dead</option>
+              <option value="Someone who has forgotten you">Someone who has forgotten you</option>
+              <option value="Someone who insists you have already paid">Someone who insists you have already paid</option>
+              <option value="The city itself">The city itself</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="d-q1">1 · Who expects something from you?</label>
+            <textarea id="d-q1" placeholder="Name them, or describe them as exactly as they deserve."></textarea>
+          </div>
+          <div class="field">
+            <label for="d-owed">What is owed?</label>
+            <textarea id="d-owed" placeholder="Be specific. “Three Sunsdays” is a debt. “A lot” is a mood."></textarea>
+            <p class="hint">A useful debt is specific, and has room to change: settleable, but not tomorrow, and not without consequence. A debt that can never be settled is a sentence. Neither is forbidden. Know which one you are choosing.</p>
+          </div>
+          <div class="field">
+            <label for="d-q2">2 · Why does it matter?</label>
+            <textarea id="d-q2"></textarea>
+          </div>
+          <div class="field">
+            <label for="d-q3">3 · What happens if you do not provide it?</label>
+            <textarea id="d-q3"></textarea>
+          </div>
+          <div class="field">
+            <label for="d-q4">4 · What would it cost you to pay?</label>
+            <textarea id="d-q4"></textarea>
+          </div>
+        </div>
+
+        <!-- Station 4 — Bonds -->
+        <div class="station hidden" id="st-4">
+          <p class="station-kicker">Station 4 of 6 · Field Four</p>
+          <h2 class="station-title">Your Bonds</h2>
+          <p class="station-intro">Two people who make you a <em>known</em> citizen. Montavera runs on being known: doors open for people whose people answer letters, and merchants extend credit to the bonded. Place them in the city — on a street you can walk to. A bond is not armor. It is a place the game can reach you. <em>Spend carefully. The city keeps the carbon.</em></p>
+          <div class="subsection">
+            <h3>Bond the First</h3>
+            <div class="field">
+              <label for="b1-name">Who they are — their name</label>
+              <input type="text" id="b1-name" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="b1-true">One true sentence about them</label>
+              <textarea id="b1-true"></textarea>
+            </div>
+            <div class="field">
+              <label for="b1-dontknow">What they don't know — the part of your life you keep from them</label>
+              <textarea id="b1-dontknow"></textarea>
+            </div>
+            <div class="field">
+              <label for="b1-woulddo">What they'd do — if they knew everything</label>
+              <textarea id="b1-woulddo"></textarea>
+            </div>
+          </div>
+          <div class="subsection">
+            <h3>Bond the Second</h3>
+            <div class="field">
+              <label for="b2-name">Who they are — their name</label>
+              <input type="text" id="b2-name" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="b2-true">One true sentence about them</label>
+              <textarea id="b2-true"></textarea>
+            </div>
+            <div class="field">
+              <label for="b2-dontknow">What they don't know — the part of your life you keep from them</label>
+              <textarea id="b2-dontknow"></textarea>
+            </div>
+            <div class="field">
+              <label for="b2-woulddo">What they'd do — if they knew everything</label>
+              <textarea id="b2-woulddo"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Station 5 — Pressures -->
+        <div class="station hidden" id="st-5">
+          <p class="station-kicker">Station 5 of 6 · Field Five</p>
+          <h2 class="station-title">Your Pressures</h2>
+          <div id="pressure-box"></div>
+          <div class="subsection">
+            <h3>The Open Petition · Form P-1</h3>
+            <p class="hint" style="color:var(--dim);">Every citizen holds one open petition at a time: a single sentence — what you want the city to notice about you. Filed examples: <em>“I want the city to notice that I keep the night market safe.”</em> · <em>“I want the city to notice my rain-songs.”</em> Petitions may be amended. They are never erased. If you filed a Want above, your petition is usually that want, stated for the record.</p>
+            <div class="field">
+              <label for="p-petition">My open petition — one sentence</label>
+              <input type="text" id="p-petition" autocomplete="off" placeholder="I want the city to notice…" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Station 6 — Prior Life File -->
+        <div class="station hidden" id="st-6">
+          <p class="station-kicker">Station 6 of 6 · Field Six</p>
+          <h2 class="station-title">The Prior Life File</h2>
+          <p class="station-intro">Six entries. You fill <em>three</em> now. The city keeps the other three sealed, and no window — this one included — will open them for you. They are discovered through play. When a sealed entry is finally filled, <em>you</em> decide what it means. The city provides the fact. The meaning is yours.</p>
+          <div class="subsection">
+            <h3>Entry One — Open</h3>
+            <div class="field">
+              <label for="pl-1">Something you remember clearly</label>
+              <textarea id="pl-1" placeholder="A true memory, in one sentence. This one is yours. The city cannot revise it."></textarea>
+            </div>
+          </div>
+          <div class="subsection">
+            <h3>Entry Two — Open</h3>
+            <div class="field">
+              <label for="pl-2">Something you have been told about yourself</label>
+              <textarea id="pl-2" placeholder="What you were told."></textarea>
+            </div>
+            <div class="field">
+              <label for="pl-2b">Who told you — and what you think of their telling</label>
+              <textarea id="pl-2b"></textarea>
+            </div>
+          </div>
+          <div class="subsection">
+            <h3>Entry Three — Open</h3>
+            <div class="field">
+              <label for="pl-3">A possession whose origin you cannot explain</label>
+              <textarea id="pl-3" placeholder="You have it. You have always had it. The having is the fact."></textarea>
+            </div>
+          </div>
+          <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.35rem;margin:1.6rem 0 0.2rem;">Entries Four to Six — Sealed</h3>
+          <p class="hint" style="color:var(--dim);">Filed by the city. Not by you. Not today.</p>
+          <div class="sealed">
+            <span class="seal-tag">Sealed</span>
+            <p><strong>Entry Four.</strong> Someone who remembers you differently.</p>
+            <div class="blank-line"></div>
+          </div>
+          <div class="sealed">
+            <span class="seal-tag">Sealed</span>
+            <p><strong>Entry Five.</strong> A promise you do not remember making. Someone, somewhere, is keeping it for you.</p>
+            <div class="blank-line"></div>
+          </div>
+          <div class="sealed">
+            <span class="seal-tag">Sealed</span>
+            <p><strong>Entry Six.</strong> A question the city seems to recognize. A clerk pauses at your file. A form comes back with a field pre-filled.</p>
+            <div class="blank-line"></div>
+          </div>
+        </div>
+
+        <p class="err no-print" id="wizard-err" role="alert"></p>
+        <div class="btn-row no-print">
+          <button class="btn-ghost" type="button" id="wiz-back">Back</button>
+          <span class="spacer"></span>
+          <button class="btn" type="button" id="wiz-next">Continue</button>
+        </div>
+      </section>
+
+      <!-- ============ THE FILE JACKET ============ -->
+      <section id="view-sheet" class="doc jacket hidden">
+        <div id="sheet-body"></div>
+        <div class="btn-row no-print">
+          <button class="btn" type="button" id="btn-print">Download / Print Your Citizen File</button>
+          <button class="btn-ghost" type="button" id="btn-edit">Return to the Window</button>
+          <span class="spacer"></span>
+          <button class="btn-ghost" type="button" id="btn-again">File Another Citizen</button>
+        </div>
+        <p class="fineprint no-print">Print two copies: the original for the citizen, the carbon for the Storyteller. The sealed entries print as sealed. They open through play, or not at all.</p>
+      </section>
+
+    </main>
+
+    <footer class="site-foot no-print">
+      <p>This window is free, and files no one anywhere — nothing you type here leaves this page. A feature of <a href="index.html#black-index">The Black Index of Montavera</a>, a roleplaying game of bureaucratic cosmic horror, at Montavera Games.</p>
+      <p>Fill it in pencil. The city will supply the ink.</p>
+    </footer>
+
+    <script>
+    "use strict";
+    /* ================= DATA — transcribed from the book via the build spec ================= */
+    var TRADES = [
+      { id: "courier", name: "The Courier",
+        knowledge: "The back stairs of every district they regularly visit; which gates are watched and which are merely painted to look watched; how to move through a crowd without becoming the most interesting person in it.",
+        connections: "Anyone waiting for a delivery. Eventually, this means everyone.",
+        carries: "A satchel, a route, and a reputation for discretion you may or may not deserve.",
+        knackName: "Right of Delivery",
+        knack: "You know how to approach a gate, checkpoint, or official as someone expected to be there. A sealed delivery gives you a reason to be admitted, even when the person receiving it would rather not see you. Whether you get through depends on the circumstances, but you know how to make the attempt." },
+      { id: "clerk", name: "The Junior Clerk",
+        knowledge: "You can read a form the way other people read faces — who filled it out, what they were afraid of, and which question they avoided answering.",
+        connections: "Bureau employees, reception windows, records rooms, and anyone whose problem has acquired a docket number.",
+        carries: "A personal stamp, unofficial and invaluable, and a docket number you memorized in case you ever need to become someone else for an afternoon.",
+        knackName: "Know the Window",
+        knack: "You know which office handles a problem, which queue actually moves, which clerk can be approached privately, and what a form needs before anyone will accept it. Paperwork that confuses other people has fewer surprises for you." },
+      { id: "gravedigger", name: "The Gravedigger",
+        knowledge: "The difference between fresh earth and earth that has been disturbed, settled, or disturbed again; how mourners behave when grieving and how they behave when afraid someone will ask a question.",
+        connections: "The Clerk of Returning Things, undertakers, cemetery workers, and anyone who has ever needed a hole dug without questions.",
+        carries: "A shovel with a name, a flask, and a professional indifference that makes mourners talk.",
+        knackName: "Read the Dirt",
+        knack: "You can recognize the physical history of a grave site: recent digging, disturbed ground, a burial that does not fit its surroundings, or earth moved in an unusual way. You are not automatically told what caused it. You know where to begin looking." },
+      { id: "cook", name: "The Cook",
+        knowledge: "A kitchen is a place where secrets arrive with the vegetables and leave in someone's pocket; everyone eventually gets hungry enough to talk.",
+        connections: "Kitchens, market workers, church kitchens, night-shift employees, and people who know that a covered dish is sometimes the most persuasive argument available.",
+        carries: "A knife you have never used as a weapon, a recipe worth stealing, and the smell of your trade, which follows you like a reference letter.",
+        knackName: "Set a Place",
+        knack: "You know how to make room for someone at a table, offer hospitality without making it feel like a trap, and give people a reason to stay long enough to talk. A meal does not force anyone to tell the truth. It can make telling the truth possible." },
+      { id: "lamplighter", name: "The Lamplighter",
+        knowledge: "Which lamps go out on purpose, which streets the light avoids, and what the city looks like when it thinks nobody important is watching.",
+        connections: "Night watchmen, insomniacs, street workers, and anyone who has ever been relieved to see a lit street.",
+        carries: "A long lighter, a short club for the dark rather than for people, mostly, and a map of the city drawn in lit windows.",
+        knackName: "Expected After Dark",
+        knack: "You can move through your usual routes at night without attracting the attention a stranger would. You know how to occupy the background of a street scene and how to notice what changes when someone believes nobody is watching." },
+      { id: "printer", name: "The Printer",
+        knowledge: "What is true before it is printed, what is printed before it is true, and why the difference matters less than everyone claims.",
+        connections: "Editors, pamphleteers, printers, political organizers, and anyone who needs a hundred copies of something by morning without the Bureau knowing.",
+        carries: "Ink beneath your fingernails, a composing stick, and one pamphlet you printed and never distributed, for reasons you do not discuss.",
+        knackName: "Read the White Space",
+        knack: "You can examine a printed document for signs of omission, alteration, or deliberate emphasis: where a line has been removed, where a statement has been made to appear more certain than it is, and where the arrangement of a page tells a different story from its words." },
+      { id: "ferryman", name: "The Ferryman",
+        knowledge: "The river's ordinary behavior, its routes, its working traffic, what it brings up — flotsam, bodies, messages in bottles, things that climb out (all filed under Tuesday).",
+        connections: "Dockworkers, smugglers, boat crews, river merchants, and anyone who lives near water, which in this city is practically a confession.",
+        carries: "A pole, a lantern, and a list of fares owed that you will never collect, because some debts are load-bearing.",
+        knackName: "Know the Current",
+        knack: "You know the river's ordinary behavior, its routes, its working traffic, and the signs that something unusual has entered its flow. You can judge where a current will carry something and where a boat can safely pass. You are also accustomed to the kinds of cargo other people refuse to discuss." },
+      { id: "debtrunner", name: "The Debt-Runner",
+        knowledge: "Who owes, who pays, who pretends, and who begins crying before you even knock; the visible signs of a household's financial condition — the worn step, the too-new curtain, the repaired shoes, the silence behind a door.",
+        connections: "Debtors, moneylenders, creditors, household managers, and anyone who wants to know who owes whom.",
+        carries: "An unofficial ledger of your own, a professional smile, and a reputation you did not choose.",
+        knackName: "Read the Threshold",
+        knack: "You can read the visible signs of a household's financial condition and estimate what someone might be able to offer and how much pressure a negotiation can bear before it becomes something else." },
+      { id: "nurse", name: "The Nurse",
+        knowledge: "Pain makes people honest about some things and astonishingly inventive about others; how to assess an injury and provide ordinary care.",
+        connections: "The sick, the injured, medical staff, and their families — everyone, sooner or later.",
+        carries: "A bag with clean bandages and one unclean secret, and hands that people trust on sight.",
+        knackName: "Stay With the Hurt",
+        knack: "You know how to assess an injury, provide ordinary care, and keep someone talking when pain or fear makes communication difficult. You can often tell when a person needs help rather than interrogation. You cannot make someone tell the truth, but you know how to give them a reason to stop hiding the part that hurts." },
+      { id: "ragpicker", name: "The Rag-Picker",
+        knowledge: "How to read a life from its leavings; where discarded things tend to go and how to trace an object through the people and places that handle it; what each district discards (often the same as knowing what each district hides).",
+        connections: "Servants, porters, scrap merchants, repair workers, and anyone who has ever needed something to disappear without appearing in a report.",
+        carries: "A cart, a hook, and an encyclopedic knowledge of what each district discards.",
+        knackName: "Nothing Stays Thrown Away",
+        knack: "You know where discarded things tend to go and how to trace an object through the people and places that handle it. If something was thrown away recently, you have a good chance of finding it or learning who collected it. People discard things for reasons, and those reasons can be more revealing than the objects themselves." }
+    ];
+
+    var VOICES = [
+      { name: "Desire", q: "What does it want? What would satisfy it?" },
+      { name: "Drive", q: "What moves it? What is its tempo, its restlessness?" },
+      { name: "Fear", q: "What does it pull away from?" },
+      { name: "Flesh", q: "What is it made of? What can be wounded, changed, healed?" },
+      { name: "Mineral", q: "What endures? What remains when the flesh is gone?" },
+      { name: "Light", q: "What does it reveal — and what does it conceal?" },
+      { name: "Water", q: "What flows through it? What does it carry?" }
+    ];
+
+    var FRAGMENTS = [
+      { name: "Motif", text: "A short phrase of the thing's own music, played back at it. The thing notices the borrower — a flinch, a stutter in the Drive, a turn of attention." },
+      { name: "Cadence", text: "A resolution. An ending, offered — the borrower gives something the ending it was already leaning toward (a panic, a storm's edge, a wound, an argument settling)." },
+      { name: "Rhythm", text: "A beat, imposed. Bodies move to it — guards marching out of step, crowds setting off, heartbeats synchronizing and breaking. Affects motion without addressing will." },
+      { name: "Dissonance", text: "A wrong note introduced into what is already being performed. It disrupts — a working mid-voice, a lie, a willful thing's attention. The cheapest fragment, and the easiest with which to mistune oneself." },
+      { name: "Sustain", text: "One note, held. It persists — a door, a wound, a bridge — for as long as the borrower holds it. Time is what it buys; time is also what it costs." },
+      { name: "Rest", text: "Deliberate silence. The borrower goes unheard; a heart stills; a thing's awareness passes over like weather. The quietest fragment." },
+      { name: "Counterpoint", text: "A second melody played against the first — not opposing force, opposing music. A charge, an argument, or a river keeps moving; it moves elsewhere." }
+    ];
+
+    var PRESSURES = [
+      { kind: "Want", guide: "What you are actively pursuing." },
+      { kind: "Need", guide: "What would actually help you, whether you know it or not. The Storyteller knows. You might not — write what you suspect, or leave it for them.", optional: true },
+      { kind: "Fear", guide: "What you avoid at disproportionate cost. Name it plainly; the city will test it politely." },
+      { kind: "Line", guide: "What you claim you will never do. Filed. Witnessed." },
+      { kind: "Temptation", guide: "What might make you cross it anyway." }
+    ];
+
+    var PRESETS = [
+      { name: "Vesper", tradeId: "courier", earPath: "A", voice: "Fear", fragment: null,
+        earNote: "First heard the music of a debt in a stairwell — followed the sound instead of delivering the letter; the letter never arrived.",
+        narrative: "Six years carrying letters, mostly the eastern routes; knows the back stairs of the Jovia sorting office and the rooftops where the pigeons gather.",
+        debts: ["Owes the Post three undelivered letters. (The Post does not accept “the letters were singing” as a reason.)"],
+        question: "Why did the third letter stop singing the day she decided to open it?",
+        belongs: "The rooftop above the Jovia sorting office.",
+        avoids: "The street where the stairwell stood.",
+        carriesExtra: "The third letter, unopened, in her satchel — quiet for a year. She checks.",
+        music: "Quick footsteps, stopping; then starting again, faster." },
+      { name: "Idda", tradeId: "clerk", earPath: "B", voice: null, fragment: "Sustain",
+        teacher: "Her grandmother", called: null,
+        earNote: "Her grandmother taught her to hum a Sustain while shelling peas; now her grandmother's humming has begun coming through the intake trays, which have never hummed before.",
+        narrative: "Third year at the Bureau of Small Claims, working the intake trays; knows which forms get lost, which clerks can be trusted with a private question, which official stamps were quietly retired.",
+        debts: ["Owes her grandmother a visit postponed for two years.", "Owes the Bureau a loyalty that has begun to resemble indenture."],
+        question: "Why has her grandmother's music started appearing in the Bureau's records?",
+        belongs: "The basement archive, where the oldest files sleep.",
+        avoids: "Her grandmother's street.",
+        carriesExtra: "A pea-sheller's thumb, callused in exactly the place her grandmother's was.",
+        music: "A lullaby in three-four time, hummed beneath the sound of stamping." },
+      { name: "Solla", tradeId: "gravedigger", earPath: "A", voice: "Water", fragment: null,
+        earNote: "First heard the music digging a grave the registry said was already occupied — the dirt sang back.",
+        narrative: "Eleven years in the Cemetery's east field; knows where the earth settles, where the roots run, which graves the registry claims are occupied.",
+        debts: ["Owes the Clerk of Returning Things a silence — she saw what the east field did that night, and the Clerk paid her in teeth to unsee it; the teeth are still in her pocket and hum, faintly, on Moonsdays. She kept one tooth back; it hums."],
+        question: "What did the Clerk pay her to forget, and why have the teeth started remembering?",
+        belongs: "The east field at dusk.",
+        avoids: "The registry office.",
+        carriesExtra: null,
+        music: "A shovel striking something that answers." }
+    ];
+
+    /* ================= helpers ================= */
+    function $(id) { return document.getElementById(id); }
+    function esc(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+    function val(id) { var el = $(id); return el ? el.value.trim() : ""; }
+    function tradeById(id) { for (var i = 0; i < TRADES.length; i++) if (TRADES[i].id === id) return TRADES[i]; return null; }
+    function voiceByName(n) { for (var i = 0; i < VOICES.length; i++) if (VOICES[i].name === n) return VOICES[i]; return null; }
+    function fragmentByName(n) { for (var i = 0; i < FRAGMENTS.length; i++) if (FRAGMENTS[i].name === n) return FRAGMENTS[i]; return null; }
+
+    var VIEWS = ["view-landing", "view-quick", "view-wizard", "view-sheet"];
+    function showView(id) {
+      VIEWS.forEach(function (v) { $(v).classList.toggle("hidden", v !== id); });
+      if (id === "view-landing") setClerkSpeech(SPEECH.landing);
+      if (id === "view-quick") setClerkSpeech(SPEECH.quick);
+      if (id === "view-sheet") setClerkSpeech(SPEECH.sheet);
+      window.scrollTo({ top: 0 });
+    }
+
+    /* ================= the clerk's speech — one plate at the window, changed per station ================= */
+    var SPEECH = {
+      landing: "There are no dice at this window, and nothing here is decided by chance. Every step is a choice, or a short answer in your own words. Answer as the citizen you mean to be. The city will supply the ink.",
+      quick: "These three were filed by hand and are complete as they stand — trade, ear, debt, and the questions that keep returning to them. Choose one, and the window will produce their jacket exactly as filed. Nothing about them will be improved in transit.",
+      st0: "<em>You are not a hero.</em> Other books will offer you that. This one offers you something rarer: a job, a debt, a place you cannot quite leave, and a pair of ears that hear too much. First, the name the city will file you under.",
+      st1: "The ten trades below are examples, not the whole city. The city knows what you do. Sometimes that knowledge is useful. Sometimes it is the reason someone has been waiting for you.",
+      st2: "Everyone in Montavera hears a little. You are someone who did not — or could not — stop hearing. There are exactly two ways it begins. The Bureau recognizes both. It prefers neither.",
+      st3: "<em>A debt is not a punishment. It is proof of a past.</em> Everyone owes something: money, a favor, an apology, a song, a silence, a return visit, a life. Begin with the debt that makes you <em>curious</em> — not the most dramatic one. A good debt creates choices; the most interesting are the ones you genuinely want to repay but cannot, without hurting someone else.",
+      st3gift: "A note carried over from the Ear: at that station, you recorded that your teacher's gift created a debt. Under the Law of the Gift, that debt is filed here, as your starting debt. Name the teacher below, and what the teaching asks of you.",
+      st4: "Two people who make you a <em>known</em> citizen. Place them in the city — on a street you can walk to. A bond is not armor. It is a place the game can reach you. <em>Spend carefully. The city keeps the carbon.</em>",
+      st5: "Choose <em>one or two</em> active pressures — not five. The city reads one or two sentences carefully, and five sentences never. Write each in a sentence or two, in your own words.",
+      st6: "Six entries. You fill three now. The city keeps the other three sealed, and no window — this one included — will open them for you. They are discovered through play. When a sealed entry is finally filled, <em>you</em> decide what it means. The city provides the fact. The meaning is yours.",
+      sheet: "The jacket is complete — rank <em>PENDING</em>, and the city says: <em>“Who?”</em> Print two copies: the original for the citizen, the carbon for the Storyteller. The sealed entries print as sealed. They open through play, or not at all."
+    };
+    function setClerkSpeech(html, extraHtml) {
+      var t = $("clerk-speech-text");
+      if (t) t.innerHTML = html || "";
+      var ex = $("clerk-speech-extra");
+      if (ex) {
+        ex.innerHTML = extraHtml || "";
+        ex.classList.toggle("hidden", !extraHtml);
+      }
+    }
+    function clerkStamp() {
+      var s = $("window-scene");
+      if (!s) return;
+      s.classList.remove("stamping");
+      void s.offsetWidth;
+      s.classList.add("stamping");
+      setTimeout(function () { s.classList.remove("stamping"); }, 700);
+    }
+
+    /* ================= render option cards ================= */
+    function tradeCard(t) {
+      return '<label class="opt" data-card>' +
+        '<input type="radio" name="trade" value="' + t.id + '" />' +
+        '<span class="tick">Select</span>' +
+        "<h4>" + esc(t.name) + "</h4>" +
+        '<p class="fld"><b>Knowledge:</b> ' + esc(t.knowledge) + "</p>" +
+        '<p class="fld"><b>Connections:</b> ' + esc(t.connections) + "</p>" +
+        '<p class="fld"><b>You carry:</b> ' + esc(t.carries) + "</p>" +
+        '<p class="fld knack"><b>Knack — ' + esc(t.knackName) + ".</b> " + esc(t.knack) + "</p>" +
+        "</label>";
+    }
+    function renderTrades() {
+      var html = TRADES.map(tradeCard).join("");
+      html += '<label class="opt wide" data-card>' +
+        '<input type="radio" name="trade" value="custom" />' +
+        '<span class="tick">Select</span>' +
+        "<h4>A Trade Not Listed</h4>" +
+        '<p class="fld">Your life is not among the ten. Build it in the same structure — Knowledge, Connections, what you carry, and a Knack — below. The Office accepts new filings.</p>' +
+        "</label>";
+      $("trade-cards").innerHTML = html;
+    }
+    function renderVoices() {
+      $("voice-cards").innerHTML = VOICES.map(function (v) {
+        return '<label class="opt" data-card>' +
+          '<input type="radio" name="voice" value="' + esc(v.name) + '" />' +
+          '<span class="tick">Select</span>' +
+          "<h4>" + esc(v.name) + "</h4>" +
+          '<p class="fld"><i>' + esc(v.q) + "</i></p>" +
+          "</label>";
+      }).join("");
+    }
+    function renderFragments() {
+      $("fragment-cards").innerHTML = FRAGMENTS.map(function (f) {
+        return '<label class="opt" data-card>' +
+          '<input type="radio" name="fragment" value="' + esc(f.name) + '" />' +
+          '<span class="tick">Select</span>' +
+          "<h4>" + esc(f.name) + "</h4>" +
+          '<p class="fld">' + esc(f.text) + "</p>" +
+          "</label>";
+      }).join("");
+    }
+    function renderPressures() {
+      $("pressure-box").innerHTML = PRESSURES.map(function (p, i) {
+        return '<div class="subsection" style="margin:0.8rem 0;">' +
+          '<label class="checkline" style="margin:0 0 0.4rem;">' +
+          '<input type="checkbox" class="p-check" data-kind="' + esc(p.kind) + '" id="p-check-' + i + '" />' +
+          "<span><strong>" + esc(p.kind) + ".</strong> " + esc(p.guide) + "</span>" +
+          "</label>" +
+          '<textarea class="p-text" id="p-text-' + i + '" placeholder="One or two sentences, in your own words."></textarea>' +
+          "</div>";
+      }).join("");
+      Array.prototype.forEach.call(document.querySelectorAll(".p-check"), function (cb) {
+        cb.addEventListener("change", function () {
+          var checked = document.querySelectorAll(".p-check:checked");
+          if (checked.length > 2) {
+            cb.checked = false;
+            setErr("One or two pressures. Not five. The city reads one or two sentences carefully — uncheck one first.");
+          } else { setErr(""); }
+          var card = cb.closest(".subsection");
+          if (card) card.style.borderColor = cb.checked ? "var(--green)" : "";
+        });
+      });
+      var wantText = $("p-text-0");
+      if (wantText) wantText.addEventListener("blur", function () {
+        var petition = $("p-petition");
+        if (petition && !petition.value.trim() && wantText.value.trim()) petition.value = wantText.value.trim();
+      });
+    }
+    function renderQuick() {
+      $("quick-cards").innerHTML = PRESETS.map(function (p, i) {
+        var t = tradeById(p.tradeId);
+        var ear = p.earPath === "A"
+          ? "Stumbled Upon · hears " + p.voice + " most clearly"
+          : "Gifted Grace · begins with " + p.fragment;
+        return '<div class="opt">' +
+          "<h4>" + esc(p.name) + "</h4>" +
+          '<p class="fld"><b>' + esc(t.name) + "</b> · " + esc(ear) + "</p>" +
+          '<p class="fld">' + esc(p.narrative) + "</p>" +
+          '<p class="fld"><b>Debt:</b> ' + esc(p.debts[0]) + "</p>" +
+          '<p class="fld"><b>Her question:</b> <i>' + esc(p.question) + "</i></p>" +
+          '<div class="btn-row" style="margin-top:1rem;"><button class="btn" type="button" data-preset="' + i + '">Take ' + esc(p.name) + " — Produce the Jacket</button></div>" +
+          "</div>";
+      }).join("");
+      Array.prototype.forEach.call(document.querySelectorAll("[data-preset]"), function (btn) {
+        btn.addEventListener("click", function () {
+          mode = "preset";
+          clerkStamp();
+          renderSheet(presetData(PRESETS[Number(btn.getAttribute("data-preset"))]));
+          showView("view-sheet");
+        });
+      });
+    }
+
+    /* ================= card selection wiring ================= */
+    function wireCards(containerId, inputName, after) {
+      var box = $(containerId);
+      box.addEventListener("change", function (e) {
+        if (e.target && e.target.name === inputName) {
+          Array.prototype.forEach.call(box.querySelectorAll("[data-card]"), function (c) {
+            var inp = c.querySelector("input");
+            c.classList.toggle("sel", !!inp && inp.checked);
+            var tick = c.querySelector(".tick");
+            if (tick) tick.textContent = (inp && inp.checked) ? "Filed" : "Select";
+          });
+          if (after) after(e.target.value);
+        }
+      });
+    }
+    function selectedRadio(name) {
+      var el = document.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : "";
+    }
+
+    /* ================= wizard navigation ================= */
+    var STEPS = ["Window", "Trade", "Ear", "Debt", "Bonds", "Pressures", "Prior Life"];
+    var station = 0;
+    var mode = "guided";
+
+    function renderRail() {
+      $("rail").innerHTML = STEPS.map(function (s, i) {
+        var cls = i === station ? "rstep now" : (i < station ? "rstep done" : "rstep");
+        return '<span class="' + cls + '">' + (i === 0 ? s : i + " · " + s) + "</span>";
+      }).join("");
+    }
+    function setErr(msg) { $("wizard-err").textContent = msg || ""; }
+    function gotoStation(n) {
+      station = n;
+      for (var i = 0; i <= 6; i++) $("st-" + i).classList.toggle("hidden", i !== n);
+      $("wiz-back").textContent = n === 0 ? "Back to the Doors" : "Back";
+      $("wiz-next").textContent = n === 6 ? "File the Citizen — Produce the Jacket" : "Continue";
+      var giftDebt = n === 3 && selectedRadio("gb-creates") === "debt" && selectedRadio("earpath") === "B";
+      setClerkSpeech(SPEECH["st" + n], giftDebt ? SPEECH.st3gift : "");
+      renderRail();
+      setErr("");
+      window.scrollTo({ top: 0 });
+    }
+
+    function validate(n) {
+      if (n === 0) {
+        if (!val("f-name")) return "The window cannot file a blank. A name, please — the one the city will use.";
+        if (!$("f-human").checked) return "The two laws are not fine print. Acknowledge them, and the window will proceed.";
+      }
+      if (n === 1) {
+        var t = selectedRadio("trade");
+        if (!t) return "Choose a trade — one of the ten, or a new filing of your own.";
+        if (t === "custom") {
+          if (!val("ct-name") || !val("ct-knowledge") || !val("ct-connections") || !val("ct-knack-name") || !val("ct-knack-text"))
+            return "A new filing needs the whole structure: the trade's name, its Knowledge, its Connections, and a Knack with a name and what it permits.";
+        }
+      }
+      if (n === 2) {
+        var p = selectedRadio("earpath");
+        if (!p) return "Two paths, and the Bureau prefers neither — but it does require one of them.";
+        if (p === "A" && !selectedRadio("voice")) return "Name the Voice you hear most clearly. It is where your attention goes; the window only records it.";
+        if (p === "B") {
+          if (!selectedRadio("fragment")) return "Choose the fragment you were taught. The Office recognizes seven.";
+          if (!val("gb-teacher")) return "A gift has a history. Who taught you?";
+          if (!selectedRadio("gb-creates")) return "Did the gift create a debt, or something else? The Office records either. It does not record nothing.";
+          if (selectedRadio("gb-creates") === "other" && !val("gb-feeling")) return "A few words for what the gift created — affection, gratitude, resentment, uncertainty. Your word for it.";
+        }
+      }
+      if (n === 3) {
+        if (!val("d-kind")) return "Choose the shape of the creditor. The city files debts by who comes knocking.";
+        if (!val("d-q1") || !val("d-owed")) return "The window needs, at minimum, who expects something from you — and what, exactly, is owed. Specific is kind. Vague is a mood.";
+      }
+      if (n === 4) {
+        if (!val("b1-name") || !val("b2-name")) return "Two bonds, both named. A citizen with one name in this field is a rumor; with two, a neighbor.";
+      }
+      if (n === 5) {
+        var chosen = [];
+        PRESSURES.forEach(function (pr, i) { if ($("p-check-" + i).checked) chosen.push(i); });
+        if (chosen.length === 0) return "Choose at least one pressure. The untroubled are not filed here; they are envied, briefly, elsewhere.";
+        for (var j = 0; j < chosen.length; j++) {
+          var pr2 = PRESSURES[chosen[j]];
+          if (!pr2.optional && !val("p-text-" + chosen[j]))
+            return "The " + pr2.kind + " needs its sentence or two. The city reads carefully what is written under that heading.";
+        }
+        if (!val("p-petition")) return "One open petition, in one sentence: what you want the city to notice about you. Amended later, if you must — never erased.";
+      }
+      if (n === 6) {
+        if (!val("pl-1") || !val("pl-2") || !val("pl-3"))
+          return "Three entries are yours to fill: a memory, a telling, and a possession. The other three are already being kept for you.";
+      }
+      return "";
+    }
+
+    /* ================= gather guided input into sheet data ================= */
+    function gatherGuided() {
+      var tSel = selectedRadio("trade");
+      var trade = null;
+      if (tSel === "custom") {
+        trade = { name: val("ct-name"), knowledge: val("ct-knowledge"), connections: val("ct-connections"),
+                  carries: val("ct-carries"), knackName: val("ct-knack-name"), knack: val("ct-knack-text"), custom: true };
+      } else { trade = tradeById(tSel); }
+      var path = selectedRadio("earpath");
+      var pressures = [];
+      PRESSURES.forEach(function (pr, i) {
+        if ($("p-check-" + i).checked) pressures.push({ kind: pr.kind, text: val("p-text-" + i) });
+      });
+      var debt = { kind: val("d-kind"), creditor: val("d-q1"), owed: val("d-owed"),
+                   why: val("d-q2"), unpaid: val("d-q3"), cost: val("d-q4") };
+      var obligations = [];
+      obligations.push("Debt — " + debt.creditor + ": " + debt.owed + (debt.cost ? " (Cost to pay: " + debt.cost + ")" : ""));
+      if (path === "B" && selectedRadio("gb-creates") === "other" && val("gb-feeling"))
+        obligations.push("From the gift — " + val("gb-feeling") + " (recorded; not a debt).");
+      return {
+        name: val("f-name"), preset: null, trade: trade,
+        earPath: path,
+        voice: path === "A" ? selectedRadio("voice") : null,
+        fragment: path === "B" ? selectedRadio("fragment") : null,
+        teacher: val("gb-teacher"), called: val("gb-called"), asked: val("gb-asked"),
+        giftCreates: selectedRadio("gb-creates"), giftFeeling: val("gb-feeling"),
+        earNote: "",
+        debts: [debt],
+        bonds: [
+          { name: val("b1-name"), tru: val("b1-true"), dontknow: val("b1-dontknow"), woulddo: val("b1-woulddo") },
+          { name: val("b2-name"), tru: val("b2-true"), dontknow: val("b2-dontknow"), woulddo: val("b2-woulddo") }
+        ],
+        pressures: pressures,
+        petition: val("p-petition"),
+        prior: { e1: val("pl-1"), e2: val("pl-2"), e2b: val("pl-2b"), e3: val("pl-3") },
+        obligations: obligations,
+        carriesExtra: ""
+      };
+    }
+
+    function presetData(p) {
+      var obligations = p.debts.slice();
+      return {
+        name: p.name, preset: p, trade: tradeById(p.tradeId),
+        earPath: p.earPath, voice: p.voice, fragment: p.fragment,
+        teacher: p.teacher || "", called: p.called || "", asked: "", giftCreates: "", giftFeeling: "",
+        earNote: p.earNote || "",
+        debts: p.debts.map(function (d) { return { text: d }; }),
+        bonds: null, pressures: null, petition: "",
+        prior: null, obligations: obligations, carriesExtra: p.carriesExtra || ""
+      };
+    }
+
+    /* ================= render Form F-1, the File Jacket ================= */
+    function sec(num, title, body) {
+      return '<div class="jsec"><h3><span class="fno">' + num + ".</span> " + esc(title) + "</h3>" + body + "</div>";
+    }
+    function line(label, text) {
+      return "<p>" + (label ? '<span class="lbl">' + esc(label) + ":</span> " : "") + esc(text) + "</p>";
+    }
+    function blanks(n) { var s = ""; for (var i = 0; i < n; i++) s += '<div class="blank-line"></div>'; return s; }
+    function sealedBlock(num, prompt) {
+      return '<div class="sealed"><span class="seal-tag">Sealed</span><p><strong>Entry ' + num + ".</strong> " + esc(prompt) + '</p><div class="blank-line"></div></div>';
+    }
+
+    function renderSheet(d) {
+      var t = d.trade;
+      var h = "";
+      h += '<div class="jacket-head">' +
+        '<div class="form-no"><span>Form F-1 · The File Jacket</span><span>The Black Index of Montavera</span></div>' +
+        '<div class="citizen-name">' + esc(d.name) + "</div>" +
+        '<div class="rank-line"><span class="stamp">Pending</span>' +
+        "<span>Rank <strong>PENDING</strong> · Runes: <strong>0</strong> · The city says: <i>“Who?”</i></span></div>" +
+        "</div>";
+
+      if (d.preset) {
+        var p = d.preset;
+        var nar = line("", p.narrative) +
+          line("Her question", p.question) + line("She belongs", p.belongs) +
+          line("She avoids", p.avoids) + line("Her music", p.music);
+        h += sec("—", "The Filing, As Recorded", nar);
+      }
+
+      /* 1 — Trade and knack */
+      var b1 = line("", t.name + (t.custom ? " (a new filing, witnessed at the table)" : "")) +
+        line("Knowledge", t.knowledge) + line("Connections", t.connections) +
+        line("Knack — " + t.knackName, t.knack);
+      h += sec(1, "Trade and Knack", b1);
+
+      /* 2 — Runes */
+      h += sec(2, "Runes", "<p><strong>0 runes — rank PENDING.</strong> No etchings yet. When they come, where they sit on the skin is the citizen's choice, and the choice is filed. The first filing — to rank FILED — happens through play, at the end of the first session.</p>");
+
+      /* 3 — The ear */
+      var b3 = "";
+      if (d.earPath === "A") {
+        var v = voiceByName(d.voice);
+        b3 = line("Path", "Stumbled Upon") +
+          line("Voice heard most clearly", d.voice + (v ? " — “" + v.q + "”" : "")) +
+          '<p class="fineprint">Attention, not a degree; not a score, and not a promise that you will always hear the truth.</p>';
+      } else {
+        var f = fragmentByName(d.fragment);
+        b3 = line("Path", "Gifted Grace") +
+          line("Fragment", d.fragment + (f ? " — " + f.text : "")) +
+          (d.called ? line("As the teacher called it", d.called) : "") +
+          (d.teacher ? line("Taught by", d.teacher) : "") +
+          (d.asked ? line("Asked in return", d.asked) : "") +
+          (d.giftCreates === "debt" ? '<p>Under the Law of the Gift, the teaching created a debt — filed under Debts, below.</p>' : "") +
+          (d.giftCreates === "other" && d.giftFeeling ? line("What the gift created", d.giftFeeling + " — recorded, not as a debt.") : "");
+      }
+      if (d.earNote) b3 += line("As recorded", d.earNote);
+      h += sec(3, "The Ear", b3);
+
+      /* 4 — Debts and bonds */
+      var b4 = "";
+      d.debts.forEach(function (db) {
+        if (db.text) { b4 += line("Debt", db.text); }
+        else {
+          b4 += line("Debt — owed to", db.creditor + (db.kind ? " (" + db.kind + ")" : "")) +
+            line("What is owed", db.owed) +
+            (db.why ? line("Why it matters", db.why) : "") +
+            (db.unpaid ? line("If unpaid", db.unpaid) : "") +
+            (db.cost ? line("Cost to pay", db.cost) : "");
+        }
+      });
+      if (d.bonds) {
+        d.bonds.forEach(function (bd, i) {
+          b4 += "<p style='margin-top:0.7rem;'><strong>Bond " + (i + 1) + " — " + esc(bd.name) + "</strong></p>" +
+            line("One true sentence", bd.tru || "—") +
+            line("What they don't know", bd.dontknow || "—") +
+            line("What they'd do, if they knew everything", bd.woulddo || "—");
+        });
+      } else {
+        b4 += '<p style="margin-top:0.7rem;"><span class="lbl">Bonds:</span></p>' + blanks(2) +
+          '<p class="fineprint">Two bonds, to be named at the table, on streets the citizen can walk to.</p>';
+      }
+      h += sec(4, "Debts and Bonds", b4);
+
+      /* 5 — Pressures */
+      var b5 = "";
+      if (d.pressures && d.pressures.length) {
+        d.pressures.forEach(function (pr) {
+          b5 += line(pr.kind, pr.text || "(Left for the Storyteller. The Storyteller knows.)");
+        });
+      } else { b5 = blanks(2) + '<p class="fineprint">One or two pressures, to be filed at the table.</p>'; }
+      b5 += '<p class="fineprint">In play: accept a complication tied to an active pressure, and the city pays for interesting trouble — clear one strain tick, or gain +2 on the next attempt that follows from the complication.</p>';
+      h += sec(5, "Pressures", b5);
+
+      /* 6 — Open petition */
+      h += sec(6, "The Open Petition · Form P-1",
+        d.petition ? line("", "“" + d.petition + "”") + '<p class="fineprint">One at a time. Amendments are filed, never erased. When a petition is fulfilled and witnessed, the clerk stamps it — a stamped petition counts as a significant notice toward filing.</p>'
+                     : blanks(1) + '<p class="fineprint">One sentence: what the citizen wants the city to notice. To be filed at the table.</p>');
+
+      /* 7 — Prior Life File */
+      var b7 = "";
+      if (d.prior) {
+        b7 = line("Entry One — something remembered clearly", d.prior.e1) +
+          line("Entry Two — something told about the citizen", d.prior.e2 + (d.prior.e2b ? " (" + d.prior.e2b + ")" : "")) +
+          line("Entry Three — a possession whose origin cannot be explained", d.prior.e3);
+      } else {
+        b7 = '<p><span class="lbl">Entry One:</span> Something you remember clearly.</p>' + blanks(1) +
+          '<p><span class="lbl">Entry Two:</span> Something you have been told about yourself.</p>' + blanks(1) +
+          '<p><span class="lbl">Entry Three:</span> A possession whose origin you cannot explain.</p>' + blanks(1);
+      }
+      b7 += sealedBlock("Four", "Someone who remembers you differently.") +
+        sealedBlock("Five", "A promise you do not remember making. Someone, somewhere, is keeping it for you.") +
+        sealedBlock("Six", "A question the city seems to recognize. A clerk pauses at your file. A form comes back with a field pre-filled.");
+      b7 += '<p class="fineprint">The sealed entries are discovered through play. The city provides the fact; the meaning is the citizen\u2019s.</p>';
+      h += sec(7, "The Prior Life File — Three Open, Three Sealed", b7);
+
+      /* 8 — Memory slots */
+      var b8 = "";
+      for (var m = 1; m <= 5; m++) b8 += '<p style="margin:0.15rem 0;"><span class="lbl">Memory ' + m + ":</span></p>" + '<div class="blank-line"></div>';
+      b8 += '<p class="fineprint">Five slots, one sentence each. When a sixth memory arrives in play, one must be crossed out — the citizen\u2019s choice.</p>';
+      h += sec(8, "Memory Slots", b8);
+
+      /* 9 — Endorsements */
+      h += sec(9, "Endorsements", '<p class="none-note">None. The stamps come at filing ceremonies, through play — each with its date, its clerk\u2019s initials, and its fine print.</p>');
+
+      /* 10 — Obligations */
+      var b10 = "<ul>" + d.obligations.map(function (o) { return "<li>" + esc(o) + "</li>"; }).join("") + "</ul>" +
+        '<p class="fineprint">What the city expects, and when. This ledger grows in play.</p>';
+      h += sec(10, "Obligations", b10);
+
+      /* 11 — Seven voices and their degrees */
+      var b11 = '<table class="voice-table">' + VOICES.map(function (vv) {
+        var deg = (d.earPath === "A" && d.voice === vv.name) ? "Heard most clearly" : "—";
+        return "<tr><td class='vname'>" + esc(vv.name) + "</td><td><i>" + esc(vv.q) + "</i></td><td class='vdeg'>" + deg + "</td></tr>";
+      }).join("") + "</table>" +
+        '<p class="fineprint">Degrees — the Ear, the Hand, the Return — are granted only as endorsements at filings. Hearing a Voice clearly is attention, not a degree.</p>';
+      h += sec(11, "The Seven Voices and Their Degrees", b11);
+
+      /* 12 — Fragments */
+      var b12 = "";
+      if (d.earPath === "B" && d.fragment) {
+        var ff = fragmentByName(d.fragment);
+        b12 = line(d.fragment, ff ? ff.text : "") + '<p class="fineprint">Taught, not earned. Its history is filed under The Ear.</p>';
+      } else {
+        b12 = '<p class="none-note">None. Fragments are learned in play — taught, discovered, or taken.</p>';
+      }
+      h += sec(12, "The Fragments", b12);
+
+      /* 13 — Strain */
+      h += sec(13, "Strain", '<p>Ticks: <span class="tickboxes">☐ ☐ ☐ ☐ ☐</span> — none marked. Strain begins at zero, and is relieved by rest, safety, or a meaningful action.</p>');
+
+      /* 14 — Tuning */
+      h += sec(14, "Tuning", '<p class="none-note">No TUNING tags. Nothing has been played yet, and the city charges nothing in advance. (Regulation T-1: you cannot play something without being played by it.)</p>');
+
+      /* 15 — Scars */
+      h += sec(15, "Scars", '<p class="none-note">None. Scars arrive in play, and the citizen always chooses their form.</p>');
+
+      /* 16 — Possessions */
+      var items = [t.carries];
+      if (d.carriesExtra) items.push(d.carriesExtra);
+      if (d.prior && d.prior.e3) items.push("The unexplained possession (Prior Life File, Entry Three): " + d.prior.e3);
+      var b16 = "<ul>" + items.map(function (it) { return "<li>" + esc(it) + "</li>"; }).join("") + "</ul>" +
+        '<p class="fineprint">At rank PENDING, a citizen may buy Street Goods only — food, rain, a room, cash up front; clearance: none.</p>';
+      h += sec(16, "Possessions", b16);
+
+      /* 17 — The three currencies */
+      var b17 = line("Teeth", "—") + line("Rat feathers", "—") + line("Twists", "—") +
+        '<p class="fineprint">The Office records no starting purse for a PENDING citizen. Twists cannot be held before rank FILED in any case — they require a Twist code.</p>';
+      h += sec(17, "The Three Currencies", b17);
+
+      h += '<div class="jacket-foot">' +
+        "<p><strong>Fill it in pencil. The city will supply the ink.</strong></p>" +
+        "<p>The player keeps the original. The Storyteller keeps the carbon. Filed at the window of the Office of Civic Identity — this jacket makes a PENDING citizen, ready to play. The first filing comes through play.</p>" +
+        "</div>";
+
+      $("sheet-body").innerHTML = h;
+      $("btn-edit").textContent = mode === "preset" ? "Back to the Pre-Filed Citizens" : "Return to the Window";
+    }
+
+    /* ================= wiring ================= */
+    $("door-guided").addEventListener("click", function () { mode = "guided"; showView("view-wizard"); gotoStation(0); });
+    $("door-quick").addEventListener("click", function () { showView("view-quick"); });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-back]"), function (b) {
+      b.addEventListener("click", function () { showView("view-landing"); });
+    });
+    $("wiz-back").addEventListener("click", function () {
+      if (station === 0) { showView("view-landing"); return; }
+      gotoStation(station - 1);
+    });
+    $("wiz-next").addEventListener("click", function () {
+      var err = validate(station);
+      if (err) { setErr(err); return; }
+      clerkStamp();
+      if (station === 6) {
+        mode = "guided";
+        renderSheet(gatherGuided());
+        showView("view-sheet");
+        return;
+      }
+      gotoStation(station + 1);
+    });
+    $("btn-print").addEventListener("click", function () { window.print(); });
+    $("btn-edit").addEventListener("click", function () {
+      if (mode === "preset") { showView("view-quick"); return; }
+      showView("view-wizard"); gotoStation(6);
+    });
+    $("btn-again").addEventListener("click", function () { window.location.reload(); });
+
+    wireCards("trade-cards", "trade", function (v) {
+      $("custom-trade-box").classList.toggle("hidden", v !== "custom");
+    });
+    wireCards("voice-cards", "voice", null);
+    wireCards("fragment-cards", "fragment", null);
+    wireCards("st-2", "earpath", function (v) {
+      $("path-a-box").classList.toggle("hidden", v !== "A");
+      $("path-b-box").classList.toggle("hidden", v !== "B");
+      $("path-a-card").classList.toggle("sel", v === "A");
+      $("path-b-card").classList.toggle("sel", v === "B");
+      var tickA = $("path-a-card").querySelector(".tick");
+      var tickB = $("path-b-card").querySelector(".tick");
+      if (tickA) tickA.textContent = v === "A" ? "Filed" : "Select";
+      if (tickB) tickB.textContent = v === "B" ? "Filed" : "Select";
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="gb-creates"]'), function (r) {
+      r.addEventListener("change", function () {
+        $("gb-feeling-box").classList.toggle("hidden", selectedRadio("gb-creates") !== "other");
+      });
+    });
+
+    /* ================= init ================= */
+    renderTrades();
+    renderVoices();
+    renderFragments();
+    renderPressures();
+    renderQuick();
+    renderRail();
+    </script>
+  </body>
+</html>
