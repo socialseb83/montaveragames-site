@@ -165,10 +165,10 @@
       '#mg-marquee{overflow:hidden;white-space:nowrap;background:#161009;color:#e9dec5;' +
       'font-family:"Cormorant Garamond",Cormorant,Georgia,serif;font-size:15px;letter-spacing:.14em;' +
       'padding:7px 0;border-bottom:1px solid #2e7d4f;line-height:1.3;}' +
-      '#mg-marquee .mg-track{display:inline-block;white-space:nowrap;animation:mg-scroll 60s linear infinite;}' +
+      '#mg-marquee .mg-track{display:inline-block;white-space:nowrap;animation:mg-scroll 120s linear infinite;}' +
       '@keyframes mg-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}' +
       '@media (prefers-reduced-motion: reduce){#mg-marquee .mg-track{animation:none}}' +
-      '#mg-calbtn{position:fixed;right:18px;bottom:18px;z-index:9999;background:#2e7d4f;color:#f6ecd4;' +
+      '#mg-calbtn{position:fixed;right:18px;top:48px;z-index:9999;background:#2e7d4f;color:#f6ecd4;' +
       'font-family:"Cormorant Garamond",Cormorant,Georgia,serif;font-size:17px;letter-spacing:.06em;' +
       'text-decoration:none;padding:11px 18px;border-radius:999px;border:1px solid #f6ecd4;' +
       'box-shadow:0 6px 22px rgba(0,0,0,.55);}' +
@@ -197,7 +197,7 @@
     if (btn) {
       injectStyles();
       var t = montaveranDate(now);
-      btn.textContent = 'The Fifty-Six · ' + t.month + ' ' + t.day;
+      btn.textContent = 'Click Here · The Fifty-Six · ' + t.month + ' ' + t.day;
     }
   }
 
