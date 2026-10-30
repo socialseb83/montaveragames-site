@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wheel Room — Montavera Games</title>
+<meta name="description" content="The Moon-Walk Wheel from The Fifty-Six and the Seven-Voices Rosette from Màranven — two instruments from the books, set turning, with every word taken from the books as filed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#100a05; color:#e9dec5; font-family:'Spectral',Georgia,serif; font-weight:300; }
+  .wrap { max-width:1060px; margin:0 auto; padding:32px 20px 64px; }
+  a { color:#e9dec5; }
+  #mg-marquee { text-align:center; font-style:italic; font-size:14px; color:#cdbb92; padding:10px 16px 0; }
+  #mg-calbtn { display:block; text-align:center; font-size:13px; letter-spacing:.08em; color:#cdbb92; text-decoration:none; padding:4px 16px 10px; border-bottom:1px solid #291b0c; }
+  #mg-calbtn:hover { color:#f6ecd4; }
+  .top { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid #7e141b; padding-bottom:14px; flex-wrap:wrap; gap:8px 16px; }
+  .brand { font-family:'Cormorant Garamond',serif; letter-spacing:.18em; font-size:14px; text-transform:uppercase; }
+  .brand a { text-decoration:none; }
+  .mainnav { font-size:14px; } .mainnav a { margin-left:14px; color:#cdbb92; text-decoration:none; }
+  .mainnav a:hover { color:#f6ecd4; }
+  .mainnav a[aria-current] { color:#f6ecd4; border-bottom:1px solid #2e7d4f; }
+  h1 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:42px; line-height:1.1; margin:40px 0 6px; color:#f6ecd4; }
+  h2 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:32px; margin:56px 0 6px; color:#f6ecd4; }
+  h3 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:24px; margin:0 0 6px; color:#f6ecd4; }
+  .byline { color:#cdbb92; font-style:italic; margin:0 0 28px; font-size:17px; }
+  p { font-size:17.5px; line-height:1.7; margin:0 0 1.1em; }
+  .filedbox { border:1px solid #4a3a20; background:#170e06; padding:20px 24px; margin:24px 0; }
+  .filedbox p { font-size:16.5px; }
+  .filedbox p:last-child { margin-bottom:0; }
+  .filedbox .kick { font-family:'Cormorant Garamond',serif; letter-spacing:.14em; text-transform:uppercase; font-size:13px; color:#cdbb92; margin-bottom:10px; }
+  .gapnote { border-left:3px solid #2e7d4f; background:#131b12; padding:12px 16px; font-size:15.5px; line-height:1.6; color:#cdbb92; margin:14px 0; }
+  .wheelgrid { display:grid; grid-template-columns:minmax(300px,520px) 1fr; gap:28px; align-items:start; margin-top:8px; }
+  @media (max-width:860px) { .wheelgrid { grid-template-columns:1fr; } }
+  .wheelstage { position:relative; }
+  .pointermark { text-align:center; color:#2e7d4f; font-size:22px; line-height:1; margin-bottom:2px; }
+  #wheel { width:100%; height:auto; display:block; cursor:grab; touch-action:none; outline:none; }
+  #wheel:focus-visible { outline:2px solid #2e7d4f; outline-offset:4px; }
+  #wheel.dragging { cursor:grabbing; }
+  #rotor { transition:transform .5s ease; transform-box:view-box; transform-origin:50% 50%; }
+  #wheel.dragging #rotor { transition:none; }
+  .seg { fill:#1d130a; stroke:#7a6742; stroke-width:1; }
+  .seg.alt { fill:#170e06; }
+  .seg.zips { stroke:#8a2f23; }
+  .seg.sel { fill:#2e7d4f; }
+  .seglabel { font-family:'Spectral',serif; font-size:12px; letter-spacing:1.2px; fill:#cdbb92; pointer-events:none; }
+  .seg.sel + .seglabel, .seglabel.sel { fill:#f6ecd4; }
+  .moon { font-size:17px; fill:#e9dec5; pointer-events:none; }
+  .stnum { font-family:'Spectral',serif; font-size:11px; fill:#9c865f; pointer-events:none; }
+  .hub { font-family:'Cormorant Garamond',serif; fill:#f6ecd4; }
+  .controls { display:flex; gap:12px; align-items:center; justify-content:center; margin-top:14px; flex-wrap:wrap; }
+  .btn { background:#2e7d4f; color:#f6ecd4; border:1px solid #2e7d4f; font-family:'Cormorant Garamond',serif; font-weight:600; font-size:18px; letter-spacing:.05em; padding:9px 20px; cursor:pointer; }
+  .btn:hover { background:#35915d; }
+  .btn.ghost { background:transparent; color:#cdbb92; border-color:#4a3a20; }
+  .btn.ghost:hover { color:#f6ecd4; border-color:#cdbb92; }
+  .btn[aria-pressed="true"] { background:#2e7d4f; color:#f6ecd4; border-color:#2e7d4f; }
+  .walkcount { color:#cdbb92; font-size:14px; letter-spacing:.06em; }
+  .panel { border:1px solid #4a3a20; background:#170e06; padding:24px 26px; min-height:300px; }
+  .panel .kick { font-family:'Cormorant Garamond',serif; letter-spacing:.14em; text-transform:uppercase; font-size:13px; color:#cdbb92; margin-bottom:6px; }
+  .panel .filedline { color:#cdbb92; font-style:italic; font-size:16px; margin-bottom:14px; }
+  .panel p { font-size:16.5px; }
+  .hint { color:#9c865f; font-size:14px; text-align:center; margin-top:10px; }
+  .layerbar { display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 6px; }
+  .rosettewrap { max-width:720px; margin:0 auto; }
+  #rosette { width:100%; height:auto; display:block; }
+  .layer-off { display:none; }
+  footer { margin-top:64px; border-top:1px solid #291b0c; padding-top:16px; font-size:13.5px; color:#9c865f; line-height:1.7; }
+  footer p { font-size:13.5px; }
+</style>
+</head>
+<body>
+<div id="mg-marquee" aria-label="Today in Montavera">Montavera keeps its own calendar.</div>
+<a id="mg-calbtn" href="calendar.html">The Fifty-Six — today in Montavera</a>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><a href="index.html">Montavera Games</a></div>
+    <nav class="mainnav"><a href="index.html">Home</a><a href="library.html">Library</a><a href="song-sheet.html">Song Sheets</a><a href="calendar.html">Calendar</a><a href="wheel-room.html" aria-current="page">Wheel Room</a></nav>
+  </div>
+
+  <h1>The Wheel Room</h1>
+  <p class="byline">Two instruments from the books, set turning. Everything named on this page is named as the books file it; where a book files no word, the gap is shown, not filled.</p>
+
+  <h2>The Moon-Walk Wheel</h2>
+  <p class="byline">From <em>The Fifty-Six</em> — Book Four of the Black Index — the wheel plate, p. 35, and the accounts around it.</p>
+
+  <div class="filedbox">
+    <div class="kick">As sung in Sèlanar · The Fifty-Six, p. 15</div>
+    <p>In the old tongue there is no word for month. There is <em>morilvas</em>: a moon-walk. A month is one walk the white moon takes across the city, from new to full to new again, changing its step every Moonsday. Twenty-eight days is how long the walk is.</p>
+    <p>The old songs do not name the walks. They tell what happened on them: the walk on which the year opened, the walk of the picnic, the walk of grief, the walk of tea below. The city’s month-names are what those songs became after the clerks heard them and wrote them down. They are not translations. They are filings.</p>
+    <p>Zipsdier, the songs say, is three walks the moon was made to take in a row, without being allowed to stop at the end of any of them. That is why it is long. That is why the moon, in Zipsdier, looks tired.</p>
+    <p>This account is not filed by any office. It is only sung.</p>
+  </div>
+
+  <div class="filedbox">
+    <div class="kick">The wheel plate · The Fifty-Six, pp. 34–35</div>
+    <p>The engraver was given the filed wheel and one instruction: make it beautiful enough to be believed. He walked the rim once for each of the fourteen walks, and signed nothing.</p>
+    <p>Twelve moon-walks, fifty-six weeks, one year. The wheel turns. The year is filed.</p>
+    <p>Outer ring: the twelve months, Zipsdier in red. Inner ring: the fourteen walks of the white moon, three of them in Zipsdier.</p>
+    <p>Every month is four weeks. Zipsdier is four weeks, three times, and it knows.</p>
+    <p>● new · ◑ first quarter · ○ full · ◐ last quarter. The white moon keeps the almanac: new on the 4th, full on the 18th, changing its phase every Moonsday. Fourteen moon-walks a year; three of them in Zipsdier.</p>
+  </div>
+
+  <div class="wheelgrid">
+    <div class="wheelstage">
+      <div class="pointermark" aria-hidden="true">▼</div>
+      <svg id="wheel" viewBox="0 0 520 520" tabindex="0" role="application" aria-label="The Moon-Walk Wheel. Fourteen walks. Use the left and right arrow keys, the Previous and Next buttons, or drag the wheel to turn it."></svg>
+      <div class="controls">
+        <button class="btn" id="prevBtn" type="button">← Previous walk</button>
+        <button class="btn" id="nextBtn" type="button">Next walk →</button>
+      </div>
+      <p class="hint">Drag the wheel to turn it; it settles on the nearest walk. Arrow keys work when the wheel is selected.</p>
+    </div>
+    <div class="panel" id="walkPanel" aria-live="polite">
+      <div class="kick" id="wpKick"></div>
+      <h3 id="wpName"></h3>
+      <div class="filedline" id="wpFiled"></div>
+      <div id="wpBody"></div>
+      <div id="wpGap"></div>
+    </div>
+  </div>
+
+  <h2>The Seven-Voices Rosette</h2>
+  <p class="byline">From <em>Màranven</em> — Book Three of the Black Index — Chapter the Eighth, “The Filing”: the book’s filed circular diagram of a true name.</p>
+
+  <div class="filedbox">
+    <div class="kick">The Seven Voices · as filed in Màranven</div>
+    <p>The Primer files seven voices in every song worth naming, each with its word. Listening to a thing (see <em>On Listening</em>) means putting its question to each voice in turn. The answers are songs; the seven together are never the name, only the instruments it is played on.</p>
+    <p>The seven words and their voices: <em>lenvas</em> DESIRE · <em>vas</em> DRIVE · <em>morhal</em> FEAR · <em>hem</em> FLESH · <em>thuros</em> MINERAL · <em>shara</em> LIGHT · <em>ala</em> WATER.</p>
+    <p>The caption filed under the plate: “The seven voices of a true name — the instruments it is played on.”</p>
+  </div>
+
+  <div class="layerbar" role="group" aria-label="Rosette layers">
+    <button class="btn" type="button" data-layer="layer-base" aria-pressed="true">Base</button>
+    <button class="btn ghost" type="button" data-layer="layer-tone" aria-pressed="false">Tone marks</button>
+    <button class="btn ghost" type="button" data-layer="layer-hand" aria-pressed="false">Hand-signs</button>
+    <button class="btn ghost" type="button" data-layer="layer-gloss" aria-pressed="false">Gloss</button>
+  </div>
+  <p class="hint" style="text-align:left">Layers stack. Turn each on and off; the rosette keeps what you leave showing.</p>
+
+  <div class="rosettewrap">
+      <svg id="rosette" viewBox="0 0 760 760" role="img" aria-label="The Seven-Voices Rosette: seven words around the centre word nar, with toggleable layers for tone marks, hand-signs and glosses">
+      <g id="layer-base">
+      <circle cx="380" cy="380" r="330" fill="none" stroke="#7a6742" stroke-width="1"/>
+      <circle cx="380" cy="380" r="196" fill="none" stroke="#4a3a20" stroke-width="1"/>
+      <ellipse cx="380.0" cy="252.0" rx="42" ry="78" fill="#1d130a" stroke="#cdbb92" stroke-width="1.4" transform="rotate(0.0 380.0 252.0)"/>
+      <text x="380.0" y="259.0" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600" font-size="21" fill="#f6ecd4">lenvas</text>
+      <ellipse cx="480.1" cy="300.2" rx="42" ry="78" fill="#1d130a" stroke="#cdbb92" stroke-width="1.4" transform="rotate(51.4 480.1 300.2)"/>
+      <text x="480.1" y="307.2" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600" font-size="21" fill="#f6ecd4">vas</text>
+      <ellipse cx="504.8" cy="408.5" rx="42" ry="78" fill="#1d130a" stroke="#cdbb92" stroke-width="1.4" transform="rotate(102.9 504.8 408.5)"/>
+      <text x="504.8" y="415.5" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600" font-size="21" fill="#f6ecd4">morhal</text>
+      <ellipse cx="435.5" cy="495.3" rx="42" ry="78" fill="#1d130a" stroke="#cdbb92" stroke-width="1.4" transform="rotate(154.3 435.5 495.3)"/>
+      <text x="435.5" y="502.3" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600" font-size="21" fill="#f6ecd4">hem</text>
+      <ellipse cx="324.5" cy="495.3" rx="42" ry="78" fill="#1d130a" stroke="#cdbb92" stroke-width="1.4" transform="rotate(205.7 324.5 495.3)"/>
+      <text x="324.5" y="502.3" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600" font-size="21" fill="#f6ecd4">thuros</text>
+      <ellipse cx="255.2" cy="408.5" rx="42" ry="78" fill="#1d130a" stroke="#cdbb92" stroke-width="1.4" transform="rotate(257.1 255.2 408.5)"/>
+      <text x="255.2" y="415.5" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600" font-size="21" fill="#f6ecd4">shara</text>
+      <ellipse cx="279.9" cy="300.2" rx="42" ry="78" fill="#1d130a" stroke="#cdbb92" stroke-width="1.4" transform="rotate(308.6 279.9 300.2)"/>
+      <text x="279.9" y="307.2" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600" font-size="21" fill="#f6ecd4">ala</text>
+      <circle cx="380" cy="380" r="54" fill="#241708" stroke="#cdbb92" stroke-width="1.6"/>
+      <text x="380" y="376" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600" font-size="21" fill="#f6ecd4">nar</text>
+      </g>
+      <g id="layer-gloss" class="layer-off">
+      <text x="380" y="395" text-anchor="middle" font-family="'Spectral',serif" font-style="italic" font-size="10.5" fill="#cdbb92">true name</text>
+      <text x="380.0" y="88.0" text-anchor="middle" font-family="'Spectral',serif" font-size="13.5" letter-spacing="1.5" fill="#f6ecd4" transform="rotate(0.0 380.0 88.0)">DESIRE · love-going</text>
+      <text x="380.0" y="70.0" text-anchor="middle" font-family="'Spectral',serif" font-style="italic" font-size="13" fill="#cdbb92" transform="rotate(0.0 380.0 70.0)">what would satisfy it?</text>
+      <text x="608.3" y="197.9" text-anchor="middle" font-family="'Spectral',serif" font-size="13.5" letter-spacing="1.5" fill="#f6ecd4" transform="rotate(51.4 608.3 197.9)">DRIVE · going</text>
+      <text x="622.4" y="186.7" text-anchor="middle" font-family="'Spectral',serif" font-style="italic" font-size="13" fill="#cdbb92" transform="rotate(51.4 622.4 186.7)">what moves it?</text>
+      <text x="664.7" y="445.0" text-anchor="middle" font-family="'Spectral',serif" font-size="13.5" letter-spacing="1.5" fill="#f6ecd4" transform="rotate(-77.1 664.7 445.0)">FEAR · dark-hold</text>
+      <text x="682.2" y="449.0" text-anchor="middle" font-family="'Spectral',serif" font-style="italic" font-size="13" fill="#cdbb92" transform="rotate(-77.1 682.2 449.0)">what does it pull away from?</text>
+      <text x="506.7" y="643.1" text-anchor="middle" font-family="'Spectral',serif" font-size="13.5" letter-spacing="1.5" fill="#f6ecd4" transform="rotate(-25.7 506.7 643.1)">FLESH</text>
+      <text x="514.5" y="659.3" text-anchor="middle" font-family="'Spectral',serif" font-style="italic" font-size="13" fill="#cdbb92" transform="rotate(-25.7 514.5 659.3)">what is it made of?</text>
+      <text x="253.3" y="643.1" text-anchor="middle" font-family="'Spectral',serif" font-size="13.5" letter-spacing="1.5" fill="#f6ecd4" transform="rotate(25.7 253.3 643.1)">MINERAL · ancient bone</text>
+      <text x="245.5" y="659.3" text-anchor="middle" font-family="'Spectral',serif" font-style="italic" font-size="13" fill="#cdbb92" transform="rotate(25.7 245.5 659.3)">what endures in it?</text>
+      <text x="95.3" y="445.0" text-anchor="middle" font-family="'Spectral',serif" font-size="13.5" letter-spacing="1.5" fill="#f6ecd4" transform="rotate(77.1 95.3 445.0)">LIGHT</text>
+      <text x="77.8" y="449.0" text-anchor="middle" font-family="'Spectral',serif" font-style="italic" font-size="13" fill="#cdbb92" transform="rotate(77.1 77.8 449.0)">what does it show and hide?</text>
+      <text x="151.7" y="197.9" text-anchor="middle" font-family="'Spectral',serif" font-size="13.5" letter-spacing="1.5" fill="#f6ecd4" transform="rotate(308.6 151.7 197.9)">WATER</text>
+      <text x="137.6" y="186.7" text-anchor="middle" font-family="'Spectral',serif" font-style="italic" font-size="13" fill="#cdbb92" transform="rotate(308.6 137.6 186.7)">what flows through it?</text>
+      </g>
+      <g id="layer-tone" class="layer-off">
+      <text x="380" y="408" text-anchor="middle" font-family="'Spectral',serif" font-size="10.5" fill="#e9dec5">nàr — nár</text>
+      <text x="380.0" y="156.0" text-anchor="middle" font-family="'Spectral',serif" font-size="15" fill="#e9dec5" transform="rotate(0.0 380.0 156.0)">lènvas — lénvas</text>
+      <text x="380.0" y="139.0" text-anchor="middle" font-family="'Spectral',serif" font-size="11.5" fill="#cdbb92" transform="rotate(0.0 380.0 139.0)">len-vas · melody M·M</text>
+      <text x="555.1" y="240.3" text-anchor="middle" font-family="'Spectral',serif" font-size="15" fill="#e9dec5" transform="rotate(51.4 555.1 240.3)">vàs — vás</text>
+      <text x="568.4" y="229.7" text-anchor="middle" font-family="'Spectral',serif" font-size="11.5" fill="#cdbb92" transform="rotate(51.4 568.4 229.7)">vas · melody M</text>
+      <text x="598.4" y="429.8" text-anchor="middle" font-family="'Spectral',serif" font-size="15" fill="#e9dec5" transform="rotate(-77.1 598.4 429.8)">mòrhal — mórhal</text>
+      <text x="615.0" y="433.6" text-anchor="middle" font-family="'Spectral',serif" font-size="11.5" fill="#cdbb92" transform="rotate(-77.1 615.0 433.6)">mor-hal · melody M·M</text>
+      <text x="477.2" y="581.8" text-anchor="middle" font-family="'Spectral',serif" font-size="15" fill="#e9dec5" transform="rotate(-25.7 477.2 581.8)">hèm — hém</text>
+      <text x="484.6" y="597.1" text-anchor="middle" font-family="'Spectral',serif" font-size="11.5" fill="#cdbb92" transform="rotate(-25.7 484.6 597.1)">hem · melody M</text>
+      <text x="282.8" y="581.8" text-anchor="middle" font-family="'Spectral',serif" font-size="15" fill="#e9dec5" transform="rotate(25.7 282.8 581.8)">thùros — thúros</text>
+      <text x="275.4" y="597.1" text-anchor="middle" font-family="'Spectral',serif" font-size="11.5" fill="#cdbb92" transform="rotate(25.7 275.4 597.1)">thu-ros · melody M·M</text>
+      <text x="161.6" y="429.8" text-anchor="middle" font-family="'Spectral',serif" font-size="15" fill="#e9dec5" transform="rotate(77.1 161.6 429.8)">shàra — shára</text>
+      <text x="145.0" y="433.6" text-anchor="middle" font-family="'Spectral',serif" font-size="11.5" fill="#cdbb92" transform="rotate(77.1 145.0 433.6)">sha-ra · melody M·M</text>
+      <text x="204.9" y="240.3" text-anchor="middle" font-family="'Spectral',serif" font-size="15" fill="#e9dec5" transform="rotate(308.6 204.9 240.3)">àla — ála</text>
+      <text x="191.6" y="229.7" text-anchor="middle" font-family="'Spectral',serif" font-size="11.5" fill="#cdbb92" transform="rotate(308.6 191.6 229.7)">a-la · melody M·M</text>
+      </g>
+      <g id="layer-hand" class="layer-off">
+      <text x="380" y="421" text-anchor="middle" font-family="'Spectral',serif" font-size="9.5" fill="#9ad1b1">hand: chin</text>
+      <text x="380.0" y="116.0" text-anchor="middle" font-family="'Spectral',serif" font-size="12" fill="#9ad1b1" transform="rotate(0.0 380.0 116.0)">hand: chin · chin</text>
+      <text x="586.4" y="215.4" text-anchor="middle" font-family="'Spectral',serif" font-size="12" fill="#9ad1b1" transform="rotate(51.4 586.4 215.4)">hand: chin</text>
+      <text x="637.4" y="438.7" text-anchor="middle" font-family="'Spectral',serif" font-size="12" fill="#9ad1b1" transform="rotate(-77.1 637.4 438.7)">hand: chin · chin</text>
+      <text x="494.5" y="617.9" text-anchor="middle" font-family="'Spectral',serif" font-size="12" fill="#9ad1b1" transform="rotate(-25.7 494.5 617.9)">hand: chin</text>
+      <text x="265.5" y="617.9" text-anchor="middle" font-family="'Spectral',serif" font-size="12" fill="#9ad1b1" transform="rotate(25.7 265.5 617.9)">hand: chin · chin</text>
+      <text x="122.6" y="438.7" text-anchor="middle" font-family="'Spectral',serif" font-size="12" fill="#9ad1b1" transform="rotate(77.1 122.6 438.7)">hand: chin · chin</text>
+      <text x="173.6" y="215.4" text-anchor="middle" font-family="'Spectral',serif" font-size="12" fill="#9ad1b1" transform="rotate(308.6 173.6 215.4)">hand: chin · chin</text>
+      </g>
+      </svg>
+  </div>
+
+  <div class="gapnote"><strong>Tone marks, as filed.</strong> The book’s rule: the mark sits on the first vowel of the word — a grave for low, an acute for high, nothing for mid. Low is the past, sung done; high is the future, yet unsung. The tone layer shows each voice’s low and high forms on that rule, with its syllables and its filed melody beneath. For <em>shara</em> the book files all three forms outright: <em>shàra</em> · <em>shara</em> · <em>shára</em> — and for its verb <em>selen</em>: <em>sèlen</em>, sang · filed; <em>selen</em>, sings · files; <em>sélen</em>, will sing · will file.</div>
+
+  <div class="gapnote"><strong>Hand-signs, as filed.</strong> The book files hand signs for the three tones, not a separate sign for each voice: “A player who will not sing may show the tone instead: hand at the brow for high, the chin for mid, the heart for low, held on the toned word.” The hand-signs layer therefore shows, for each voice, the hand’s place for each syllable of its filed melody — brow for high, chin for mid, heart for low. The book files no further word on signs for these words, and none is invented here.</div>
+
+  <div class="gapnote"><strong>Root glosses, as filed.</strong> In the Lexicon’s parts column, three of the seven voices — <em>hem</em>, <em>shara</em>, <em>ala</em> — and the centre word <em>nar</em> carry a dash, not a root gloss: the book files no parts for them. The dash is the book’s own, and it is kept. Their English glosses and their questions are filed, and the gloss layer shows them.</div>
+
+  <footer>
+    <p>Sources, as filed. The Moon-Walk Wheel: <em>The Fifty-Six</em>, Form CAL-1, Year 5 of the 56th Age — the wheel plate and its captions (pp. 34–35), “The Year” table (p. 13), “As Sung in Sèlanar” (p. 15), the moons legend (p. 8), and each month’s history and explanations on its back pages. The fourteen walks are the twelve months with Zipsdier counted three times, once for each of its three filings, exactly as the plate’s inner ring files them. The Seven-Voices Rosette: <em>Màranven</em>, Chapter the Eighth — the seven voices, their words and their questions; the Lexicon, §VIII “The Filing,” for each word’s syllables, melody and parts; the Grammar’s tone rule and hand-sign rule for the tone and hand-sign layers.</p>
+    <p><a href="index.html">Home</a> · <a href="library.html">Library</a> · <a href="song-sheet.html">Song Sheets</a> · <a href="calendar.html">Calendar</a></p>
+  </footer>
+</div>
+<script>
+"use strict";
+var WALKS = [{"name": "Hendiber", "short": "HENDIBER", "days": "Days 1–28 of the year", "season": "Early summer", "index": "The year opens. New pages, old ink", "paras": ["Hendiber is the first month, early summer by the outside count, though inside the city it is simply the season of new pages, when the year's file is opened and the ink is warmed and every citizen is, for a few weeks, ahead of their own paperwork. The Office's account is that Hendiber was always first: a year, like a file, begins where its newest contents are laid in, and the laying-in is a Hendiber art. The street's account is more practical. The street says the year begins in Hendiber because that is when the rent and the gratitude come due together, and a city should start the year the way it means to continue: owing, and thankful.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for the hinge, for the turning leaf of the year, though the Office does not explain the word and has fined clerks for trying. The disputed account, filed by the pamphleteers and marked Disputed: the month is named for a sound — the sound a year makes when it opens, half creak and half clerks rising from their chairs — and the name is that sound, spelled as well as anyone could. The Committee prints both accounts and rules on neither. The stairs, asked directly, said nothing, which the Committee accepted as the oldest answer on record."], "gap": null}, {"name": "Sunmanber", "short": "SUNMANBER", "days": "Days 29–56 of the year", "season": "High summer", "index": "The Solstice Picnic. The Music Festival", "paras": ["Sunmanber is the second month, high summer, the season of the suns, when the light is longest and the city's paperwork dries fastest and every queue ripens in the open air. The Office's account is that Sunmanber follows Hendiber as light follows the opening of a door: first the year is opened, then it is illuminated, and the illumination is a Sunmanber art. The street's account is shorter. The street says the month is when the suns inspect the city, and the city, knowing it is inspected, puts on music.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Temple's account, filed at the Temple of the Suns and printed here with the Temple's permission: the month is named for the suns' stewardship, for the season when their light holds the city longest and the city's debts to the light come due in festivals. The disputed account, filed by the pamphleteers and marked Disputed: the month is named for a man, a Sunman, who once sold shade at a fair price and is remembered because nobody since has managed it. The Committee prints both accounts and rules on neither. The suns, asked directly, continued to shine, which the Committee accepted as an answer in the affirmative and filed under weather."], "gap": null}, {"name": "Zipsdier — the First Filing", "short": "ZIPSDIER I", "days": "Days 1–28 of Zipsdier · days 57–84 of the year", "season": "Late summer–autumn", "index": "The long month. Everything is due", "paras": ["The filing season opens on the 1st of Zipsdier and the month opens three times, in three filings of twenty-eight days each, because one opening was found, by long experience, to be insufficient warning. Rent is due. The first Deep City signup window opens. Stamp something. The season has begun and it keeps its own appointments.", "Zipsdier is the third month and the long one: eighty-four days, three filings of twenty-eight, the filing season itself, when the city's paperwork is not the accompaniment to life but, for a quarter of the year, its main event, and citizens schedule their weddings, feuds, and renovations around the openings and closings the way farmers schedule around rain. The Office's account is that Zipsdier was always triple: some months hold a season, and this one holds the season of holding. The street's account is more tired. The street says Zipsdier is three months wearing one name because the Bureau ran out of names in the year it ran out of everything else, and the three filings agreed to share.", "That the season carries the year's heaviest observances — the Lottery, the Lock-in, the Reversed Inspection, the Linesong, the Close — is filed as coincidence by the Office and as load-bearing by everyone who has lived through it. The dead are sung home in Zipsdier because the filings keep the truest copies of their names. That is not an etymology. That is a use, and the Committee prints it as one.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for the sound of its work — the quick, repeated closing of things, drawers and files and doors, three to a breath, all season long — though the Office does not write the sound down and has fined clerks for imitating it at the windows. The disputed account, filed by the pamphleteers and marked Disputed in three places: the month is named for a clerk, the first Keeper of the Third Filing, who signed with a flourish no one has successfully copied since, and the name is the flourish, spelled as well as anyone could. The Committee prints both accounts and rules on neither. The Raven, asked directly, filed the question under the season, where it remains, between the second and third copies."], "gap": null}, {"name": "Zipsdier — the Second Filing", "short": "ZIPSDIER II", "days": "Days 29–56 of Zipsdier · days 85–112 of the year", "season": "Late summer–autumn", "index": "The long month. Everything is due", "paras": ["The Second Filing opens. The Deep City signup window reopens for three days, because the season believes in second chances and files them in the middle. New ledgers are issued. The old ledgers are not collected. A citizen of Zipsdier carries both, and walks accordingly."], "gap": "The book files no separate history for this filing. Zipsdier’s history is filed once, for the triple month entire, and it stands at the First Filing of this wheel."}, {"name": "Zipsdier — the Third Filing", "short": "ZIPSDIER III", "days": "Days 57–84 of Zipsdier · days 113–140 of the year", "season": "Late summer–autumn", "index": "The long month. Everything is due", "paras": ["The Third Filing opens, the last of the season, and the final Deep City signup window opens with it, for three days only. After this window the year's remaining descents are by appointment with nobody. Sign up, or be content with the surface, which is also filed."], "gap": "The book files no separate history for this filing. Zipsdier’s history is filed once, for the triple month entire, and it stands at the First Filing of this wheel."}, {"name": "Mourndier", "short": "MOURNDIER", "days": "Days 141–168 of the year", "season": "Late autumn", "index": "The mortality rolls are read", "paras": ["Mourndier is the month of the rolls, when the year's paperwork turns to face the citizens it lost. The Office's account is plain: a city that files everyone must also file everyone's ending, and an ending, like a beginning, deserves a season, a reading, and a second signature. The street's account is shorter. The street says Mourndier is the month the city reads its own mail.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for its duty — mourning, performed in order, alphabetically, with receipts. The disputed account, filed by the cemetery groundskeepers and marked Disputed in the margin: the month is named for the sound the city makes reading the rolls aloud through the district windows, which carries, and which is not quite grief and not quite bookkeeping and is entirely both. The Committee prints both accounts and rules on neither.", "The groundskeepers further file — Disputed, again — that the Bazaar of Second Prices began as an estate sale that never ended, the second prices proving more truthful than the first and the square refusing, ever since, to give the stalls back. The Bureau's comment on this filing is on record. It reads: no comment, seconded."], "gap": null}, {"name": "Gloomber", "short": "GLOOMBER", "days": "Days 169–196 of the year", "season": "Early winter", "index": "The Guild of Gloom’s month", "paras": ["Gloomber is the deep gloom: the month the city practices being itself at half light. The Office's account is that the gloom is scheduled the way the rains are scheduled elsewhere — a season the city keeps because the city runs better slightly dimmed, the way a theater runs better with the house lights low. The street's account is shorter. The street says Gloomber is the month the city rests its face.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for its weather, which is interior — a gloom kept in the chest, by regulation, at a depth the appraisal certifies yearly. The disputed account, filed by the lamp-lighters' guild and marked Disputed in the margin: the month is named for the champion of the first Gloom-Off, whose surname is lost and whose face is, arguably, still going. The Committee prints both accounts and rules on neither.", "The lamp-lighters further file — Disputed, again — that the Agencies chose Gloomber for their debate because a question argued in the gloom cannot be lost in the light either, and both sides preferred the record to show a draw with the dark. The Bureau's comment on this filing is on record. It reads: the Bureau was present. The Bureau saw nothing. The Bureau saw it at half light, beautifully."], "gap": null}, {"name": "Teadber", "short": "TEADBER", "days": "Days 197–224 of the year", "season": "Winter", "index": "Tea season below", "paras": ["Teadber is tea season: the month the city slows to the speed of a steeping pot and conducts its business at the temperature of company. The Office's account is that the season was scheduled for the citizens' health — a month at half pace keeps the other eleven honest. The street's account is shorter. The street says the city invented tea season because Gloomber needed somewhere to go.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for its levy — the small tax on leaves that funds the district offices' own pots, so that the Bureau drinks, legally, on the citizens' account, and files the fact without embarrassment. The disputed account, filed by the tea merchants' association and marked Disputed in the margin: the month is named for the first citizen who ever made a clerk wait while the pot steeped, and was not punished, because the clerk drank too. The Committee prints both accounts and rules on neither.", "The merchants further file — Disputed, again — that As-Filed Night began as a kitchen rule, one cook's refusal to re-season a finished dish, and spread from the kitchens to the windows because the whole city recognized itself in it. The Bureau's comment on this filing is on record. It reads: taken as filed."], "gap": null}, {"name": "Quillder", "short": "QUILLDER", "days": "Days 225–252 of the year", "season": "Winter", "index": "The Recopying. Something is lost", "paras": ["Quillder is the seventh month, the Recopying, when every ledger in the city is copied fresh by hand and the year's first half is made true a second time, in better handwriting. It is the city's most honest month and its most tired. Ink is rationed generously. Clerks dream in duplicate and wake with stained cuffs, and the copies go out into the world carrying the authority of originals, which everyone politely pretends not to notice.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for the quill, the instrument of the Recopying, dipped once for the city and once for the record. The street account: the month is named because in Quillder everything must be written twice, and a thing written twice needs a longer name than a thing written once. The disputed account, filed by the copyists' guild and marked Disputed: the month is named for a clerk, the first copyist, whose name the original ledger gives in full and every copy since has shortened differently. The Committee prints all three accounts and rules on none. The copies, asked directly, agree with each other, which the Bureau finds suspicious and has filed under weather."], "gap": null}, {"name": "Frostder", "short": "FROSTDER", "days": "Days 253–280 of the year", "season": "Deep winter", "index": "The longest night. Starlight", "paras": ["Frostder is the eighth month, deep winter, when the river becomes a road, the frost keeps the windows, and the city turns inward toward its fires and its files. It is the quietest month and, under the quiet, the busiest: more is confessed, settled, mended, and forgiven in Frostder than in any month with better weather, because there is nowhere else to go with it.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for the frost that files every window by morning, the Bureau's oldest unpaid clerk. The street account is cozier: the month is named because in Frostder the whole city is frosted over like a cake for a celebration nobody scheduled, and citizens eat the winter in slices, one dark day at a time. The disputed account, filed by the river pilots and marked Disputed: the month is named not for the frost but for the first citizen who walked the frozen river end to end and charged the city a toll at the far bank, which the city paid, in teeth, and has been reimbursing itself ever since. The Committee prints all three accounts and rules on none. The frost, asked directly, wrote on the window and melted before it could be filed."], "gap": null}, {"name": "Shroudber", "short": "SHROUDBER", "days": "Days 281–308 of the year", "season": "Late winter, fog", "index": "Leases end", "paras": ["Shroudber is the ninth month, the fog month and the lease month, when the year's agreements come due for reading and the city proceeds for thirty — for twenty-eight days on the fog's word. Nothing in Shroudber is quite signed and nothing is quite unsigned; the whole month is written in the provisional tense, and citizens speak a little more carefully in it, the way one speaks in a room where everything is being witnessed.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for the shroud of fog that covers the city while its leases are read, a curtain the Bureau insists is ceremonial. The street account: the month is named for what a lease does — it shrouds a room in words until the room can be seen again at the reading. The disputed account, filed by the tenants' association and marked Disputed: the month is named for the citizens' own conduct, who go about Shroudber muffled, courteous, and legally indistinct, like clauses. The Committee prints all three accounts and rules on none.", "ADVANCE NOTICE, filed with this history by the Bureau. Next year, this month's day numbers will be filed in the order received, not in order. The unicorns said so. All twenty-eight numbers will be present; the Committee wishes it noted that they were all present this year as well, some of them twice in the drafts. The flexibility makes it easier on all our backs. Citizens planning next Shroudber around particular dates are advised to plan around all of them."], "gap": null}, {"name": "Chandber", "short": "CHANDBER", "days": "Days 309–336 of the year", "season": "Early spring", "index": "The Forecast of sanctioned calamity", "paras": ["Chandber is the tenth month, the season of the Forecast, when the Bureau publishes the month's calamities in advance and the city practices the fine art of being disappointed on schedule. By the outside count it is spring growing confident. Inside the city it is simply the month the sky makes promises in writing. The year's filed couplet gives Chandber its employment, and the month has never once applied for other work: Chandber foretells what the weather won't do.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for the Chand, the old office of predictors whose seal the Forecast still carries, and whose clerks were the first to sign the sky. The street account is plainer: a chandber, in the speech of the district, is any promise the sky makes in writing, and the month is named for its contents, like a jar. The disputed account, filed by the pamphleteers and marked Disputed in the margin: the name is not a name at all but a warning label, pasted on after the first Forecast, and the weather has been misdelivered ever since. The Committee prints all three accounts and rules on none of them."], "gap": null}, {"name": "Feastber", "short": "FEASTBER", "days": "Days 337–364 of the year", "season": "Spring", "index": "The Cornic Confluence", "paras": ["Feastber is the eleventh month, the last full table of the year, when the Cornic Confluence sits for fourteen days and the city eats its stores in good order before the fog comes down for Oldber. By the outside count it is late spring, which is irrelevant. Inside the city it is the season of the long table, and the year's filed couplet gives the month its whole job description, which the month performs with both hands: Feastber eats everything.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for the Confluence's founding seating, at which — the account says — every citizen of the first filing was fed in a single sitting, and the month took the sitting's name out of respect. The street account is shorter, and hungrier: the year is fattened because Oldber is coming, and what Feastber eats, the fog cannot. The disputed account, filed by the pamphleteers and marked Disputed in the margin: the name is not a description at all but an instruction, issued by the first Headmaster, and the city has been obeying it ever since, beautifully. The Committee prints all three accounts and rules on none of them. The tables, asked directly, said nothing, being set."], "gap": null}, {"name": "Oldber", "short": "OLDBER", "days": "Days 365–392 of the year", "season": "Late spring", "index": "The Season of the Old Ones", "paras": ["Oldber is the twelfth month, late spring by the outside count, though inside the city it is simply the season of the Old Ones, when the fog comes down from Sollen's mouth and the year's paperwork is given its last chance to become true. The Office's account is that Oldber was always the last month: the year is a file, and a file ends where its oldest contents surface. The street's account is shorter. The street says the year ends in Oldber because that is where it is eaten.", "Why the month bears this name is, officially, DECLINED; the Bureau's filed line stands and this page does not overturn it. What may be told are the accounts. The Office account: the month is named for its keepers, the Old Ones, whose attention is nearest when the moon is new, and whose festival this is, though they have never attended. The disputed account, filed by the pamphleteers and marked Disputed in the margin: the month is named for the citizens themselves, who are all, by the 365th day, a little older than the year intended. The Committee prints both accounts and rules on neither. The fog, asked directly, filed the question under weather."], "gap": null}];
+var MOONS = ["\u25cf","\u25d1","\u25cb","\u25d0"];
+var svg = document.getElementById("wheel");
+var NS = "http://www.w3.org/2000/svg";
+var CX = 260, CY = 260, STEP = 360 / WALKS.length;
+var selected = 0, rotation = 0;
+function pol(r, adeg) { var a = adeg * Math.PI / 180; return [CX + r * Math.sin(a), CY - r * Math.cos(a)]; }
+function arcPath(r0, r1, a0, a1) {
+  var p = pol(r1, a0), q = pol(r1, a1), r = pol(r0, a1), s = pol(r0, a0);
+  return "M " + p[0].toFixed(1) + " " + p[1].toFixed(1) +
+    " A " + r1 + " " + r1 + " 0 0 1 " + q[0].toFixed(1) + " " + q[1].toFixed(1) +
+    " L " + r[0].toFixed(1) + " " + r[1].toFixed(1) +
+    " A " + r0 + " " + r0 + " 0 0 0 " + s[0].toFixed(1) + " " + s[1].toFixed(1) + " Z";
+}
+var rotor = document.createElementNS(NS, "g");
+rotor.setAttribute("id", "rotor");
+svg.appendChild(rotor);
+var segEls = [], labelEls = [];
+WALKS.forEach(function (w, i) {
+  var a0 = i * STEP - STEP / 2, a1 = i * STEP + STEP / 2;
+  var path = document.createElementNS(NS, "path");
+  path.setAttribute("d", arcPath(88, 250, a0, a1));
+  path.setAttribute("class", "seg" + (i % 2 ? " alt" : "") + (w.name.indexOf("Zipsdier") === 0 ? " zips" : ""));
+  path.setAttribute("data-i", i);
+  rotor.appendChild(path); segEls.push(path);
+  var mp = pol(220, i * STEP);
+  var moon = document.createElementNS(NS, "text");
+  moon.setAttribute("x", mp[0]); moon.setAttribute("y", mp[1] + 6);
+  moon.setAttribute("text-anchor", "middle"); moon.setAttribute("class", "moon");
+  moon.textContent = MOONS[i % 4];
+  rotor.appendChild(moon);
+  var lp = pol(162, i * STEP);
+  var lab = document.createElementNS(NS, "text");
+  lab.setAttribute("x", lp[0]); lab.setAttribute("y", lp[1] + 4);
+  lab.setAttribute("text-anchor", "middle"); lab.setAttribute("class", "seglabel");
+  var rot = i * STEP; if (rot > 90 && rot < 270) rot += 180;
+  lab.setAttribute("transform", "rotate(" + rot + " " + lp[0] + " " + lp[1] + ")");
+  lab.textContent = w.short;
+  rotor.appendChild(lab); labelEls.push(lab);
+  var np = pol(104, i * STEP);
+  var num = document.createElementNS(NS, "text");
+  num.setAttribute("x", np[0]); num.setAttribute("y", np[1] + 4);
+  num.setAttribute("text-anchor", "middle"); num.setAttribute("class", "stnum");
+  num.textContent = String(i + 1);
+  rotor.appendChild(num);
+});
+var hub = document.createElementNS(NS, "g");
+hub.innerHTML = '<circle cx="260" cy="260" r="72" fill="#170e06" stroke="#cdbb92" stroke-width="1.4"/>' +
+  '<text x="260" y="252" text-anchor="middle" class="hub" font-size="17" letter-spacing="2">MOON-WALK</text>' +
+  '<text x="260" y="272" text-anchor="middle" class="hub" font-size="17" letter-spacing="2">WHEEL</text>' +
+  '<text x="260" y="290" text-anchor="middle" font-size="11" fill="#cdbb92">fourteen walks</text>';
+svg.appendChild(hub);
+
+var wpKick = document.getElementById("wpKick"), wpName = document.getElementById("wpName"),
+    wpFiled = document.getElementById("wpFiled"), wpBody = document.getElementById("wpBody"),
+    wpGap = document.getElementById("wpGap");
+function renderPanel() {
+  var w = WALKS[selected];
+  wpKick.textContent = "Walk " + (selected + 1) + " of fourteen · " + w.days;
+  wpName.textContent = w.name;
+  wpFiled.textContent = w.season + " — as the Index files it: " + w.index;
+  wpBody.innerHTML = "";
+  w.paras.forEach(function (t) { var p = document.createElement("p"); p.textContent = t; wpBody.appendChild(p); });
+  wpGap.innerHTML = "";
+  if (w.gap) { var d = document.createElement("div"); d.setAttribute("class", "gapnote"); d.textContent = w.gap; wpGap.appendChild(d); }
+  segEls.forEach(function (el, i) { el.setAttribute("class", el.getAttribute("class").replace(" sel", "") + (i === selected ? " sel" : "")); });
+  labelEls.forEach(function (el, i) { el.setAttribute("class", "seglabel" + (i === selected ? " sel" : "")); });
+  svg.setAttribute("aria-label", "The Moon-Walk Wheel. Selected walk " + (selected + 1) + " of fourteen: " + w.name + ". Use the left and right arrow keys, the Previous and Next buttons, or drag the wheel to turn it.");
+}
+function nearestTarget(i) {
+  var target = -i * STEP;
+  var cur = rotation % 360;
+  var base = rotation - cur;
+  var cand = base + target;
+  while (cand - rotation > 180) cand -= 360;
+  while (cand - rotation < -180) cand += 360;
+  return cand;
+}
+function select(i, animate) {
+  selected = ((i % WALKS.length) + WALKS.length) % WALKS.length;
+  rotation = nearestTarget(selected);
+  rotor.style.transform = "rotate(" + rotation + "deg)";
+  renderPanel();
+}
+document.getElementById("prevBtn").addEventListener("click", function () { select(selected - 1); });
+document.getElementById("nextBtn").addEventListener("click", function () { select(selected + 1); });
+svg.addEventListener("keydown", function (e) {
+  if (e.key === "ArrowLeft") { select(selected - 1); e.preventDefault(); }
+  else if (e.key === "ArrowRight") { select(selected + 1); e.preventDefault(); }
+  else if (e.key === "Home") { select(0); e.preventDefault(); }
+  else if (e.key === "End") { select(WALKS.length - 1); e.preventDefault(); }
+});
+function pointerAngle(e) {
+  var r = svg.getBoundingClientRect();
+  var x = (e.clientX - r.left) / r.width * 520 - CX;
+  var y = (e.clientY - r.top) / r.height * 520 - CY;
+  return Math.atan2(x, -y) * 180 / Math.PI;
+}
+var drag = null;
+svg.addEventListener("pointerdown", function (e) {
+  drag = { lastA: pointerAngle(e), total: 0,
+           seg: (e.target && e.target.getAttribute && e.target.getAttribute("data-i")) ? parseInt(e.target.getAttribute("data-i"), 10) : null };
+  svg.classList.add("dragging");
+  svg.setPointerCapture(e.pointerId);
+});
+svg.addEventListener("pointermove", function (e) {
+  if (!drag) return;
+  var a = pointerAngle(e);
+  var d = a - drag.lastA;
+  if (d > 180) d -= 360; else if (d < -180) d += 360;
+  drag.lastA = a;
+  drag.total += d;
+  drag.moved = Math.max(drag.moved, Math.abs(drag.total));
+  rotation += d;
+  rotor.style.transform = "rotate(" + rotation + "deg)";
+});
+function endDrag(e) {
+  if (!drag) return;
+  svg.classList.remove("dragging");
+  if (drag.moved < 3 && drag.seg !== null && !isNaN(drag.seg)) { select(drag.seg); }
+  else { select(Math.round(-rotation / STEP)); }
+  drag = null;
+}
+svg.addEventListener("pointerup", endDrag);
+svg.addEventListener("pointercancel", endDrag);
+select(0);
+
+/* Rosette layers */
+Array.prototype.forEach.call(document.querySelectorAll("[data-layer]"), function (btn) {
+  btn.addEventListener("click", function () {
+    var g = document.getElementById(btn.getAttribute("data-layer"));
+    var on = btn.getAttribute("aria-pressed") === "true";
+    btn.setAttribute("aria-pressed", on ? "false" : "true");
+    btn.classList.toggle("ghost", on);
+    if (g) g.classList.toggle("layer-off", on);
+  });
+});
+</script>
+<script src="montavera-calendar.js"></script>
+</body>
+</html>
