@@ -39,20 +39,38 @@
   apply(theme);
 
   var css =
-    /* ---- the toggle pill itself ---- */
-    '#mg-themebtn{position:fixed;top:48px;left:18px;z-index:10001;' +
+    /* ---- the toggle pill itself: it lives IN the header, on the
+       wordmark's own row — inserted right after the brand anchor and
+       carried to the row's empty right-hand space by margin-left:auto.
+       (.mg-fixed is only the no-header fallback: the old pinned spot.) ---- */
+    '#mg-themebtn{margin-left:auto;flex:none;align-self:center;' +
     'background:#1d1a15;color:#e9dec5;border:1px solid rgba(233,222,197,.45);' +
     'font-family:"Cormorant Garamond",Cormorant,Georgia,serif;font-size:15px;font-weight:600;' +
     'letter-spacing:.08em;padding:10px 16px;border-radius:999px;cursor:pointer;' +
-    'box-shadow:0 6px 22px rgba(0,0,0,.5);line-height:1.25;text-align:center;}' +
+    'box-shadow:0 6px 22px rgba(0,0,0,.5);line-height:1.25;text-align:center;white-space:nowrap;}' +
+    '#mg-themebtn.mg-fixed{position:fixed;top:48px;left:18px;z-index:10001;margin-left:0;}' +
     '#mg-themebtn:hover{border-color:#4fae74;}' +
     '#mg-themebtn:focus-visible{outline:2px solid #4fae74;outline-offset:2px;}' +
     'html.day #mg-themebtn{background:#faf4e2;color:#261b0b;border-color:rgba(58,42,18,.55);' +
     'box-shadow:0 6px 22px rgba(80,60,20,.30);}' +
     'html.day #mg-themebtn:hover{border-color:#2e7d4f;}' +
     'html.day #mg-themebtn:focus-visible{outline-color:#1c6e3c;}' +
-    '@media (max-width:700px){#mg-themebtn{top:44px;left:10px;font-size:12.5px;' +
-    'padding:7px 11px;max-width:40vw;line-height:1.3;}}' +
+    /* the generator's first back-link carries its own margin-left:auto;
+       following the pill it takes the ordinary gap instead, so the pill's
+       auto margin — not two competing ones — sets the right-hand cluster */
+    '.topbar-in #mg-themebtn + .back-link{margin-left:1.25rem;}' +
+    '@media (max-width:700px){#mg-themebtn{font-size:12px;' +
+    'padding:6px 10px;line-height:1.3;}' +
+    '#mg-themebtn.mg-fixed{top:44px;left:10px;max-width:40vw;margin-left:0;}' +
+    /* the generator's wordmark never shrinks on small screens (the home
+       page's own wordmark does, at these same values); at phone width it
+       would push the pill off the name's row, so it takes the home
+       page's mobile sizing here */
+    '.topbar-in .wordmark{font-size:.92rem;letter-spacing:.12em;}' +
+    /* some literal pages' .top rows (brand + nav) never wrap; on a phone
+       the pill joins the brand's line and the nav drops to a line of its
+       own rather than anything squeezing off-screen */
+    '.top{flex-wrap:wrap;row-gap:8px;}}' +
 
     /* ---- shared mounts: the marquee strip and the homepage calendar panel ---- */
     'html.day #mg-marquee{background:#efe4c6;color:#261b0b;border-bottom:1px solid #2e7d4f;}' +
@@ -180,11 +198,31 @@
     paint();
   });
 
-  if (document.body) {
+  /* Mount the pill in the header, immediately after the wordmark/brand
+     anchor, so it sits on the name's own row in the empty space to its
+     right. Each page's header is found through a fallback chain; only
+     when no header matches does the pill take the old pinned spot. */
+  function mount() {
+    var spots = [
+      { box: '.head-in', mark: '.wordmark' },    /* home */
+      { box: '.topbar-in', mark: '.wordmark' },  /* character generator */
+      { box: '.top', mark: '.brand' }            /* calendar, library, song sheets, prologue, wheel room */
+    ];
+    for (var i = 0; i < spots.length; i++) {
+      var box = document.querySelector(spots[i].box);
+      if (!box) continue;
+      var mark = box.querySelector(spots[i].mark);
+      if (!mark) continue;
+      mark.parentNode.insertBefore(btn, mark.nextSibling);
+      return;
+    }
+    btn.classList.add('mg-fixed');
     document.body.appendChild(btn);
+  }
+
+  if (document.body) {
+    mount();
   } else {
-    document.addEventListener('DOMContentLoaded', function () {
-      document.body.appendChild(btn);
-    });
+    document.addEventListener('DOMContentLoaded', mount);
   }
 })();
