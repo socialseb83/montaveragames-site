@@ -70,6 +70,39 @@
   .coverblock .s { color:var(--dim); letter-spacing:.18em; text-transform:uppercase; font-size:12px; margin-top:10px; font-family:'Spectral',serif; }
   .price { font-family:'Cormorant Garamond',serif; font-size:28px; color:var(--head); }
   .signup { border:1px solid var(--green); padding:24px; margin-top:18px; text-align:left; }
+
+  /* ---------- the two horoscopes: stationery of the unicorns ----------
+     Each panel is a filed instrument on Bureau paper — parchment ground,
+     engraved frame, seal, staff rule, fine print — and stays paper in
+     both the day and night palettes, as a document on the desk would. */
+  #horoscopes .slip { background:linear-gradient(172deg,#f6efdb,#eee1bd); color:#2a1d12; border:1.5px solid #2a1d12; outline:1px solid rgba(42,29,18,.5); outline-offset:4px; box-shadow:0 12px 28px -12px rgba(0,0,0,.6); padding:20px 24px; }
+  .skydoc { --paper:#f6efdb; --paper2:#ebddb6; --ink:#2a1d12; --soft:#5a4632; --rub:#9e2b1b; --gold:#a97f2c; --grn:#2e7d4f;
+    background:linear-gradient(174deg,var(--paper),var(--paper2)); color:var(--ink);
+    border:2px solid var(--ink); outline:1px solid rgba(42,29,18,.55); outline-offset:5px;
+    box-shadow:0 16px 36px -12px rgba(0,0,0,.65); padding:10px; }
+  .skydoc .sd-frame { position:relative; border:1px solid rgba(42,29,18,.55); padding:20px 22px 16px; height:100%; box-sizing:border-box; display:flex; flex-direction:column; }
+  .skydoc .sd-cn { position:absolute; width:9px; height:9px; background:var(--paper); border:1.5px solid var(--ink); transform:rotate(45deg); }
+  .skydoc .sd-cn.tl { top:-6px; left:-6px; } .skydoc .sd-cn.tr { top:-6px; right:-6px; }
+  .skydoc .sd-cn.bl { bottom:-6px; left:-6px; } .skydoc .sd-cn.br { bottom:-6px; right:-6px; }
+  .skydoc .sd-head { display:flex; justify-content:space-between; gap:12px; border-bottom:2px solid var(--ink); padding-bottom:7px;
+    font-family:'Spectral',serif; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--soft); }
+  .skydoc .sd-head .sd-form { color:var(--rub); white-space:nowrap; }
+  .skydoc .sd-titlerow { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-top:12px; }
+  .skydoc h3 { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:600; color:var(--ink); margin:0; line-height:1.05; }
+  .skydoc .sd-purpose { font-style:italic; color:var(--soft); font-size:15.5px; margin:5px 0 0; line-height:1.45; }
+  .skydoc .sd-seal { flex:0 0 auto; margin-top:2px; }
+  .skydoc .sd-staff { display:block; width:100%; height:24px; margin:10px 0 4px; }
+  .skydoc p { font-size:16px; line-height:1.6; color:var(--ink); }
+  .skydoc .filed { font-family:'Cormorant Garamond',serif; font-size:20px; line-height:1.4; color:var(--ink); }
+  .skydoc .sd-obs { border-top:1px solid rgba(42,29,18,.35); border-bottom:1px solid rgba(42,29,18,.35); padding:9px 2px; margin:12px 0 2px; }
+  .skydoc .sd-obs .filed { font-size:21px; }
+  .skydoc .sd-obs .sd-detail { color:var(--soft); font-style:italic; font-size:15px; }
+  .skydoc .sd-fine { margin-top:auto; border-top:1px solid rgba(42,29,18,.35); padding-top:9px; font-size:13.5px; line-height:1.5; font-style:italic; color:var(--soft); }
+  .skydoc .sd-foot { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:12px; }
+  .skydoc .sd-motto { font-size:12.5px; letter-spacing:.08em; color:var(--soft); font-style:italic; }
+  .skydoc .sd-on { flex:0 0 auto; width:42px; height:42px; border:1.5px dashed var(--rub); border-radius:50%; display:grid; place-items:center;
+    font-family:'Cormorant Garamond',serif; font-size:14px; letter-spacing:.06em; color:var(--rub); transform:rotate(-7deg); }
+  @media (max-width:640px){ .skydoc .sd-frame { padding:16px 15px 13px; } .skydoc h3 { font-size:27px; } .skydoc .sd-head { font-size:10px; letter-spacing:.12em; } }
   footer { margin-top:60px; border-top:1px solid #291b0c; padding-top:16px; font-size:13px; color:#9c865f; text-align:center; }
 </style>
 </head>
@@ -120,20 +153,42 @@
   <section id="horoscopes">
     <h2>The Two Horoscopes</h2>
     <p>The book files one horoscope for every day of the year, under a single heading — <em>The moon and the suns, daily</em> — built, as filed, from the white moon's phase and the suns. It does not file them separately, and this page does not separate them on its own authority. The filed line for the day you are viewing:</p>
-    <blockquote class="note" id="horoscope-line"></blockquote>
+    <blockquote class="note slip" id="horoscope-line"></blockquote>
     <div class="cols">
-      <div class="card">
-        <h3>The Suns</h3>
-        <p>A horoscope from the number of suns that rose today.</p>
-        <div class="disputed">Disputed: the book does not say. No count of suns, and no table of their rising, is filed for any day. The suns of the filed horoscopes are plural and unnamed, and this page invents no number for them.</div>
-        <p>What the book does file for the suns, it files under Sunsday, the Second Look: <span class="filed">&ldquo;The Temple of the Suns opens early and stays bright late.&rdquo;</span> Where today's filed line above speaks of the suns, it speaks with that authority and no other.</p>
-      </div>
-      <div class="card">
-        <h3>The Moon</h3>
-        <p>A horoscope from the mood of the moon.</p>
-        <p>The white moon today: <span class="filed" id="moon-phase-name"></span> <span id="moon-phase-detail"></span></p>
-        <div class="disputed">Disputed: the book does not say. The book names the moon's phases — new on the 4th, first quarter on the 11th, full on the 18th, last quarter on the 25th, always on Moonsdays — but it files no list of named moods. The moon's mood for a day is carried in that day's filed horoscope line, above, and nowhere else.</div>
-      </div>
+      <article class="skydoc" aria-label="The Suns horoscope">
+        <div class="sd-frame">
+          <span class="sd-cn tl"></span><span class="sd-cn tr"></span><span class="sd-cn bl"></span><span class="sd-cn br"></span>
+          <div class="sd-head"><span>The Bureau · Stationery of the Unicorns</span><span class="sd-form">Form SKY-1</span></div>
+          <div class="sd-titlerow">
+            <div>
+              <h3>The Suns</h3>
+              <p class="sd-purpose">A horoscope from the number of suns that rose today.</p>
+            </div>
+            <svg class="sd-seal" width="76" height="76" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="37" fill="none" stroke="#2a1d12" stroke-width="1.2"/><circle cx="42" cy="42" r="27" fill="none" stroke="#a97f2c" stroke-width="9" stroke-dasharray="4.2 10.13"/><circle cx="42" cy="42" r="16" fill="none" stroke="#2a1d12" stroke-width="1.4"/><circle cx="42" cy="42" r="4" fill="#9e2b1b"/></svg>
+          </div>
+          <svg class="sd-staff" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><g stroke="#2a1d12" stroke-width="1" opacity="0.55"><line x1="0" y1="5" x2="600" y2="5"/><line x1="0" y1="12" x2="600" y2="12"/><line x1="0" y1="19" x2="600" y2="19"/></g><g fill="#2a1d12"><rect x="86" y="1" width="8" height="8" transform="rotate(45 90 5)"/><rect x="296" y="8" width="8" height="8" transform="rotate(45 300 12)"/><rect x="466" y="1" width="8" height="8" transform="rotate(45 470 5)"/></g><circle cx="545" cy="12" r="3.4" fill="#9e2b1b"/></svg>
+          <p>What the book does file for the suns, it files under Sunsday, the Second Look: <span class="filed">&ldquo;The Temple of the Suns opens early and stays bright late.&rdquo;</span> Where today's filed line above speaks of the suns, it speaks with that authority and no other.</p>
+          <div class="sd-fine">Disputed: the book does not say. No count of suns, and no table of their rising, is filed for any day. The suns of the filed horoscopes are plural and unnamed, and this page invents no number for them.</div>
+          <div class="sd-foot"><span class="sd-motto">Nosselen selen nos. Onlin on.</span><span class="sd-on" aria-hidden="true">ÒN</span></div>
+        </div>
+      </article>
+      <article class="skydoc" aria-label="The Moon horoscope">
+        <div class="sd-frame">
+          <span class="sd-cn tl"></span><span class="sd-cn tr"></span><span class="sd-cn bl"></span><span class="sd-cn br"></span>
+          <div class="sd-head"><span>The Bureau · Stationery of the Unicorns</span><span class="sd-form">Form SKY-2</span></div>
+          <div class="sd-titlerow">
+            <div>
+              <h3>The Moon</h3>
+              <p class="sd-purpose">A horoscope from the mood of the moon.</p>
+            </div>
+            <svg class="sd-seal" width="76" height="76" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="37" fill="none" stroke="#2a1d12" stroke-width="1.2"/><path d="M 63 21 A 27 27 0 1 0 63 63 A 21 27 0 1 1 63 21 Z" fill="#2a1d12" opacity="0.88"/><path d="M 66 12 l 2.2 4.8 4.8 2.2 -4.8 2.2 -2.2 4.8 -2.2 -4.8 -4.8 -2.2 4.8 -2.2 Z" fill="#9e2b1b"/></svg>
+          </div>
+          <svg class="sd-staff" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><g stroke="#2a1d12" stroke-width="1" opacity="0.55"><line x1="0" y1="5" x2="600" y2="5"/><line x1="0" y1="12" x2="600" y2="12"/><line x1="0" y1="19" x2="600" y2="19"/></g><g fill="#2a1d12"><rect x="106" y="15" width="8" height="8" transform="rotate(45 110 19)"/><rect x="326" y="8" width="8" height="8" transform="rotate(45 330 12)"/><rect x="496" y="15" width="8" height="8" transform="rotate(45 500 19)"/></g><circle cx="55" cy="5" r="3.4" fill="#9e2b1b"/></svg>
+          <p class="sd-obs">The white moon today: <span class="filed" id="moon-phase-name"></span> <span class="sd-detail" id="moon-phase-detail"></span></p>
+          <div class="sd-fine">Disputed: the book does not say. The book names the moon's phases — new on the 4th, first quarter on the 11th, full on the 18th, last quarter on the 25th, always on Moonsdays — but it files no list of named moods. The moon's mood for a day is carried in that day's filed horoscope line, above, and nowhere else.</div>
+          <div class="sd-foot"><span class="sd-motto">Nosselen selen nos. Onlin on.</span><span class="sd-on" aria-hidden="true">ÒN</span></div>
+        </div>
+      </article>
     </div>
   </section>
 
