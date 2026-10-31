@@ -172,7 +172,9 @@
       'font-family:"Cormorant Garamond",Cormorant,Georgia,serif;font-size:17px;letter-spacing:.06em;' +
       'text-decoration:none;padding:11px 18px;border-radius:999px;border:1px solid #f6ecd4;' +
       'box-shadow:0 6px 22px rgba(0,0,0,.55);}' +
-      '#mg-calbtn:hover{background:#35965e;}';
+      '#mg-calbtn:hover{background:#35965e;}' +
+      '@media (max-width:700px){#mg-calbtn{top:44px;right:10px;font-size:12.5px;' +
+      'padding:7px 11px;max-width:46vw;line-height:1.3;text-align:center;letter-spacing:.03em;}}';
     var style = document.createElement('style');
     style.id = 'mg-cal-styles';
     style.textContent = css;
