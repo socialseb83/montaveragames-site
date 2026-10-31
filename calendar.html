@@ -112,6 +112,9 @@
   .histdoc .hist-obs { font-family:'Cormorant Garamond',serif; font-size:23px; line-height:1.35; color:var(--ink); margin:10px 0 0; }
   .histdoc .hist-body p { font-size:16.5px; line-height:1.65; color:var(--ink); margin:8px 0 0; max-width:44rem; }
   .histdoc .hist-near { color:var(--soft); }
+  .histdoc .hist-rub { font-size:11.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--grn); margin:20px 0 0; padding-top:12px; border-top:1px solid rgba(42,29,18,.30); max-width:none; }
+  .histdoc p.hist-glean { font-size:15.5px; line-height:1.6; margin:9px 0 0; padding-left:20px; position:relative; }
+  .histdoc p.hist-glean::before { content:"◆"; position:absolute; left:1px; top:3px; font-size:9px; color:var(--grn); }
   .histdoc .hist-jump { background:none; border:none; border-bottom:1.5px solid var(--rub); color:var(--rub); font:inherit; font-family:'Cormorant Garamond',serif; font-size:19px; cursor:pointer; padding:0 1px; }
   .histdoc .hist-jump:hover { background:rgba(158,43,27,.12); }
   @media (max-width:640px){ .histdoc h2 { font-size:29px; } .histdoc .hist-obs { font-size:20px; } }
@@ -318,8 +321,7 @@ var MONTAVERA_HOROSCOPES = ["The white moon is a thin rind over a new year. Knoc
       var p = document.createElement('p');
       p.textContent = ACC[t.dayOfYear];
       body.appendChild(p);
-      return;
-    }
+    } else {
     var none = document.createElement('p');
     none.textContent = 'The month\u2019s back pages file no account of this day. The Index keeps the day, and keeps its counsel.';
     body.appendChild(none);
@@ -341,6 +343,20 @@ var MONTAVERA_HOROSCOPES = ["The white moon is a thin rind over a new year. Knoc
       near.appendChild(btn);
       near.appendChild(document.createTextNode(' — ' + noteFor(best.doy) + ' Choose it, and this document will show its account.'));
       body.appendChild(near);
+    }
+    }
+    var G = (window.MONTAVERA_GLEANINGS || {})[t.dayOfYear];
+    if (G && G.length) {
+      var rub = document.createElement('p');
+      rub.className = 'hist-rub';
+      rub.textContent = 'Gleanings — also filed for this day';
+      body.appendChild(rub);
+      G.forEach(function (item) {
+        var gp = document.createElement('p');
+        gp.className = 'hist-glean';
+        gp.textContent = item;
+        body.appendChild(gp);
+      });
     }
   }
 
