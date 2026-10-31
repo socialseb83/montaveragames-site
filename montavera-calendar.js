@@ -148,7 +148,7 @@
   }
   function dayProgressPercent(date) { return Math.floor(dayProgress(date) * 100); }
 
-  /* ---- Shared mounts: the marquee strip and the pinned calendar button ---- */
+  /* ---- Shared mounts: the marquee strip and the homepage calendar panel ---- */
 
   function marqueeSegment(now) {
     var t = montaveranDate(now);
@@ -168,13 +168,16 @@
       '#mg-marquee .mg-track{display:inline-block;white-space:nowrap;animation:mg-scroll 120s linear infinite;}' +
       '@keyframes mg-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}' +
       '@media (prefers-reduced-motion: reduce){#mg-marquee .mg-track{animation:none}}' +
-      '#mg-calbtn{position:fixed;right:18px;top:48px;z-index:9999;background:#2e7d4f;color:#f6ecd4;' +
-      'font-family:"Cormorant Garamond",Cormorant,Georgia,serif;font-size:17px;letter-spacing:.06em;' +
-      'text-decoration:none;padding:11px 18px;border-radius:999px;border:1px solid #f6ecd4;' +
-      'box-shadow:0 6px 22px rgba(0,0,0,.55);}' +
-      '#mg-calbtn:hover{background:#35965e;}' +
-      '@media (max-width:700px){#mg-calbtn{top:44px;right:10px;font-size:12.5px;' +
-      'padding:7px 11px;max-width:46vw;line-height:1.3;text-align:center;letter-spacing:.03em;}}';
+      '#mg-calstrip{width:calc(100% - 2.5rem);max-width:1140px;margin:36px auto 44px;' +
+      'padding:22px 26px;background:#161009;border:1px solid #2e7d4f;color:#e9dec5;' +
+      'text-align:center;font-family:"Cormorant Garamond",Cormorant,Georgia,serif;}' +
+      '#mg-calstrip .mg-strip-date{display:block;font-size:clamp(21px,3.4vw,30px);' +
+      'font-weight:600;letter-spacing:.05em;line-height:1.25;}' +
+      '#mg-calstrip .mg-strip-link{display:inline-block;margin-top:10px;font-size:18px;' +
+      'letter-spacing:.06em;color:#9ad1b1;text-decoration:none;' +
+      'border-bottom:1px solid #2e7d4f;padding-bottom:2px;}' +
+      '#mg-calstrip .mg-strip-link:hover{color:#f6ecd4;}' +
+      '#mg-calstrip .mg-strip-link:focus-visible{outline:2px solid #4fae74;outline-offset:3px;}';
     var style = document.createElement('style');
     style.id = 'mg-cal-styles';
     style.textContent = css;
@@ -195,11 +198,21 @@
       track.textContent = half + half; /* two identical halves = a seamless loop */
       marquee.appendChild(track);
     }
-    var btn = document.getElementById('mg-calbtn');
-    if (btn) {
+    var strip = document.getElementById('mg-calstrip');
+    if (strip) {
       injectStyles();
       var t = montaveranDate(now);
-      btn.textContent = 'Click Here · The Fifty-Six · ' + t.month + ' ' + t.day;
+      strip.innerHTML = '';
+      var dateEl = document.createElement('span');
+      dateEl.className = 'mg-strip-date';
+      dateEl.textContent = '✶ Today in Montavera — ' + t.weekday + ', ' + t.month + ' ' +
+        t.day + ', Year ' + t.year + ' of the 56th Age ✶';
+      var stripLink = document.createElement('a');
+      stripLink.className = 'mg-strip-link';
+      stripLink.href = 'calendar.html';
+      stripLink.textContent = 'See the calendar & today’s horoscopes →';
+      strip.appendChild(dateEl);
+      strip.appendChild(stripLink);
     }
   }
 

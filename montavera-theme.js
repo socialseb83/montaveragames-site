@@ -54,9 +54,11 @@
     '@media (max-width:700px){#mg-themebtn{top:44px;left:10px;font-size:12.5px;' +
     'padding:7px 11px;max-width:40vw;line-height:1.3;}}' +
 
-    /* ---- shared mounts: the marquee strip and the pinned calendar button ---- */
+    /* ---- shared mounts: the marquee strip and the homepage calendar panel ---- */
     'html.day #mg-marquee{background:#efe4c6;color:#261b0b;border-bottom:1px solid #2e7d4f;}' +
-    'html.day #mg-calbtn{box-shadow:0 6px 22px rgba(80,60,20,.35);}' +
+    'html.day #mg-calstrip{background:#efe4c6;color:#261b0b;border-color:#2e7d4f;}' +
+    'html.day #mg-calstrip .mg-strip-link{color:#1c6e3c;border-bottom-color:#2e7d4f;}' +
+    'html.day #mg-calstrip .mg-strip-link:hover{color:#261b0b;}' +
 
     /* ---- focus stays visible in daylight ---- */
     'html.day :focus-visible{outline:2px solid #1c6e3c;outline-offset:2px;}' +

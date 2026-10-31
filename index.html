@@ -350,6 +350,7 @@
         white-space: nowrap;
       }
       .ptab:hover { color: var(--dim); }
+      a.ptab { text-decoration: none; }
       .ptab[aria-selected="true"] { color: var(--bone); border-bottom-color: var(--green-hot); }
       @media (max-width: 560px) {
         .tabbar-in { padding: 0 0.6rem; gap: 0.1rem; }
@@ -409,7 +410,6 @@
   </head>
   <body>
   <div id="mg-marquee" aria-label="Today in Montavera">Montavera keeps its own calendar.</div>
-  <a id="mg-calbtn" href="calendar.html">The Fifty-Six — today in Montavera</a>
     <header class="site-head">
       <div class="head-in">
         <a class="wordmark" href="#top">MONTAVERA<span class="dot">·</span>GAMES</a>
@@ -426,6 +426,7 @@
           <button type="button" class="ptab" role="tab" id="tab-novels" data-view="novels" aria-selected="true" aria-controls="view-novels" data-i18n="tabNovels">Novels</button>
           <button type="button" class="ptab" role="tab" id="tab-index" data-view="index" aria-selected="false" aria-controls="view-index" data-i18n="tabIndex">The Black Index</button>
           <button type="button" class="ptab" role="tab" id="tab-factions" data-view="factions" aria-selected="false" aria-controls="view-factions" data-i18n="tabFactions">Factions</button>
+          <a class="ptab" href="calendar.html" data-i18n="tabCalendar">Calendar</a>
         </div>
       </nav>
     </header>
@@ -751,6 +752,10 @@
           <div class="doorlight" aria-hidden="true"></div>
         </div>
       </section>
+      <section id="mg-calstrip" aria-label="Today in Montavera">
+        <span class="mg-strip-date">Montavera keeps its own calendar.</span>
+        <a class="mg-strip-link" href="calendar.html">See the calendar &amp; today&rsquo;s horoscopes &rarr;</a>
+      </section>
     </main>
 
     <footer>
@@ -837,6 +842,7 @@
           tabNovels: 'Novels',
           tabIndex: 'The Black Index',
           tabFactions: 'Factions',
+          tabCalendar: 'Calendar',
           facKicker: 'The Card Game',
           facSoon: 'Coming Soon',
           facCapHero: 'Printed cards on the playmat',
@@ -919,6 +925,7 @@
           tabNovels: 'Las novelas',
           tabIndex: 'The Black Index',
           tabFactions: 'Factions',
+          tabCalendar: 'Calendario',
           facKicker: 'El juego de cartas',
           facSoon: 'Muy pronto',
           facCapHero: 'Cartas impresas sobre el tapete',

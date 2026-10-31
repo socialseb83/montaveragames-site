@@ -59,6 +59,7 @@
       }
       .wordmark .dot { color: var(--green-hot); }
       .topbar .back-link { margin-left: auto; font-size: 0.92rem; color: var(--dim); text-decoration: none; }
+      .topbar .back-link + .back-link { margin-left: 1.25rem; }
       .topbar .back-link:hover { color: var(--bone); }
 
       .wrap { max-width: 980px; margin: 0 auto; padding: 2.2rem 1.25rem 4rem; }
@@ -396,10 +397,10 @@
   </head>
   <body>
   <div id="mg-marquee" aria-label="Today in Montavera">Montavera keeps its own calendar.</div>
-  <a id="mg-calbtn" href="calendar.html">The Fifty-Six — today in Montavera</a>
     <header class="topbar no-print">
       <div class="topbar-in">
         <a class="wordmark" href="index.html">MONTAVERA<span class="dot">.</span>GAMES</a>
+        <a class="back-link" href="calendar.html">Calendar</a>
         <a class="back-link" href="index.html#black-index">&larr; The Black Index</a>
       </div>
     </header>
