@@ -20,6 +20,17 @@
   p { font-size:19px; line-height:1.75; margin:0 0 1.1em; }
   p:first-of-type::first-letter { font-family:'Cormorant Garamond',serif; font-size:52px; line-height:1; color:#f6ecd4; }
   .break { text-align:center; color:#b3232a; letter-spacing:.6em; margin:28px 0; }
+  .langtoggle { display:inline-flex; border:1px solid #7e141b; border-radius:999px; overflow:hidden; vertical-align:middle; margin-left:14px; }
+  .lt { background:transparent; border:0; color:#cdbb92; font-family:'Spectral',Georgia,serif; font-size:13.5px; padding:5px 14px; cursor:pointer; letter-spacing:.04em; }
+  .lt.on { background:#7e141b; color:#f6ecd4; }
+  [hidden] { display:none !important; }
+  #espanol h2 { font-size:40px; margin-top:40px; }
+  html, body { overflow-x:clip; }
+  .sketch { margin:0; }
+  .sketch img { display:block; width:100%; height:auto; background:#f3ead2; border:1px solid #3a2a16; box-shadow:0 4px 18px rgba(0,0,0,.45); }
+  @media (min-width:1280px) { .sketch { float:right; clear:right; width:218px; margin:8px -254px 16px 22px; } }
+  @media (min-width:701px) and (max-width:1279px) { .sketch { float:right; clear:right; width:190px; margin:6px 0 12px 20px; } }
+  @media (max-width:700px) { .sketch { width:min(280px,78%); margin:14px auto 20px; } }
   .ask { border:1px solid #7e141b; padding:24px; margin-top:48px; text-align:center; }
   .ask h3 { font-family:'Cormorant Garamond',serif; font-size:26px; margin:0 0 8px; color:#f6ecd4; }
   .ask p { font-size:16px; }
@@ -32,19 +43,21 @@
 <div class="wrap">
   <div class="top">
     <div class="brand">Montavera Games</div>
-    <nav class="langnav"><a href="#english">English</a><a href="#espanol">Español</a><a href="index.html">Home</a><a href="calendar.html">Calendar</a></nav>
+    <nav class="langnav"><span class="langtoggle" role="group" aria-label="Language / Idioma"><button type="button" class="lt on" id="btn-en" aria-pressed="true">English</button><button type="button" class="lt" id="btn-es" aria-pressed="false">Español</button></span><a href="index.html">Home</a><a href="calendar.html">Calendar</a></nav>
   </div>
 
   <section id="english" lang="en">
     <h1>Prologue — The Whispering Door</h1>
     <p class="byline">From <em>The Songs Beneath</em> — Book One of The Unsung — by the Headmaster of Montavera. The complete Prologue, free to read. No email required.</p>
 <p>The door whispered to her for seven months. Tonight she ran up the Sollen’s Spine to answer it. </p>
+<figure class="sketch"><img src="images/prologue-sketch-stair.webp" alt="Pencil sketch: the worn stone stair cut into the snowy mountain, one small hooded figure climbing"></figure>
 <p>The steps were cut into the side of the mountain, more than she could count, worn into hollows by feet that had climbed them long before hers. She took them two at a time until her legs burned. Then one at a time. Then one at a time with her hand on the rock. Snow on every step. Ice beneath it. The wind came up behind her and pushed at her back.</p>
 <p>The smell of old smoke and wet stone reached her before she could see the shrine. A cold scent, aging a hundred years. And under all of it, tea. Green and hot and sweet, as the elder women of the tribe used to make when she was a child. </p>
 <p>But… Up here? In the dead of winter?</p>
 <p>On the side of a mountain, where no one lived?</p>
 <p> The wind came up the stairs and pushed at her back. the rock under her boots changed. The rough mountain steps gave way to laid stone, smooth and square, fitted so tight no snow could get between them. And the stair didn't end. It ran straight on, up, into the shrine itself.</p>
 <p>She stopped on the last open landing with one hand gripping the cord at her chest. With her other hand on her belly, she heaved. Her breath - swirling white rags carried off by the icy wind.</p>
+<figure class="sketch"><img src="images/prologue-sketch-city.webp" alt="Pencil sketch: the dead city from above — black roofs, black towers, streets straight as spear shafts, all under snow"></figure>
 <p>Below her, the mountain fell away into the dark. And beyond it, past the foot of the mountain, spread out under the stars as far as she could see, lay the dead city.</p>
 <p>She had never seen it from above. </p>
 <p>Nobody she’d ever known had. </p>
@@ -52,7 +65,9 @@
 <p>She listened, because she always listened. And under the wind, under the hiss of the snow, so low she had to hold her breath to hear it, the dead city had a song. Old. Slow. Slower than anything living, like water moving under a mile of ice. It had been going for longer than anyone's grandmother could remember, and nobody had been left to hear it.</p>
 <p>She turned her back on it.</p>
 <div class="break" aria-hidden="true">· · ·</div>
+<figure class="sketch"><img src="images/prologue-sketch-shrine.webp" alt="Pencil sketch: the shrine against the sky, long and low under its snow-heavy roof, the dark tower apart at its west end"></figure>
 <p>Above her, the shrine stood against the sky, long and low and old, its roof heavy with snow. At its west end, a tower rose off by itself. Dark from top to bottom. Not one window lit.</p>
+<figure class="sketch"><img src="images/prologue-sketch-ravens.webp" alt="Pencil sketch: ravens covering the whole ridge of the roof, shoulder to shoulder, every one facing the tower"></figure>
 <p>Ravens were perched on the roof. Their harsh grating kraa ripped through the wind and echoed through the spires. She heard them before she saw them. Hundreds of them. Shifting their feet, ruffling their feathers, angrily shoving each other. They covered the whole ridge of the roof from one end to the other, black on the white snow, packed shoulder to shoulder like people at a burning. And every one of them was facing the same way.</p>
 <p>West. Toward the tower.</p>
 <p>She climbed the last flight beneath them in a hurry, her neck prickling under her hood, their presence heavy over her head. Never once did they meet her eyes.</p>
@@ -65,6 +80,7 @@
 <p>She stopped in front of it. </p>
 <p>Inside was a corridor, long and straight and dark. Somewhere far down it, the roof had come in. She could see the shape of it, a great slope of broken stone and beams, and out of the gaps in the rubble came a light.</p>
 <p>Not gold. Not firelight. Not moonlight. A thin, colorless light, cold as the inside of a spring, coming from nowhere. From nothing. There was no fire under that stone. There was nothing under that stone at all.</p>
+<figure class="sketch"><img src="images/prologue-sketch-cups.webp" alt="Pencil sketch: the corridor of little clay cups, steam rising off every one, down to the dark at the far end"></figure>
 <p>And all along the corridor, on both sides, against the walls, were cups.</p>
 <p>Little clay cups. Dozens of them. Hundreds. In rows, set out as if for guests. She bent and looked at the nearest one. It was full to the brim. Steam was rising off it, curling, gold-green in that colorless light.</p>
 <p>She looked down the row. Steam rose off every one. Every one but the last, at the very end, nearest the dark. That one stood empty.</p>
@@ -84,6 +100,7 @@
 <p>She walked down the corridor between the steaming cups.</p>
 <p>The light in the rubble grew. The cold grew. The whispering grew, until it was all around her, in the walls, in the stones under her boots, and in her teeth. Then the corridor turned, and she came around the corner, and there it was. </p>
 <p>The door.</p>
+<figure class="sketch"><img src="images/prologue-sketch-door.webp" alt="Pencil sketch: an ordinary wooden door with a plain latch, set in old stone — and around its edges, a darkness thicker than the dark"></figure>
 <p>She had thought it would be something terrible. She had imagined it, lying awake. Black iron. Bones. Some great carved mouth.</p>
 <p>It was an ordinary door. Wood. Dark with age. A plain wooden latch. The kind of door that hung on every house in her village. It stood at the end of the corridor, set into the old stone wall, and around its edges, in the cracks between the wood and the stone, the darkness was blacker than anything she had ever seen. </p>
 <p>Thick. Not empty. Full.</p>
@@ -136,6 +153,7 @@
 <p>The child turned under her hand. Toward the door.</p>
 <p>She lifted the flute from her chest.</p>
 <div class="break" aria-hidden="true">· · ·</div>
+<figure class="sketch"><img src="images/prologue-sketch-flute.webp" alt="Pencil sketch: the old flute on its cord, a single open eye carved on its side"></figure>
 <p>It was old, smoothed by the generations of hands who held it, and on its side was carved a single open eye. Her mother's. Her mother's mother's. It had never left the cord around her neck since the day it was given to her, and she had played it over a hundred sickbeds, and she had never, not once, played it as she played it now.</p>
 <p>She did not play for the door.</p>
 <p>She turned her shoulder to the door, as you turn your shoulder to a wind, and bent her head, and put the flute to her lips, and played down. Down, toward her own belly. Toward him.</p>
@@ -192,12 +210,14 @@
     <h2>Pròlogo — La Puerta Susurrante</h2>
     <p class="byline">De <em>Lo Que No Se Contesta</em> — la ediciòn en español de <em>The Songs Beneath</em> — de El Preceptor de Montavera. El Pròlogo completo, gratis. Sin registro.</p>
     <p>La puerta le habìa susurrado durante siete meses. Esa noche subiò corriendo la Espina de Sollen para contestarle.</p>
+<figure class="sketch"><img src="images/prologue-sketch-stair.webp" alt="Boceto a lápiz: la escalera de piedra gastada, tallada en la montaña nevada, con una pequeña figura encapuchada subiendo"></figure>
 <p>Los escalones estaban tallados en la ladera de la montaña, màs de los que podìa contar, gastados en hondonadas por pies que los habìan subido mucho antes que los suyos. Los subiò de dos en dos hasta que le ardieron las piernas. Luego de uno en uno. Luego de uno en uno con la mano apoyada en la roca. Nieve en cada escalòn. Hielo debajo. El viento subìa detràs de ella y le empujaba la espalda.</p>
 <p>El olor a humo viejo y a piedra mojada le llegò antes de que pudiera ver el santuario. Un olor frìo, que llevaba cien años envejeciendo. Y debajo de todo, tè. Verde y caliente y dulce, como lo hacìan las ancianas de la tribu cuando ella era niña.</p>
 <p>Pero… ¿aquì arriba? ¿En pleno invierno?</p>
 <p>¿En la ladera de una montaña donde no vivìa nadie?</p>
 <p>El viento subiò por la escalera y le empujò la espalda. La roca cambiò bajo sus botas. Los escalones toscos de la montaña dieron paso a una piedra labrada, lisa y cuadrada, encajada tan justa que ni la nieve se metìa entre las juntas. Y la escalera no terminaba. Seguìa derecho, hacia arriba, hasta adentro del santuario mismo.</p>
 <p>Se detuvo en el ùltimo descanso al aire libre, con una mano aferrada al cordòn que le colgaba sobre el pecho. Con la otra sobre el vientre, tomò aire a bocanadas. El aliento: jirones blancos que se arremolinaban y se llevaba el viento helado.</p>
+<figure class="sketch"><img src="images/prologue-sketch-city.webp" alt="Boceto a lápiz: la ciudad muerta desde arriba — techos negros, torres negras, calles rectas como astas de lanza, todo bajo la nieve"></figure>
 <p>Abajo, la montaña se desplomaba hacia la oscuridad. Y màs allà, pasado el pie de la montaña, tendida bajo las estrellas hasta donde alcanzaba la vista, estaba la ciudad muerta.</p>
 <p>Nunca la habìa visto desde arriba.</p>
 <p>Nadie que ella hubiera conocido la habìa visto.</p>
@@ -205,7 +225,9 @@
 <p>Escuchò, porque siempre escuchaba. Y debajo del viento, debajo del siseo de la nieve, tan bajo que tuvo que contener el aliento para oìrlo, la ciudad muerta tenìa una canciòn. Vieja. Lenta. Màs lenta que cualquier cosa viva, como agua que corre bajo leguas de hielo. Sonaba desde antes de lo que alcanzaba la memoria de cualquier abuela, y no habìa quedado nadie para oìrla.</p>
 <p>Le dio la espalda.</p>
 <div class="break" aria-hidden="true">· · ·</div>
+<figure class="sketch"><img src="images/prologue-sketch-shrine.webp" alt="Boceto a lápiz: el santuario contra el cielo, largo y bajo bajo su techo cargado de nieve, con la torre oscura apartada en su extremo oeste"></figure>
 <p>Arriba, el santuario se recortaba contra el cielo, largo y bajo y viejo, con el techo cargado de nieve. En su extremo oeste se alzaba una torre, apartada. Oscura de arriba abajo. Ni una ventana encendida.</p>
+<figure class="sketch"><img src="images/prologue-sketch-ravens.webp" alt="Boceto a lápiz: cuervos cubriendo toda la cumbrera del techo, hombro con hombro, todos mirando hacia la torre"></figure>
 <p>Habìa cuervos posados en el techo. Su graznido àspero, <em>craa</em>, rasgaba el viento y retumbaba entre las agujas. Los oyò antes de verlos. Cientos. Cambiaban de pata, se esponjaban las plumas, se empujaban unos a otros con rabia. Cubrìan la cumbrera entera de punta a punta, negros sobre la nieve blanca, apretados hombro con hombro como gente en una quema. Y todos, sin excepciòn, miraban hacia el mismo lado.</p>
 <p>Al oeste. Hacia la torre.</p>
 <p>Subiò a toda prisa el ùltimo tramo, por debajo de ellos, con la nuca erizada bajo la capucha y el peso de los pàjaros encima de la cabeza. Ni una sola vez la miraron a los ojos.</p>
@@ -218,6 +240,7 @@
 <p>Se detuvo frente a ella.</p>
 <p>Adentro habìa un corredor, largo y recto y oscuro. En algùn punto, muy al fondo, el techo se habìa desplomado. Alcanzaba a distinguir la forma: una gran pendiente de piedra rota y vigas, y por los huecos del escombro salìa una luz.</p>
 <p>No dorada. No de fuego. No de luna. Una luz delgada, sin color, frìa como el interior de un manantial, que no venìa de ningùn lado. De nada. No habìa fuego bajo esa piedra. Bajo esa piedra no habìa nada.</p>
+<figure class="sketch"><img src="images/prologue-sketch-cups.webp" alt="Boceto a lápiz: el corredor de tacitas de barro, con vapor subiendo de cada una, hasta la oscuridad del fondo"></figure>
 <p>Y a todo lo largo del corredor, a los dos lados, contra las paredes, habìa tazas.</p>
 <p>Tacitas de barro. Docenas. Cientos. En filas, puestas como para recibir visitas. Se agachò a mirar la màs cercana. Estaba llena hasta el borde. Le salìa vapor, que se enroscaba, verde dorado en esa luz sin color.</p>
 <p>Mirò a lo largo de la fila. Salìa vapor de todas. De todas menos la ùltima, al fondo de todo, la màs cercana a la oscuridad. Esa estaba vacìa.</p>
@@ -238,6 +261,7 @@
 <p>La luz del escombro creciò. El frìo creciò. El susurro creciò, hasta rodearla entera, en las paredes, en las piedras bajo sus botas, en los dientes. Entonces el corredor doblò, y ella dio la vuelta a la esquina, y ahì estaba.</p>
 <p>La puerta.</p>
 <p>Habìa pensado que serìa algo terrible. Se la habìa imaginado, despierta en la cama. Hierro negro. Huesos. Alguna boca enorme tallada en la piedra.</p>
+<figure class="sketch"><img src="images/prologue-sketch-door.webp" alt="Boceto a lápiz: una puerta común de madera con un pestillo sencillo, encajada en la piedra vieja — y en sus bordes, una oscuridad más espesa que la oscuridad"></figure>
 <p>Era una puerta comùn. Madera. Oscurecida por los años. Un pestillo sencillo de madera. La clase de puerta que habìa en todas las casas de su aldea. Estaba al final del corredor, encajada en la vieja pared de piedra, y en los bordes, en las rendijas entre la madera y la piedra, la oscuridad era màs negra que nada que ella hubiera visto nunca.</p>
 <p>Espesa. No vacìa. Llena.</p>
 <p>Pero del otro lado, algo se moviò.</p>
@@ -289,6 +313,7 @@
 <p>Ella se quedò ahì parada.</p>
 <p>Pensò en darse la vuelta. En volver a salir entre las tazas y los cuervos. Bajar la larga escalinata. Volver al camino. Todo el camino de vuelta a casa. Se olvidarìa. De esto. De este lugar. Se acostarìa junto a su hombre en la oscuridad y harìa como si nunca hubiera venido.</p>
 <p>El niño se volviò bajo su mano. Hacia la puerta.</p>
+<figure class="sketch"><img src="images/prologue-sketch-flute.webp" alt="Boceto a lápiz: la flauta vieja en su cordón, con un solo ojo abierto tallado en el costado"></figure>
 <p>Levantò la flauta que le colgaba sobre el pecho.</p>
 <div class="break" aria-hidden="true">· · ·</div>
 <p>Era vieja, pulida por las generaciones de manos que la habìan sostenido, y en un costado tenìa tallado un solo ojo abierto. De su madre. De la madre de su madre. No se habìa separado del cordòn de su cuello desde el dìa en que se la dieron, y la habìa tocado junto a màs de cien camas de enfermos, y nunca, ni una sola vez, la habìa tocado como la tocò entonces.</p>
@@ -355,5 +380,28 @@
 
   <script src="montavera-calendar.js"></script>
   <script src="montavera-theme.js"></script>
+<script>
+(function () {
+  var en = document.getElementById('english'), es = document.getElementById('espanol');
+  var bEn = document.getElementById('btn-en'), bEs = document.getElementById('btn-es');
+  function show(lang) {
+    var isEs = lang === 'es';
+    en.hidden = isEs; es.hidden = !isEs;
+    bEn.classList.toggle('on', !isEs); bEs.classList.toggle('on', isEs);
+    bEn.setAttribute('aria-pressed', String(!isEs)); bEs.setAttribute('aria-pressed', String(isEs));
+    document.documentElement.lang = isEs ? 'es' : 'en';
+    try { localStorage.setItem('mg-prologue-lang', lang); } catch (e) {}
+    window.scrollTo(0, 0);
+  }
+  bEn.addEventListener('click', function () { show('en'); });
+  bEs.addEventListener('click', function () { show('es'); });
+  var initial = 'en';
+  try {
+    if (location.hash === '#espanol') initial = 'es';
+    else if (localStorage.getItem('mg-prologue-lang') === 'es') initial = 'es';
+  } catch (e) {}
+  if (initial === 'es') show('es'); else { es.hidden = true; }
+})();
+</script>
 </body>
 </html>
