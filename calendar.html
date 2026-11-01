@@ -126,7 +126,7 @@
 <div class="wrap">
   <div class="top">
     <div class="brand">Montavera Games</div>
-    <nav><a href="index.html#novel">Novels</a><a href="index.html#black-index">Black Index</a><a href="calendar.html" aria-current="page">Calendar</a><a href="#horoscopes">Horoscopes</a><a href="magic-system.html">Magic System</a><a href="about-the-author.html">About the Author</a></nav>
+    <nav><a href="index.html#novel">Novels</a><a href="index.html#black-index">Black Index</a><a href="calendar.html" aria-current="page">Calendar</a><a href="horoscopes.html">Horoscopes</a><a href="magic-system.html">Magic System</a><a href="about-the-author.html">About the Author</a></nav>
   </div>
 
   <!-- ================= TODAY ================= -->
@@ -181,47 +181,11 @@
     <div class="daypanel" id="day-panel" aria-live="polite"></div>
   </section>
 
-  <!-- ================= THE TWO HOROSCOPES ================= -->
-  <section id="horoscopes">
-    <h2>The Two Horoscopes</h2>
-    <p>The book files one horoscope for every day of the year, under a single heading — <em>The moon and the suns, daily</em> — built, as filed, from the white moon's phase and the suns. It does not file them separately, and this page does not separate them on its own authority. The filed line for the day you are viewing:</p>
-    <blockquote class="note slip" id="horoscope-line"></blockquote>
-    <div class="cols">
-      <article class="skydoc" aria-label="The Suns horoscope">
-        <div class="sd-frame">
-          <span class="sd-cn tl"></span><span class="sd-cn tr"></span><span class="sd-cn bl"></span><span class="sd-cn br"></span>
-          <div class="sd-head"><span>The Bureau · Stationery of the Unicorns</span><span class="sd-form">Form SKY-1</span></div>
-          <div class="sd-titlerow">
-            <div>
-              <h3>The Suns</h3>
-              <p class="sd-purpose">A horoscope from the number of suns that rose today.</p>
-            </div>
-            <svg class="sd-seal" width="76" height="76" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="37" fill="none" stroke="#2a1d12" stroke-width="1.2"/><circle cx="42" cy="42" r="27" fill="none" stroke="#a97f2c" stroke-width="9" stroke-dasharray="4.2 10.13"/><circle cx="42" cy="42" r="16" fill="none" stroke="#2a1d12" stroke-width="1.4"/><circle cx="42" cy="42" r="4" fill="#9e2b1b"/></svg>
-          </div>
-          <svg class="sd-staff" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><g stroke="#2a1d12" stroke-width="1" opacity="0.55"><line x1="0" y1="5" x2="600" y2="5"/><line x1="0" y1="12" x2="600" y2="12"/><line x1="0" y1="19" x2="600" y2="19"/></g><g fill="#2a1d12"><rect x="86" y="1" width="8" height="8" transform="rotate(45 90 5)"/><rect x="296" y="8" width="8" height="8" transform="rotate(45 300 12)"/><rect x="466" y="1" width="8" height="8" transform="rotate(45 470 5)"/></g><circle cx="545" cy="12" r="3.4" fill="#9e2b1b"/></svg>
-          <p>What the book does file for the suns, it files under Sunsday, the Second Look: <span class="filed">&ldquo;The Temple of the Suns opens early and stays bright late.&rdquo;</span> Where today's filed line above speaks of the suns, it speaks with that authority and no other.</p>
-          <div class="sd-fine">Disputed: the book does not say. No count of suns, and no table of their rising, is filed for any day. The suns of the filed horoscopes are plural and unnamed, and this page invents no number for them.</div>
-          <div class="sd-foot"><span class="sd-motto">Nosselen selen nos. Onlin on.</span><span class="sd-on" aria-hidden="true">ÒN</span></div>
-        </div>
-      </article>
-      <article class="skydoc" aria-label="The Moon horoscope">
-        <div class="sd-frame">
-          <span class="sd-cn tl"></span><span class="sd-cn tr"></span><span class="sd-cn bl"></span><span class="sd-cn br"></span>
-          <div class="sd-head"><span>The Bureau · Stationery of the Unicorns</span><span class="sd-form">Form SKY-2</span></div>
-          <div class="sd-titlerow">
-            <div>
-              <h3>The Moon</h3>
-              <p class="sd-purpose">A horoscope from the mood of the moon.</p>
-            </div>
-            <svg class="sd-seal" width="76" height="76" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="37" fill="none" stroke="#2a1d12" stroke-width="1.2"/><path d="M 63 21 A 27 27 0 1 0 63 63 A 21 27 0 1 1 63 21 Z" fill="#2a1d12" opacity="0.88"/><path d="M 66 12 l 2.2 4.8 4.8 2.2 -4.8 2.2 -2.2 4.8 -2.2 -4.8 -4.8 -2.2 4.8 -2.2 Z" fill="#9e2b1b"/></svg>
-          </div>
-          <svg class="sd-staff" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><g stroke="#2a1d12" stroke-width="1" opacity="0.55"><line x1="0" y1="5" x2="600" y2="5"/><line x1="0" y1="12" x2="600" y2="12"/><line x1="0" y1="19" x2="600" y2="19"/></g><g fill="#2a1d12"><rect x="106" y="15" width="8" height="8" transform="rotate(45 110 19)"/><rect x="326" y="8" width="8" height="8" transform="rotate(45 330 12)"/><rect x="496" y="15" width="8" height="8" transform="rotate(45 500 19)"/></g><circle cx="55" cy="5" r="3.4" fill="#9e2b1b"/></svg>
-          <p class="sd-obs">The white moon today: <span class="filed" id="moon-phase-name"></span> <span class="sd-detail" id="moon-phase-detail"></span></p>
-          <div class="sd-fine">Disputed: the book does not say. The book names the moon's phases — new on the 4th, first quarter on the 11th, full on the 18th, last quarter on the 25th, always on Moonsdays — but it files no list of named moods. The moon's mood for a day is carried in that day's filed horoscope line, above, and nowhere else.</div>
-          <div class="sd-foot"><span class="sd-motto">Nosselen selen nos. Onlin on.</span><span class="sd-on" aria-hidden="true">ÒN</span></div>
-        </div>
-      </article>
-    </div>
+  <!-- ================= THE BREATH READING ================= -->
+  <section id="breath-reading">
+    <h2>The Breath Reading</h2>
+    <p>The calendar files the days; the reading files <em>you</em>. Your breath, from the day you were filed, read against today's suns and last night's moon — the two questions asked fresh, and her line for you. Gornola's desk keeps its own page now.</p>
+    <p><a href="horoscopes.html" style="display:inline-block;padding:10px 22px;border:1.5px solid #a97f2c;color:#f6ecd4;text-decoration:none;font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;letter-spacing:.03em">Take the Breath Reading</a></p>
   </section>
 
   <!-- ================= THE BOOK ================= -->
@@ -379,10 +343,6 @@ var MONTAVERA_HOROSCOPES = ["The white moon is a thin rind over a new year. Knoc
     ph.className = 'dhor';
     ph.textContent = 'The white moon: ' + t.phaseName + '.';
     panel.appendChild(head); panel.appendChild(note); panel.appendChild(hor); panel.appendChild(ph);
-    document.getElementById('horoscope-line').textContent = horoscopeFor(t.dayOfYear);
-    document.getElementById('moon-phase-name').textContent = cap(t.phaseName) + '.';
-    document.getElementById('moon-phase-detail').textContent = t.isFull
-      ? 'It is full tonight.' : ('Full in ' + t.daysToFull + (t.daysToFull === 1 ? ' day.' : ' days.'));
     renderHistory(t);
   }
 

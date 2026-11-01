@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Horoscopes — The Breath Reading · Montavera Games</title>
+<meta name="description" content="Gornola's Breath Reading: a study of Montavera's suns and of the moon, your breath from your filing month, and the two questions of the Listening.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#100a05; color:#e9dec5; font-family:'Spectral',Georgia,serif; font-weight:300; }
+  .wrap { max-width:1080px; margin:0 auto; padding:32px 20px 64px; }
+  a { color:#e9dec5; }
+  .top { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px; border-bottom:1px solid #7e141b; padding-bottom:14px; }
+  .brand { font-family:'Cormorant Garamond',serif; letter-spacing:.18em; font-size:15px; text-transform:uppercase; color:#f6ecd4; }
+  .mainnav { font-size:14px; } .mainnav a { margin-left:14px; color:#cdbb92; text-decoration:none; }
+  .mainnav a:hover { color:#f6ecd4; }
+  #mg-marquee { margin:22px 0 8px; text-align:center; font-style:italic; color:#cdbb92; font-size:16px; }
+  h1 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:42px; line-height:1.1; margin:38px 0 6px; color:#f6ecd4; text-align:center; }
+  .intro { color:#cdbb92; font-style:italic; text-align:center; margin:0 auto 10px; max-width:680px; font-size:17px; line-height:1.6; }
+  .sect { margin-top:52px; }
+  .sect h2 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:30px; line-height:1.15; margin:0 0 4px; color:#f6ecd4; }
+  .kicker { color:#2e7d4f; font-size:13px; letter-spacing:.14em; text-transform:uppercase; margin:0 0 8px; }
+  .sect p { font-size:16.5px; line-height:1.65; margin:0 0 12px; max-width:760px; }
+  .btn { display:inline-block; padding:10px 22px; background:#2e7d4f; border:1px solid #2e7d4f; color:#f6ecd4; text-decoration:none; letter-spacing:.08em; font-size:15px; }
+  .btn:hover { background:transparent; }
+  footer { margin-top:64px; border-top:1px solid #291b0c; padding-top:16px; font-size:13px; color:#9c865f; text-align:center; }
+  [hidden] { display:none !important; }
+
+  /* ---------- study tables ---------- */
+  table.study { width:100%; border-collapse:collapse; margin:14px 0 6px; font-size:15.5px; }
+  table.study th { font-family:'Cormorant Garamond',serif; font-weight:600; text-align:left; color:#f6ecd4; font-size:17px; padding:8px 10px; border-bottom:1.5px solid #7e5a20; }
+  table.study td { padding:7px 10px; border-bottom:1px solid rgba(126,90,32,.35); line-height:1.5; vertical-align:top; }
+  table.study td:first-child { white-space:nowrap; color:#f6ecd4; }
+  @media (max-width:640px){ table.study td:first-child { white-space:normal; } table.study { font-size:14.5px; } }
+
+  /* ---------- the two forms: stationery of the unicorns (as filed on the calendar floor, now at home) ---------- */
+  .skycols { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; margin-top:8px; }
+  @media (max-width:900px){ .skycols { grid-template-columns:1fr; } }
+  .skydoc { --paper:#f6efdb; --paper2:#ebddb6; --ink:#2a1d12; --soft:#5a4632; --rub:#9e2b1b; --gold:#a97f2c; --grn:#2e7d4f;
+    background:linear-gradient(174deg,var(--paper),var(--paper2)); color:var(--ink);
+    border:2px solid var(--ink); outline:1px solid rgba(42,29,18,.55); outline-offset:5px;
+    box-shadow:0 16px 36px -12px rgba(0,0,0,.65); padding:10px; }
+  .skydoc .sd-frame { position:relative; border:1px solid rgba(42,29,18,.55); padding:20px 22px 16px; height:100%; box-sizing:border-box; display:flex; flex-direction:column; }
+  .skydoc .sd-cn { position:absolute; width:9px; height:9px; background:var(--paper); border:1.5px solid var(--ink); transform:rotate(45deg); }
+  .skydoc .sd-cn.tl { top:-6px; left:-6px; } .skydoc .sd-cn.tr { top:-6px; right:-6px; }
+  .skydoc .sd-cn.bl { bottom:-6px; left:-6px; } .skydoc .sd-cn.br { bottom:-6px; right:-6px; }
+  .skydoc .sd-head { display:flex; justify-content:space-between; gap:12px; border-bottom:2px solid var(--ink); padding-bottom:7px;
+    font-family:'Spectral',serif; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--soft); }
+  .skydoc .sd-head .sd-form { color:var(--rub); white-space:nowrap; }
+  .skydoc .sd-titlerow { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-top:12px; }
+  .skydoc h3 { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:600; color:var(--ink); margin:0; line-height:1.05; }
+  .skydoc .sd-purpose { font-style:italic; color:var(--soft); font-size:15.5px; margin:5px 0 0; line-height:1.45; }
+  .skydoc .sd-seal { flex:0 0 auto; margin-top:2px; }
+  .skydoc .sd-staff { display:block; width:100%; height:24px; margin:10px 0 4px; }
+  .skydoc p { font-size:16px; line-height:1.6; color:var(--ink); }
+  .skydoc .filed { font-family:'Cormorant Garamond',serif; font-size:20px; line-height:1.4; color:var(--ink); }
+  .skydoc .sd-obs { border-top:1px solid rgba(42,29,18,.35); border-bottom:1px solid rgba(42,29,18,.35); padding:9px 2px; margin:12px 0 2px; }
+  .skydoc .sd-obs .filed { font-size:21px; }
+  .skydoc .sd-obs .sd-detail { color:var(--soft); font-style:italic; font-size:15px; }
+  .skydoc .sd-detail { color:var(--soft); font-style:italic; font-size:14.5px; }
+  .skydoc .sd-fine { margin-top:auto; border-top:1px solid rgba(42,29,18,.35); padding-top:9px; font-size:13.5px; line-height:1.5; font-style:italic; color:var(--soft); }
+  .skydoc .sd-foot { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:12px; }
+  .skydoc .sd-motto { font-size:12.5px; letter-spacing:.08em; color:var(--soft); font-style:italic; }
+  .skydoc .sd-on { flex:0 0 auto; width:42px; height:42px; border:1.5px dashed var(--rub); border-radius:50%; display:grid; place-items:center;
+    font-family:'Cormorant Garamond',serif; font-size:14px; letter-spacing:.06em; color:var(--rub); transform:rotate(-7deg); }
+  @media (max-width:640px){ .skydoc .sd-frame { padding:16px 15px 13px; } .skydoc h3 { font-size:27px; } .skydoc .sd-head { font-size:10px; letter-spacing:.12em; } }
+
+  /* ---------- the reading, piece by piece ---------- */
+  .piece { margin-top:16px; }
+  .piece .plabel { font-size:12px; letter-spacing:.2em; text-transform:uppercase; margin:0 0 4px; font-family:'Spectral',serif; }
+  .piece p { margin:0; }
+  .piece.trance .plabel { color:#5b3e99; }
+  .piece.trance { border-left:3px solid #5b3e99; padding-left:12px; }
+  .piece.interp .plabel { color:#8a6414; }
+  .piece.interp { border-left:3px solid var(--gold); padding-left:12px; }
+  .piece.moonp .plabel, .piece.plain .plabel { color:var(--rub); }
+  .piece .fineprint { font-size:13px; font-style:italic; color:var(--soft); margin-top:5px; }
+  .sky-form { margin-top:14px; border-top:1px solid rgba(42,29,18,.35); padding-top:14px; }
+  .sky-form label { display:block; font-family:'Cormorant Garamond',serif; font-size:19px; color:var(--ink); margin-bottom:8px; }
+  .sky-formrow { display:flex; gap:10px; flex-wrap:wrap; }
+  .sky-form input[type="date"] { flex:1 1 180px; font:inherit; font-size:16px; color:var(--ink); background:rgba(255,252,240,.65); border:1.5px solid var(--ink); padding:9px 12px; }
+  .sky-form button { font:inherit; font-size:15px; letter-spacing:.06em; background:var(--ink); color:var(--paper); border:1.5px solid var(--ink); padding:9px 18px; cursor:pointer; }
+  .sky-form button:hover { background:transparent; color:var(--ink); }
+  .qblock { margin-top:16px; border-top:1px solid rgba(42,29,18,.35); padding-top:12px; }
+  .qblock .qtext { font-family:'Cormorant Garamond',serif; font-size:20px; line-height:1.4; margin:0 0 10px; }
+  .opts { display:flex; gap:10px; flex-wrap:wrap; }
+  .opts button { font:inherit; font-size:15px; background:transparent; color:var(--ink); border:1.5px solid var(--ink); padding:8px 16px; cursor:pointer; }
+  .opts button:hover { background:rgba(42,29,18,.08); }
+  .opts button.sel { background:var(--ink); color:var(--paper); }
+</style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#14100c"></head>
+<body>
+<div id="mg-marquee" aria-label="Today in Montavera">Montavera keeps its own calendar.</div>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">Montavera Games</div>
+    <nav class="mainnav"><a href="index.html#novel">Novels</a><a href="index.html#black-index">Black Index</a><a href="calendar.html">Calendar</a><a href="horoscopes.html" aria-current="page">Horoscopes</a><a href="magic-system.html">Magic System</a><a href="about-the-author.html">About the Author</a></nav>
+  </div>
+
+  <h1>Learn Your Breath</h1>
+  <p class="intro">In Montavera nobody asks your sign. They ask your breath — the breath of the month you were filed under, which is yours for life. The readings are kept by Gornola, who trained at Tongath and gives them at her window: a record, she will tell you, not a prediction. The suns she calls the boys of the neighborhood. The moon is her beloved impossible friend. You, for the duration of the reading, are her unruly grandchild.</p>
+
+  <section class="sect">
+    <p class="kicker">First Study · The Boys of the Neighborhood</p>
+    <h2>A Study of the Suns</h2>
+    <p>Montavera's sky holds more suns than yours, and never none. By the Index's 56-day count, the number standing over the city changes from day to day — and the number is the day's character, because each count sets the suns' movement, and the movement sets what kind of day it is permitted to be.</p>
+    <table class="study">
+      <tr><th>Suns</th><th>Movement</th><th>What stands in the sky</th></tr>
+      <tr><td>−1</td><td>Rest</td><td>A negative sun — shadows over shadows. Nothing rises, and the city, wisely, holds still.</td></tr>
+      <tr><td>1</td><td>Drawing</td><td>The tiny red sun, alone. A day for taking in: breath drawn, doors opened inward.</td></tr>
+      <tr><td>2</td><td>Holding</td><td>The red sun and the common sun together. A day for keeping what you have, exactly as you have it.</td></tr>
+      <tr><td>3</td><td>Giving</td><td>Solastron, the angry third sun, joins the other two. A day for giving out — generously, and not quietly.</td></tr>
+    </table>
+    <p>Gornola's sun-reading comes in two pieces, and the difference between them is the whole discipline. First, <strong>the Trance</strong> — filed in violet — which is prophecy, and always true, and often cryptic. Second, <strong>the Interpretation</strong> — filed in amber — which is her trained guess at what the trance means for your day. The Interpretation carries a filed accuracy of one in three, and she prints that beneath it herself, every time. Which third you are in is, as she says, your affair.</p>
+  </section>
+
+  <section class="sect">
+    <p class="kicker">Second Study · The Beloved Impossible Friend</p>
+    <h2>A Study of the Moon</h2>
+    <p>The moon is a she, and her mood swings like weather. The reading for any day is made from the night before it — so what she was last night is what the city wakes to. Her moods are fourteen, and each one moves the district clerks to prepare the city differently for every breath in it:</p>
+    <table class="study">
+      <tr><th>Her mood</th><th>The clerks prepare</th><th>Her mood</th><th>The clerks prepare</th></tr>
+      <tr><td>Mad</td><td>Noise and complaints</td><td>Loyal</td><td>Oaths and memberships</td></tr>
+      <tr><td>Glad</td><td>Festivity permits</td><td>Vengeful</td><td>Debts and collection</td></tr>
+      <tr><td>Sad</td><td>Mourning and closures</td><td>Lustful</td><td>Distance and proximity</td></tr>
+      <tr><td>Spontaneous</td><td>Schedules</td><td>Romantic</td><td>Doors and greetings</td></tr>
+      <tr><td>Jealous</td><td>Who may speak to whom</td><td>Hopeful</td><td>Petitions</td></tr>
+      <tr><td>Pessimist</td><td>Warnings and insurance</td><td>Impulsive</td><td>Purchases and contracts</td></tr>
+      <tr><td>Excited</td><td>Queues and speed</td><td>Grateful</td><td>Thanks and settlements</td></tr>
+    </table>
+    <p>Her phase rules how hard the day's changes bind. She is new on the 4th and full on the 18th, always on Moonsdays. New, the changes are only advice — she says please. Waxing, they hold firmer. Full, they are strictly enforced. Waning, they are already easing. The comedy of it, the Bureau notes, is never her. It is the city, bracing.</p>
+  </section>
+
+  <section class="sect" id="the-reading">
+    <p class="kicker">The Reading</p>
+    <h2>Take the Breath Reading</h2>
+    <p class="intro">Two forms, as the Bureau keeps them. The first files your breath from the day you were born and reads today's sky against it. The second is the Listening, asked fresh each day and never stored. Today in Montavera: <span class="filed" id="sky-today"></span> <span id="sky-today-sub"></span></p>
+    <div class="skycols">
+      <article class="skydoc" aria-label="Form SKY-1 — the Suns">
+        <div class="sd-frame">
+          <span class="sd-cn tl"></span><span class="sd-cn tr"></span><span class="sd-cn bl"></span><span class="sd-cn br"></span>
+          <div class="sd-head"><span>The Bureau · Stationery of the Unicorns</span><span class="sd-form">Form SKY-1</span></div>
+          <div class="sd-titlerow">
+            <div>
+              <h3>The Suns</h3>
+              <p class="sd-purpose">File your breath. Your breath is the month you were filed under; the Bureau asks your birthday and converts it.</p>
+            </div>
+            <svg class="sd-seal" width="76" height="76" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="37" fill="none" stroke="#2a1d12" stroke-width="1.2"/><circle cx="42" cy="42" r="27" fill="none" stroke="#a97f2c" stroke-width="9" stroke-dasharray="4.2 10.13"/><circle cx="42" cy="42" r="16" fill="none" stroke="#2a1d12" stroke-width="1.4"/><circle cx="42" cy="42" r="4" fill="#9e2b1b"/></svg>
+          </div>
+          <svg class="sd-staff" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><g stroke="#2a1d12" stroke-width="1" opacity="0.55"><line x1="0" y1="5" x2="600" y2="5"/><line x1="0" y1="12" x2="600" y2="12"/><line x1="0" y1="19" x2="600" y2="19"/></g><g fill="#2a1d12"><rect x="86" y="1" width="8" height="8" transform="rotate(45 90 5)"/><rect x="296" y="8" width="8" height="8" transform="rotate(45 300 12)"/><rect x="466" y="1" width="8" height="8" transform="rotate(45 470 5)"/></g><circle cx="545" cy="12" r="3.4" fill="#9e2b1b"/></svg>
+          <form class="sky-form" id="breath-form">
+            <div class="sky-formrow">
+              <label for="birth">Your birthday</label>
+              <input type="date" id="birth" required>
+              <button type="submit" class="btn">File my breath</button>
+            </div>
+            <p class="sd-fine">Nothing is stored. The Bureau files breaths, not visitors.</p>
+          </form>
+          <div id="reading" hidden>
+            <p class="plabel">Your breath</p>
+            <p><span class="filed" id="filed-head"></span><br><span id="filed-sub"></span><br><span class="sd-detail" id="filed-line"></span></p>
+            <p id="suns-line"></p>
+            <div class="piece trance"><p class="plabel">The Trance · Violet</p><p id="trance-text"></p></div>
+            <div class="piece interp"><p class="plabel">The Interpretation · Amber</p><p id="interp-text"></p></div>
+            <p class="fineprint" id="fine-print"></p>
+            <div class="piece"><p class="plabel" id="moon-label">Last Night — The Moon</p><p id="moon-text"></p></div>
+            <div class="piece" id="prep-wrap" hidden><p class="plabel">What the Clerks Changed for Your Breath</p><p id="prep-text"></p></div>
+            <div class="piece"><p class="plabel" id="wrinkle-label">Your Wrinkle</p><p id="wrinkle-text"></p></div>
+          </div>
+          <div class="sd-foot"><span class="sd-motto">Nosselen selen nos. Onlin on.</span><span class="sd-on" aria-hidden="true">ÒN</span></div>
+        </div>
+      </article>
+      <article class="skydoc" aria-label="Form SKY-2 — the Moon">
+        <div class="sd-frame">
+          <span class="sd-cn tl"></span><span class="sd-cn tr"></span><span class="sd-cn bl"></span><span class="sd-cn br"></span>
+          <div class="sd-head"><span>The Bureau · Stationery of the Unicorns</span><span class="sd-form">Form SKY-2</span></div>
+          <div class="sd-titlerow">
+            <div>
+              <h3>The Moon</h3>
+              <p class="sd-purpose">The Listening — the Ritual of Aperture. Two questions, asked fresh, answered honestly, never stored.</p>
+            </div>
+            <svg class="sd-seal" width="76" height="76" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="37" fill="none" stroke="#2a1d12" stroke-width="1.2"/><path d="M 63 21 A 27 27 0 1 0 63 63 A 21 27 0 1 1 63 21 Z" fill="#2a1d12" opacity="0.88"/><path d="M 66 12 l 2.2 4.8 4.8 2.2 -4.8 2.2 -2.2 4.8 -2.2 -4.8 -4.8 -2.2 4.8 -2.2 Z" fill="#9e2b1b"/></svg>
+          </div>
+          <svg class="sd-staff" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><g stroke="#2a1d12" stroke-width="1" opacity="0.55"><line x1="0" y1="5" x2="600" y2="5"/><line x1="0" y1="12" x2="600" y2="12"/><line x1="0" y1="19" x2="600" y2="19"/></g><g fill="#2a1d12"><rect x="106" y="15" width="8" height="8" transform="rotate(45 110 19)"/><rect x="326" y="8" width="8" height="8" transform="rotate(45 330 12)"/><rect x="496" y="15" width="8" height="8" transform="rotate(45 500 19)"/></g><circle cx="55" cy="5" r="3.4" fill="#9e2b1b"/></svg>
+          <p id="sky2-note">File your breath at SKY-1 first. The Listening asks its questions of a filed breath, and of no one else.</p>
+          <div id="q-wrap" hidden>
+            <div class="qblock" id="q1"></div>
+            <div class="qblock" id="q2"></div>
+            <div class="piece" id="line-wrap" hidden><p class="plabel">Her Line for You</p><p id="line-text"></p></div>
+          </div>
+          <div class="sd-foot"><span class="sd-motto">Nosselen selen nos. Onlin on.</span><span class="sd-on" aria-hidden="true">ÒN</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="factions-soon" aria-label="Factions — coming soon" style="border-top:1px solid #7e141b;margin-top:56px;padding:30px 20px 8px;text-align:center"><p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:29px;font-weight:600;letter-spacing:.04em;color:#f6ecd4;margin:0">Coming Soon: Factions — Expandable Card Game</p></section>
+<footer><p><a href="index.html#novel">Novels</a> · <a href="index.html#black-index">Black Index</a> · <a href="calendar.html">Calendar</a> · <a href="horoscopes.html">Horoscopes</a> · <a href="about-the-author.html">About the Author</a></p>© 2026 Montavera Press · Montavera Games · Human-written. AI-edited. Nothing hidden.<p><a href="about-the-author.html#how-i-write">How My Books Are Written</a></p></footer>
+</div>
+<script src="montavera-calendar.js"></script>
+<script src="montavera-sky-3.js"></script>
+<script src="montavera-sky-reference.js"></script>
+<script src="montavera-theme.js"></script>
+<script>
+(function () {
+  var S = window.MONTAVERA_SKY, R = window.MONTAVERA_SKY_REFERENCE;
+  if (!S || !R) return;
+  var today = montaveranDate();
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  function sunsLine(c) {
+    if (c === -1) return 'The sky holds a negative sun today — shadows over shadows. The day\u2019s movement is Rest.';
+    if (c === 1) return 'One sun rose today: the little red sun, alone. The day\u2019s movement is Drawing.';
+    if (c === 2) return 'Two suns rose today: the little red sun and a common sun. The day\u2019s movement is Holding.';
+    return 'Three suns rose today: the red, the common sun, and Solastron the great one. The day\u2019s movement is Giving.';
+  }
+  var skyNow = R.read(S, today.year, today.dayOfYear, today.phaseDay, 'hendiber', null);
+  document.getElementById('sky-today').textContent = today.weekday + ', ' + today.month + ' ' + today.day + ', Year ' + today.year + '.';
+  document.getElementById('sky-today-sub').textContent = sunsLine(skyNow.sunCount) + ' Last night the moon was ' + skyNow.mood + ' (' + skyNow.band + ').';
+  var filing = null, answers = [null, null];
+  function maybeLine() {
+    if (!filing || !answers[0] || !answers[1]) return;
+    var out = R.read(S, today.year, today.dayOfYear, today.phaseDay, filing.key, filing.doy, answers);
+    document.getElementById('line-text').textContent = out.listening.line;
+    document.getElementById('line-wrap').hidden = false;
+  }
+  function buildQuestions(out) {
+    answers = [null, null];
+    document.getElementById('line-wrap').hidden = true;
+    document.getElementById('sky2-note').hidden = true;
+    document.getElementById('q-wrap').hidden = false;
+    [0, 1].forEach(function (i) {
+      var q = out.listening.questions[i];
+      var box = document.getElementById('q' + (i + 1));
+      box.innerHTML = '';
+      var p = document.createElement('p'); p.className = 'qtext'; p.textContent = q.text; box.appendChild(p);
+      var opts = document.createElement('div'); opts.className = 'opts';
+      q.options.forEach(function (o) {
+        var btn = document.createElement('button');
+        btn.type = 'button'; btn.textContent = o.label;
+        btn.addEventListener('click', function () {
+          answers[i] = o.key;
+          Array.prototype.forEach.call(opts.children, function (c) { c.classList.remove('sel'); });
+          btn.classList.add('sel');
+          maybeLine();
+        });
+        opts.appendChild(btn);
+      });
+      box.appendChild(opts);
+    });
+  }
+  document.getElementById('breath-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var v = document.getElementById('birth').value;
+    if (!v) return;
+    var b = montaveranDate(v);
+    var key = R.ORDER[b.monthIndex];
+    filing = { key: key, doy: b.dayOfYear };
+    var out = R.read(S, today.year, today.dayOfYear, today.phaseDay, key, b.dayOfYear);
+    var br = S.breaths[key];
+    document.getElementById('filed-head').textContent = br.name;
+    document.getElementById('filed-sub').textContent = 'Said ' + br.say + ' · sung ' + br.tone + ' · ' + br.movement + ' at the ' + br.station + ' · home ' + br.home + ', pull ' + br.pull + '.';
+    document.getElementById('filed-line').textContent = 'Filed: ' + b.weekday + ', ' + b.month + ' ' + b.day + (b.eraNote ? ' — of an earlier volume.' : ', Year ' + b.year + '.');
+    document.getElementById('suns-line').textContent = sunsLine(out.sunCount);
+    document.getElementById('trance-text').textContent = out.trance.text;
+    document.getElementById('interp-text').textContent = out.interpretation.text;
+    document.getElementById('fine-print').textContent = S.finePrint;
+    document.getElementById('moon-label').textContent = 'Last Night — The Moon, ' + cap(S.moods[out.mood].name) + ' (' + out.band + ')';
+    document.getElementById('moon-text').textContent = out.moon.text;
+    var pw = document.getElementById('prep-wrap');
+    if (out.prep) { document.getElementById('prep-text').textContent = out.prep; pw.hidden = false; } else { pw.hidden = true; }
+    document.getElementById('wrinkle-label').textContent = 'Your Wrinkle — ' + cap(S.moods[out.wrinkle.mood].name) + ', ' + out.wrinkle.bend;
+    document.getElementById('wrinkle-text').textContent = out.wrinkle.text;
+    document.getElementById('reading').hidden = false;
+    buildQuestions(out);
+  });
+})();
+</script>
+</body>
+</html>
