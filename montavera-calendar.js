@@ -2,7 +2,13 @@
    Dependency-free vanilla JS. No fetch: it works from file:// and from Pages alike.
 
    THE FILED SYSTEM (from the printed book, The Fifty-Six, Form CAL-1):
-   - Anchor: Gregorian Monday, October 26, 2026 = Moonsday, Zipsdier 81, Year 5 of the 56th Age.
+   - Anchor: Gregorian Monday, October 26, 2026 = Moonsday, Zipsdier 81, Year 4 of the 56th Age.
+     The printed book is the Year 5 copy, prepared during Year 4 ("The year has not happened");
+     every outside date the book prints is computed from this Year 4 anchor. The 56th Age opened
+     on Friday, March 24, 2023 (Hendiber 1, Year 1). For dates before the Age opened, the book's
+     method (p.19, "On the Year") gives the day and the month only — "of an earlier volume; the
+     Index declines" — so this engine returns year: null with eraNote set for those dates.
+     (Ruled by Sebastian, 2026-10-31: Year 4 — stand by the book.)
    - Months in order, with lengths: Hendiber 28, Sunmanber 28, Zipsdier 84, Mourndier 28,
      Gloomber 28, Teadber 28, Quillder 28, Frostder 28, Shroudber 28, Chandber 28,
      Feastber 28, Oldber 28. (The printed book files the eighth month as "Frostder".)
@@ -36,9 +42,9 @@
   var YEAR_DAYS = 392;
   var MS_PER_DAY = 86400000;
 
-  /* Anchor: the Chicago calendar date 2026-10-26 is day-of-year 137 of Year 5. */
+  /* Anchor: the Chicago calendar date 2026-10-26 is day-of-year 137 of Year 4. */
   var ANCHOR_CIVIL = Date.UTC(2026, 9, 26) / MS_PER_DAY;
-  var ANCHOR_ABS = (5 - 1) * YEAR_DAYS + (137 - 1); /* absolute day index of the anchor */
+  var ANCHOR_ABS = (4 - 1) * YEAR_DAYS + (137 - 1); /* absolute day index of the anchor */
 
   var MONTH_STARTS = [];
   (function () {
@@ -102,7 +108,8 @@
   function montaveranDate(input) {
     var diff = civilDayOf(input === undefined ? new Date() : input) - ANCHOR_CIVIL;
     var abs = ANCHOR_ABS + diff;
-    var year = Math.floor(abs / YEAR_DAYS) + 1;
+    var inAge = abs >= 0; /* before the Age opened, the method declines a year (book, p.19) */
+    var year = inAge ? Math.floor(abs / YEAR_DAYS) + 1 : null;
     var dayOfYear = mod(abs, YEAR_DAYS) + 1;
 
     var monthIndex = 0;
@@ -119,6 +126,7 @@
       monthIndex: monthIndex,
       dayOfYear: dayOfYear,
       year: year,
+      eraNote: inAge ? null : 'of an earlier volume',
       age: 56,
       phaseDay: phaseDay,
       phaseName: phaseNameFor(phaseDay),
