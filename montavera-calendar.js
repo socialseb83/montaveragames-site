@@ -362,13 +362,18 @@ var WIRE = [
     ];
 
   /* The wire rides in short sections on a conveyor (a single ribbon holding
-     all 200 lines is too wide for phone browsers to animate). Each section
-     stays under ~640 characters; the track carries section N beside N+1 and
-     advances at each loop seam, so the strip reads as one endless scroll at
-     ~5.75 characters per second. News only — no date, moon, suns, or
-     horoscope header (Sebastian, 2026-11-05). */
+     all 200 lines is far too wide for phone browsers to move). Each section
+     stays under ~320 characters; the track carries section N beside N+1.
+     The scroll is driven by requestAnimationFrame, NOT a CSS animation:
+     the CSS-animated builds scrolled in desktop test browsers yet sat
+     frozen on Sebastian's iPhone (2026-11-05), so the transform is now
+     written by script every frame, measured off the live track so the
+     pace (~5.75 characters per second) holds at any font size. At each
+     seam the frame is identical, so the strip reads as one endless
+     scroll. News only — no date, moon, suns, or horoscope header
+     (Sebastian, 2026-11-05). */
   function renderWire(marquee) {
-    var MAXLEN = 640;
+    var MAXLEN = 320;
     var sections = [];
     var cur = '';
     for (var i = 0; i < WIRE.length; i++) {
@@ -382,27 +387,44 @@ var WIRE = [
     }
     if (cur) sections.push(cur);
     if (!sections.length) return;
-    var idx = 0;
     var track = document.createElement('span');
     track.className = 'mg-track';
-    function load() {
-      var first = sections[idx % sections.length];
-      var second = sections[(idx + 1) % sections.length];
-      track.textContent = first + second;
-      track.style.animationDuration = Math.max(30, Math.round(first.length / 5.75)) + 's';
-    }
-    track.addEventListener('animationiteration', function () {
-      idx++;
-      var parent = track.parentNode;
-      if (!parent) return;
-      parent.removeChild(track); /* restart the animation at the seam */
-      load();
-      void track.offsetWidth;
-      parent.appendChild(track);
-    });
+    track.style.animation = 'none'; /* the scroller below owns the transform */
+    var secA = document.createElement('span');
+    var secB = document.createElement('span');
+    track.appendChild(secA);
+    track.appendChild(secB);
     marquee.innerHTML = '';
-    load();
     marquee.appendChild(track);
+    var idx = 0;
+    function load() {
+      secA.textContent = sections[idx % sections.length];
+      secB.textContent = sections[(idx + 1) % sections.length];
+    }
+    load();
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return; /* the reader's device asked for stillness; the wire stands still */
+    }
+    var pos = 0;
+    var last = null;
+    function frame(ts) {
+      if (last === null) last = ts;
+      var dt = Math.min((ts - last) / 1000, 0.05);
+      last = ts;
+      var seam = secA.offsetWidth;
+      if (seam > 0) {
+        var speed = seam / (sections[idx % sections.length].length / 5.75);
+        pos += speed * dt;
+        if (pos >= seam) {
+          pos -= seam;
+          idx++;
+          load();
+        }
+        track.style.transform = 'translateX(' + (-pos) + 'px)';
+      }
+      window.requestAnimationFrame(frame);
+    }
+    window.requestAnimationFrame(frame);
   }
 
   var stylesInjected = false;
@@ -413,9 +435,7 @@ var WIRE = [
       '#mg-marquee{overflow:hidden;white-space:nowrap;background:#161009;color:#e9dec5;' +
       'font-family:"Cormorant Garamond",Cormorant,Georgia,serif;font-size:15px;letter-spacing:.14em;' +
       'padding:7px 0;border-bottom:1px solid #2e7d4f;line-height:1.3;}' +
-      '#mg-marquee .mg-track{display:inline-block;white-space:nowrap;animation:mg-scroll 120s linear infinite;}' +
-      '@keyframes mg-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}' +
-      '@media (prefers-reduced-motion: reduce){#mg-marquee .mg-track{animation:none}}' +
+      '#mg-marquee .mg-track{display:inline-block;white-space:nowrap;will-change:transform;}' +
       '#mg-calstrip{width:calc(100% - 2.5rem);max-width:1140px;margin:36px auto 44px;' +
       'padding:22px 26px;background:#161009;border:1px solid #2e7d4f;color:#e9dec5;' +
       'text-align:center;font-family:"Cormorant Garamond",Cormorant,Georgia,serif;}' +
