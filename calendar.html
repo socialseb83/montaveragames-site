@@ -120,12 +120,38 @@
   @media (max-width:640px){ .histdoc h2 { font-size:29px; } .histdoc .hist-obs { font-size:20px; } }
   footer { margin-top:60px; border-top:1px solid #291b0c; padding-top:16px; font-size:13px; color:#9c865f; text-align:center; }
 </style>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#14100c"></head>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#14100c">
+<style>
+/* ---- mobile hamburger nav (added 2026-11-05, Sebastian's ruling) ---- */
+.navburger { display: none; }
+@media (max-width: 860px) {
+  .top { position: relative; }
+  .navburger {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: #7e141b; border: 1px solid #7e141b; border-radius: 6px;
+    color: #f6ecd4; cursor: pointer; padding: 0.35rem 0.8rem;
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600;
+    font-size: 1.05rem; letter-spacing: 0.05em;
+  }
+  .top nav { display: none; }
+  .top.nav-open nav {
+    display: block; flex-basis: 100%; margin-top: 0.6rem;
+  }
+  .top.nav-open nav a {
+    display: block; margin: 0; padding: 0.55rem 0.2rem;
+    font-size: 1.05rem; border-bottom: 1px solid rgba(205,187,146,0.25);
+  }
+  .top.nav-open nav a:last-child { border-bottom: 0; }
+  .top.nav-open nav .langtoggle { display: inline-flex; margin-bottom: 0.4rem; }
+}
+</style>
+</head>
 <body>
 <div id="mg-marquee" aria-label="Today in Montavera">Montavera keeps its own calendar.</div>
 <div class="wrap">
   <div class="top">
     <div class="brand">Montavera Games</div>
+    <button type="button" class="navburger" aria-expanded="false" aria-label="Open menu">&#9776; Menu</button>
     <nav><a href="index.html#novel">Novels</a><a href="index.html#black-index">Black Index</a><a href="calendar.html" aria-current="page">Calendar</a><a href="horoscopes.html">Horoscopes</a><a href="magic-system.html">Magic System</a><a href="about-the-author.html">About the Author</a></nav>
   </div>
 
@@ -395,6 +421,22 @@ var MONTAVERA_HOROSCOPES = ["The white moon is a thin rind over a new year. Knoc
   });
 
   renderMonth();
+})();
+</script>
+
+<script>
+/* ---- mobile hamburger nav (added 2026-11-05) ---- */
+(function () {
+  var burger = document.querySelector('.navburger');
+  if (!burger) return;
+  var top = burger.closest('.top');
+  burger.addEventListener('click', function () {
+    var open = top.classList.toggle('nav-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { top.classList.remove('nav-open'); burger.setAttribute('aria-expanded', 'false'); }
+  });
 })();
 </script>
 </body>

@@ -423,7 +423,34 @@
         ml('account', '2732472');
     </script>
     <!-- End MailerLite Universal -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#14100c"></head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#14100c">
+<style>
+/* ---- mobile hamburger nav (added 2026-11-05, Sebastian's ruling) ---- */
+.navburger { display: none; }
+@media (max-width: 860px) {
+  .navburger {
+    display: flex; align-items: center; gap: 0.55rem;
+    width: 100%; background: none; border: 0; cursor: pointer;
+    padding: 0.65rem 1.25rem 0.55rem;
+    font-family: "Cormorant Garamond", serif; font-weight: 600;
+    font-size: 1.12rem; letter-spacing: 0.04em; color: var(--bone, #efe6cf);
+    text-align: left;
+  }
+  .navburger .nb-ico { font-size: 1.25rem; line-height: 1; color: var(--green-hot, #7fb069); }
+  .tabbar-in { display: none; }
+  .tabbar.open .tabbar-in {
+    display: flex; flex-direction: column; align-items: stretch;
+    gap: 0; padding: 0 0 0.35rem;
+  }
+  .tabbar.open .ptab {
+    text-align: left; font-size: 1.15rem;
+    padding: 0.8rem 1.25rem 0.7rem;
+    border-bottom: 1px solid var(--panel-edge, #3a352b);
+  }
+  .tabbar.open .ptab:last-child { border-bottom: 0; }
+}
+</style>
+</head>
   <body>
   <div id="mg-marquee" aria-label="Today in Montavera">Montavera keeps its own calendar.</div>
     <header class="site-head">
@@ -438,7 +465,8 @@
         </nav>
       </div>
       <nav class="tabbar" aria-label="Products">
-        <div class="tabbar-in" role="tablist">
+        <button type="button" class="navburger" id="navBurger" aria-expanded="false" aria-controls="tabbar-in" aria-label="Open menu"><span class="nb-ico" aria-hidden="true">&#9776;</span><span class="nb-label">Menu</span></button>
+        <div class="tabbar-in" role="tablist" id="tabbar-in">
           <button type="button" class="ptab" role="tab" id="tab-novels" data-view="novels" aria-selected="true" aria-controls="view-novels" data-i18n="tabNovels">Novels</button>
           <button type="button" class="ptab" role="tab" id="tab-index" data-view="index" aria-selected="false" aria-controls="view-index" data-i18n="tabIndex">Black Index</button>
           <a class="ptab" href="calendar.html" data-i18n="tabCalendar">Calendar</a>
@@ -1390,5 +1418,21 @@
     }
   })();
   </script>
+
+<script>
+/* ---- mobile hamburger nav (added 2026-11-05) ---- */
+(function () {
+  var burger = document.getElementById('navBurger');
+  if (!burger) return;
+  var bar = burger.closest('.tabbar');
+  function close() { bar.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+  burger.addEventListener('click', function () {
+    var open = bar.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  bar.querySelectorAll('.ptab').forEach(function (t) { t.addEventListener('click', close); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+</script>
 </body>
 </html>
