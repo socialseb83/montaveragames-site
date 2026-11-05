@@ -1325,16 +1325,52 @@
       if (!marquee || !window.montaveranDate) return;
       var now = new Date();
       var t = window.montaveranDate(now);
-      var half = '\u2726 Today in Montavera \u2014 ' + t.weekday + ', ' + t.month + ' ' + t.day +
+      var header = '\u2726 Today in Montavera \u2014 ' + t.weekday + ', ' + t.month + ' ' + t.day +
         ', Year ' + t.year + ' of the 56th Age \u00b7 the moon: ' + t.phaseName +
         ' \u00b7 ' + window.MontaveraCalendar.dayProgressPercent(now) + '% of the day gone \u2726 ';
-      for (var i = 0; i < WIRE.length; i++) half += WIRE[i] + ' \u2726 ';
+      /* The wire rides in short sections on a conveyor. A single ribbon holding
+         all 200 lines would be ~340,000px wide: desktop browsers tile it, but
+         phone browsers refuse to animate a layer that wide, so the strip sat
+         frozen on mobile. Each section stays under ~640 characters (about
+         13,000px with the section behind it), which every phone can move.
+         The track carries section N beside section N+1; at each loop seam N+1
+         becomes the first section and N+2 loads behind it — the frame at the
+         seam is identical, so the wire reads as one endless scroll, at the
+         same stately pace as before (~5.75 characters per second). */
+      var MAXLEN = 640;
+      var sections = [];
+      var cur = header;
+      for (var i = 0; i < WIRE.length; i++) {
+        var piece = WIRE[i] + ' \u2726 ';
+        if (cur.length > header.length && cur.length + piece.length > MAXLEN) {
+          sections.push(cur);
+          cur = header + piece;
+        } else {
+          cur += piece;
+        }
+      }
+      if (cur.length > header.length) sections.push(cur);
+      if (!sections.length) return;
+      var idx = 0;
       var track = document.createElement('span');
       track.className = 'mg-track';
-      track.textContent = half + half; /* two identical halves = a seamless loop */
-      /* the old strip scrolled ~690 characters in 120s; keep the same stately pace */
-      track.style.animationDuration = Math.max(120, Math.round(half.length / 5.75)) + 's';
+      function load() {
+        var first = sections[idx % sections.length];
+        var second = sections[(idx + 1) % sections.length];
+        track.textContent = first + second;
+        track.style.animationDuration = Math.max(30, Math.round(first.length / 5.75)) + 's';
+      }
+      track.addEventListener('animationiteration', function () {
+        idx++;
+        var parent = track.parentNode;
+        if (!parent) return;
+        parent.removeChild(track); /* restart the animation at the seam */
+        load();
+        void track.offsetWidth;
+        parent.appendChild(track);
+      });
       marquee.innerHTML = '';
+      load();
       marquee.appendChild(track);
     }
     if (document.readyState === 'loading') {
