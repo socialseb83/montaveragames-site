@@ -41,12 +41,52 @@
   footer { margin-top:64px; border-top:1px solid #291b0c; padding-top:16px; font-size:13px; color:#9c865f; text-align:center; }
   @media (max-width:640px){ table.works td.what { display:none; } table.works th.what { display:none; } }
 </style>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#14100c"></head>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#14100c">
+<style>
+/* ---- mobile hamburger nav (added 2026-11-05, Sebastian's ruling) ---- */
+.navburger { display: none; }
+@media (max-width: 860px) {
+  .top { position: relative; }
+  .navburger {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: #7e141b; border: 1px solid #7e141b; border-radius: 6px;
+    color: #f6ecd4; cursor: pointer; padding: 0.35rem 0.8rem;
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600;
+    font-size: 1.05rem; letter-spacing: 0.05em;
+  }
+  .top nav { display: none; }
+  .top.nav-open nav {
+    display: block; flex-basis: 100%; margin-top: 0.6rem;
+  }
+  .top.nav-open nav a {
+    display: block; margin: 0; padding: 0.55rem 0.2rem;
+    font-size: 1.05rem; border-bottom: 1px solid rgba(205,187,146,0.25);
+  }
+  .top.nav-open nav a:last-child { border-bottom: 0; }
+  .top.nav-open nav .langtoggle { display: inline-flex; margin-bottom: 0.4rem; }
+}
+</style>
+
+<style>
+/* ---- the journey, in photographs (added 2026-11-05, Sebastian's ruling) ---- */
+.journey { max-width: 680px; margin: 0 auto; }
+.jintro { color: #cdbb92; font-style: italic; text-align: center; margin: 0 auto 40px; max-width: 600px; font-size: 16.5px; line-height: 1.65; }
+.jentry { margin: 0 auto 46px; text-align: center; }
+.jentry img { width: 520px; max-width: 88vw; height: auto; border: 1px solid #291b0c; outline: 1px solid rgba(126,20,27,.45); outline-offset: 5px; display: block; margin: 6px auto 0; }
+.jdate { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 21px; letter-spacing: .05em; color: #cdbb92; margin: 16px 0 4px; }
+.jcap { font-size: 16.5px; line-height: 1.65; max-width: 560px; margin: 0 auto; }
+.jstart { border: 1px dashed #7e141b; padding: 20px 24px; max-width: 560px; margin: 0 auto 46px; }
+.jstart .jdate { margin-top: 0; }
+html.day .jdate { color: #8f1d24; }
+html.day .jintro { color: #5a4a2a; }
+</style>
+</head>
 <body>
 <div id="mg-marquee" aria-label="Today in Montavera">Montavera keeps its own calendar.</div>
 <div class="wrap">
   <div class="top">
     <div class="brand">Montavera Games</div>
+    <button type="button" class="navburger" aria-expanded="false" aria-label="Open menu">&#9776; Menu</button>
     <nav class="mainnav"><a href="index.html#novel">Novels</a><a href="index.html#black-index">Black Index</a><a href="calendar.html">Calendar</a><a href="horoscopes.html">Horoscopes</a><a href="magic-system.html">Magic System</a><a href="about-the-author.html">About the Author</a></nav>
   </div>
 
@@ -74,6 +114,65 @@
     <p>I know there will always be those who criticize and judge. This isn't for them. This is for those of you who want to read my stories and enjoy them. And it's for the other authors who are scared to take the plunge because they have no other way to get their stories edited or critiqued: you can do what I've done. Use the tools that are available to us now. They're a blessing that was never available before. You can get your stories out there for the world to read.</p>
     <p>Because of this team, these stories reach readers now — while they are beating in my heart, racing through my mind, and itching to come out of my fingertips and onto these keys. I don't want to end up like the many authors who never finish their series. I intend to finish mine.</p>
     <p class="sign">Make your dream come true.</p>
+  </div>
+
+  
+    <h2 class="section" id="journey">The Journey — In Photographs</h2>
+  <div class="journey">
+    <p class="jintro">The statement above says I have been writing since 2009. Here is what the camera caught of the road — every photograph dated from the photograph itself.</p>
+    <div class="jstart">
+      <p class="jdate">2009</p>
+      <p class="jcap">I wrote my first novel the year after my creative writing class at the University of St. Thomas. No photographs of it survive — it was never digitized; it lives in a manila folder in my garage. The camera starts catching up five years later.</p>
+    </div>
+    <div class="jentry">
+      <img loading="lazy" src="images/journey-2014-11-05-nano-journal.jpg" alt="Sebastian in a National Novel Writing Month shirt, holding an open handwritten journal, November 2014">
+      <p class="jdate">November 5, 2014 — 6:41 AM</p>
+      <p class="jcap">National Novel Writing Month, in the shirt, holding the handwritten journal. The habit was already a habit.</p>
+    </div>
+    <div class="jentry">
+      <img loading="lazy" src="images/journey-2014-12-07-alphabet-journal.jpg" alt="An open journal page showing a constructed alphabet and notes on language and magic, December 2014">
+      <p class="jdate">December 7, 2014</p>
+      <p class="jcap">A language under construction in the back of that journal: an alphabet of my own devising — its letters, its joins, and the first notes on what a written name can do.</p>
+    </div>
+    <div class="jstart">
+      <p class="jdate">2015–2016</p>
+      <p class="jcap">Teaching fourth grade, I started a writing club — and got fourteen of my students published. Then I called the Half Price Books stores around Houston and built them a book tour. Every student sold every copy of their book. They learned the craft that year, and then they learned the selling. I still have all of their books.</p>
+    </div>
+    <div class="jentry">
+      <img loading="lazy" src="images/journey-2016-10-28-classroom-chart.jpg" alt="A NaNoWriMo progress chart on a classroom wall, October 2016">
+      <p class="jdate">October 28, 2016</p>
+      <p class="jcap">The noveling chart on my classroom wall — my own name at the top, set for 50,000 words, and my students&rsquo; chapter goals underneath. I have always taught the thing I do.</p>
+    </div>
+    <div class="jentry">
+      <img loading="lazy" src="images/journey-2017-12-07-one-desk.jpg" alt="A teacher's desk with a novel planning binder open beside classroom materials, December 2017">
+      <p class="jdate">December 7, 2017</p>
+      <p class="jcap">One desk, two jobs: my students&rsquo; work on one side, my novel&rsquo;s chapter-and-scene binder on the other.</p>
+    </div>
+    <div class="jentry">
+      <img loading="lazy" src="images/journey-2019-04-28-camp-nano-winner.jpg" alt="Camp NaNoWriMo winner screen for THEOMACHY, 50,899 words, April 2019">
+      <p class="jdate">April 28, 2019</p>
+      <p class="jcap">Camp NaNoWriMo, won — 50,899 words of <em>THEOMACHY</em>, an earlier novel of mine, finished and documented.</p>
+    </div>
+    <div class="jentry">
+      <img loading="lazy" src="images/journey-2019-05-17-luna-red-pen.jpg" alt="A typewriter on a café table with a typed fiction page under red-pen edits, May 2019">
+      <p class="jdate">May 17, 2019</p>
+      <p class="jcap">Red-pen edits on the Luna typescript, typed on my Hermes in a café. The scene closes in Barloma — a city of mine I later ran as a storytelling game.</p>
+    </div>
+    <div class="jentry">
+      <img loading="lazy" src="images/journey-2022-01-28-0441am.jpg" alt="A Freewrite writing device beside a mug of coffee in the dark, January 2022">
+      <p class="jdate">January 28, 2022 — 4:41 AM</p>
+      <p class="jcap">The writing hour, as it actually looks: the Freewrite, the coffee, the dark before school.</p>
+    </div>
+    <div class="jentry">
+      <img loading="lazy" src="images/journey-2022-02-04-songs-beneath-draft.jpg" alt="A Freewrite in hand showing prose from The Songs Beneath on its screen, February 2022">
+      <p class="jdate">February 4, 2022</p>
+      <p class="jcap">And here is this book being written — <em>The Songs Beneath</em> on the Traveler&rsquo;s screen: Tomek, the empty fish trap, his father&rsquo;s knife. 2,583 words on the counter that night.</p>
+    </div>
+    <div class="jentry">
+      <img loading="lazy" src="images/journey-2026-11-05-classroom-today.jpg" alt="Sebastian's first-grade classroom, November 2026">
+      <p class="jdate">November 5, 2026</p>
+      <p class="jcap">This morning. First grade at Burnet Elementary. The books are real now; the desk is the same desk.</p>
+    </div>
   </div>
 
   <button class="receipts-btn" id="receiptsToggle" aria-expanded="false">The Receipts</button>
@@ -121,6 +220,22 @@
     if (opening) { sec.scrollIntoView({behavior:'smooth', block:'start'}); }
   });
   if (window.location.hash === '#receipts') { sec.hidden = false; btn.setAttribute('aria-expanded','true'); }
+</script>
+
+<script>
+/* ---- mobile hamburger nav (added 2026-11-05) ---- */
+(function () {
+  var burger = document.querySelector('.navburger');
+  if (!burger) return;
+  var top = burger.closest('.top');
+  burger.addEventListener('click', function () {
+    var open = top.classList.toggle('nav-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { top.classList.remove('nav-open'); burger.setAttribute('aria-expanded', 'false'); }
+  });
+})();
 </script>
 </body>
 </html>
