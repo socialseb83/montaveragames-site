@@ -403,6 +403,16 @@
       footer .foot-nav a:hover { color: var(--bone); }
 
       @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+
+      /* The wire — "Today in Montavera" ticker. The animation lives here;
+         buildWire() only feeds the track text and sets animationDuration.
+         Translating to -50% scrolls exactly one section: buildWire keeps two
+         sections on the track and swaps content at each animationiteration
+         seam, so the loop reads as one endless scroll. */
+      #mg-marquee { overflow: hidden; white-space: nowrap; background: var(--bg-deep); border-bottom: 1px solid var(--panel-edge); padding: 0.34rem 0; color: var(--dim); font-size: 0.84rem; letter-spacing: 0.06em; }
+      .mg-track { display: inline-block; white-space: nowrap; animation-name: mg-wire-scroll; animation-timing-function: linear; animation-iteration-count: infinite; will-change: transform; }
+      @keyframes mg-wire-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+      @media (prefers-reduced-motion: reduce) { .mg-track { animation: none; } }
     </style>
     <!-- MailerLite Universal -->
     <script>
@@ -460,7 +470,7 @@
             </div>
             <ul class="facts">
               <li data-i18n="factComplete">The complete novel</li>
-              <li data-i18n="factPages">548 pages</li>
+              <li data-i18n="factPages">546 pages</li>
               <li data-i18n="factFormats">Hardcover · Paperback · Kindle</li>
             </ul>
 
@@ -813,7 +823,7 @@
           fullBlurb: '<p>Winter and darkness plague the land. A 12-year-old boy swears a promise to his dying father: He will protect them. All of them. Tomek sets out into a frozen hellscape, searching for the only cure to save his people, with only his father&rsquo;s knife, his mother&rsquo;s flute, and a stubborn girl by his side he was never meant to protect. At the top of their road, high above a dead city, behind a whispering door, something darker than shadow waits. Patiently.</p>',
           pullFire: 'It wants a place by the fire, like everyone else.',
           factComplete: 'The complete novel',
-          factPages: '548 pages',
+          factPages: '546 pages',
           factFormats: 'Hardcover · Paperback · Kindle',
           emailLabel: 'Email address',
           emailPh: 'Your email address',
