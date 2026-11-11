@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How My Books Are Made — The Headmaster</title>
+<meta name="description" content="How My Books Are Made — the author's statement in full, in English and in Spanish: I Write. AI Is My Editing Team. / Yo escribo. La IA es mi equipo de edición. By Sebastian Aguilar (The Headmaster).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#100a05; color:#e9dec5; font-family:'Spectral',Georgia,serif; font-weight:300; }
+  .wrap { max-width:680px; margin:0 auto; padding:32px 20px 64px; }
+  a { color:#e9dec5; }
+  .top { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid #7e141b; padding-bottom:14px; }
+  .brand { font-family:'Cormorant Garamond',serif; letter-spacing:.18em; font-size:14px; text-transform:uppercase; }
+  .langnav { font-size:14px; } .langnav a { margin-left:14px; color:#cdbb92; }
+  h1 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:40px; line-height:1.1; margin:40px 0 6px; color:#f6ecd4; }
+  h2 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:32px; margin:56px 0 6px; color:#f6ecd4; }
+  .byline { color:#cdbb92; font-style:italic; margin:0 0 28px; }
+  p { font-size:19px; line-height:1.75; margin:0 0 1.1em; }
+  p:first-of-type::first-letter { font-family:'Cormorant Garamond',serif; font-size:52px; line-height:1; color:#f6ecd4; }
+  .break { text-align:center; color:#b3232a; letter-spacing:.6em; margin:28px 0; }
+  .langtoggle { display:inline-flex; border:1px solid #7e141b; border-radius:999px; overflow:hidden; vertical-align:middle; margin-left:14px; }
+  .lt { background:transparent; border:0; color:#cdbb92; font-family:'Spectral',Georgia,serif; font-size:13.5px; padding:5px 14px; cursor:pointer; letter-spacing:.04em; }
+  .lt.on { background:#7e141b; color:#f6ecd4; }
+  [hidden] { display:none !important; }
+  #espanol h2 { font-size:40px; margin-top:40px; }
+  html, body { overflow-x:clip; }
+  .sketch { margin:0; }
+  .sketch img { display:block; width:100%; height:auto; background:#f3ead2; border:1px solid #3a2a16; box-shadow:0 4px 18px rgba(0,0,0,.45); }
+  @media (min-width:1280px) { .sketch { float:right; clear:right; width:218px; margin:8px -254px 16px 22px; } }
+  @media (min-width:701px) and (max-width:1279px) { .sketch { float:right; clear:right; width:190px; margin:6px 0 12px 20px; } }
+  @media (max-width:700px) { .sketch { width:min(280px,78%); margin:14px auto 20px; } }
+  .ask { border:1px solid #7e141b; padding:24px; margin-top:48px; text-align:center; }
+  .ask h3 { font-family:'Cormorant Garamond',serif; font-size:26px; margin:0 0 8px; color:#f6ecd4; }
+  .ask p { font-size:16px; }
+  .btn { display:inline-block; margin-top:10px; padding:10px 22px; border:1px solid #b3232a; color:#f6ecd4; text-decoration:none; letter-spacing:.08em; }
+  footer { margin-top:56px; border-top:1px solid #291b0c; padding-top:16px; font-size:13px; color:#9c865f; text-align:center; }
+</style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#14100c">
+<style>
+/* ---- mobile hamburger nav (added 2026-11-05, Sebastian's ruling) ---- */
+.navburger { display: none; }
+@media (max-width: 860px) {
+  .top { position: relative; }
+  .navburger {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: #7e141b; border: 1px solid #7e141b; border-radius: 6px;
+    color: #f6ecd4; cursor: pointer; padding: 0.35rem 0.8rem;
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600;
+    font-size: 1.05rem; letter-spacing: 0.05em;
+  }
+  .top nav { display: none; }
+  .top.nav-open nav {
+    display: block; flex-basis: 100%; margin-top: 0.6rem;
+  }
+  .top.nav-open nav a {
+    display: block; margin: 0; padding: 0.55rem 0.2rem;
+    font-size: 1.05rem; border-bottom: 1px solid rgba(205,187,146,0.25);
+  }
+  .top.nav-open nav a:last-child { border-bottom: 0; }
+  .top.nav-open nav .langtoggle { display: inline-flex; margin-bottom: 0.4rem; }
+}
+</style>
+</head>
+<body>
+  <div id="mg-marquee" aria-label="Today in Montavera">Montavera keeps its own calendar.</div>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">Montavera Games</div>
+    <button type="button" class="navburger" aria-expanded="false" aria-label="Open menu">&#9776; Menu</button>
+    <nav class="langnav"><span class="langtoggle" role="group" aria-label="Language / Idioma"><button type="button" class="lt on" id="btn-en" aria-pressed="true">English</button><button type="button" class="lt" id="btn-es" aria-pressed="false">Español</button></span><a href="index.html#novel">Novels</a><a href="index.html#black-index">Black Index</a><a href="calendar.html">Calendar</a><a href="horoscopes.html">Horoscopes</a><a href="magic-system.html">Magic System</a><a href="about-the-author.html">About the Author</a></nav>
+  </div>
+
+  <section id="english" lang="en">
+    <h1>I Write. AI Is My Editing Team.</h1>
+    <div class="byline">By Sebastian Aguilar (The Headmaster)</div>
+<p>The same people who argue that authors shouldn't use AI for editing are over there using calculators instead of learning mental math, using QuickBooks instead of hiring an accountant, using spellcheck on their writing instead of learning how to spell or using a line editor, using dictionaries, Google, and encyclopedias instead of pouring hours into books at the library, paying for streaming services as they watched Blockbuster Video die, ordering things on Amazon instead of driving to the store. Myself, I do all of these things, because they save me money, they make life easier, and I have more time and energy to invest into my hobbies. It is my general impression that all of these modern technologies have cost people jobs, and yet we live on, don't we? It seems hypocritical that now people hate on AI because of how it causes changes in the industry, often costing jobs. It's not that I don't feel for those people and their families. I truly do. And it has affected people very close to me, costing them their jobs. But we have talked. This tech is inevitable. It's not coming. It is here. I am typically one who likes to innovate and explore, so more often than not, I am one of those who tries things first and makes the mistakes so others don't have to. But like I tell my first-grade students, no great learning can happen if we don't try for fear of mistakes.</p>
+<p>As for what constitutes a true creative artist, I do understand that having AI generate prose and even entire books is not artistry. At best, it is skilled prompting, and compliments could be given there. But not compliments to the human for the writing. That said, not all artists and writers should be clumped together. There is a very real spectrum. I stand near the other end. I write my prose. I plan my plot. I plan my twists. I read craft books and take notes and use them to improve my craft. I go to writing workshops, fill notebooks with notes, use distraction-free Astrohaus writing tools, go to critique sessions, use beta readers. I write.</p>
+<p>But I'm a teacher on a teacher salary. I cannot afford the costs that professional editing costs, but I can afford an AI companion that can help me for a truly affordable price. This is simply the evolution of technology playing out in real life. Just like in the old days, peasants didn't spend their entire family's meager earnings to buy a book. Instead, they went to a church to read a Bible that was chained to a church. In those days, that was the tech. Same as how people bought clothes from factories instead of investing in cotton machines that could make the cotton for them, to make their own clothes. Same reasons: savings and convenience.</p>
+<p>People lost jobs then too. Companies became monopolies then too. With every wave of new tech, it happened. We don't have to go very far. Look at Amazon and its effect on mom-and-pop shops. And yes, when possible, it's great to buy from local stores and mom-and-pop shops, but the truth is that we never do this at the expense of paying the bills. We also don't say, "I guess I won't eat a Thanksgiving dinner because I can't afford the local mom-and-pop turkey." No, what they do is use a coupon and go to HEB and buy a discounted turkey that was mass-produced, definitely not organically. And you enjoy Thanksgiving without any guilt. You were responsible and made your dream of a family gathering come true.</p>
+<p>That is what I'm doing on my teacher salary, with a mortgage, with bills, and daughters in college. I refuse to wait another 10–30 years to "responsibly" save up "the way others have always done" simply to spite the advancement of technology because of the costs it brings. Those who say otherwise are conveniently turning their eyes away from all the ways they use other techs in the same way and with the same results as I have described above. So perhaps—no, for certain—it is an unpopular opinion, but I will continue to use AI to do my organizing of ideas THAT I CAME UP WITH—NOT AI—to edit grammar and spelling the way others use slower tech to do the same, to help me with better word choices and syntax the way others use slower tech to do the same, and to revise structure in passes against the guidelines I teach in texts I have written to teach my students the craft of writing, and the notes I have written from dozens of books on the craft. All of this makes it affordable for me. I don't have to sacrifice my dream of turning my drafts into final manuscripts that can be submitted for publishing.</p>
+<p>But I am no fool. I know that many of the leaders of the space will do the currently culturally popular thing of refusing to work with people like me. And that is their prerogative; I don't judge them for it. I had wedding photography clients (I was a wedding photographer for 15 years in Houston, NYC, and California) start asking for raw files because Photoshop could edit for them, and they asked for lower prices. Trust me, I get it. But that's life. I had to reinvent myself. That's life. The wise know this to be true. You're riding high in April, shot down in May. Sinatra knew. And no one says he had the wrong idea.</p>
+<p>When you read my writing, you are reading my plot, my twists, my prose, my story, not generated by AI. But I was helped by AI removing the financial gate that used to be put in place by the prices of editors. And they had the right to charge as they did. Supply and demand. But that landscape has changed. They can NO longer charge for exclusive services, because AI can now do much of what they do. However, like I did with photography, they CAN charge for the process and quality they provide, and I wholeheartedly respect that and promote it and encourage it. But we must understand that the landscape has evolved, and many authors who have real stories to tell, that the world should hear and enjoy, now have been given a pass; the financial gates have been lifted. The only gates pushing back against us are cultural ones. Gates driven by fear of being replaced. It's what has always happened.</p>
+<p>Here is what I'm asking for. If publishers can agree to my logic, and give my books a chance, and they see (as I'm sure an open mind will) that my work is mostly human, and the AI is minimal (the editing services), and they enjoy the story for the story and the prose, then I think they'll find my story stands on its own two feet as a true work of art. How good? That depends on the publisher. Beauty is in the eye of the beholder.</p>
+<p>And if publishers can be open to the reality that AI use is a spectrum, not a blanket reality, and that not everyone using it is necessarily performing the great scandal that modern culture seems to be promoting, then perhaps they can discover a few gems that would have otherwise forever been trapped behind a financial gate. And if they like the writing and the author, they could work with them the traditional way after discovering them, the way they do with those who were able to afford the traditional path.</p>
+<p>But I refuse to hide behind fear either. I won't hide my process. I will document it and wear it like a badge of honor.</p>
+<p>And my final statement is this. The moment the money is there — whether it comes from a publisher's backing, from book sales, or from anything else I build — the first of it goes to people: human editors, human artists, human agents. That is not a someday wish. It is a responsibility I owe this work, and I intend to pay it in that order. Just like people with more money buy that expensive bespoke turkey for Thanksgiving, the Rolex, the fancy soccer cleats instead of the $15 brand… Because we do what we can with what we've got, but we refuse to let finances hold us back from letting our dreams and our work see the light of the world, and we refuse to keep the world from seeing what we've created.</p>
+<p>If you still think an author is a fraud, do this instead of just being a loud hater: challenge him to a write-off. In person. In public. Use the same tools — pen and paper, if you like. Same limitations. Then have some objective, impartial judge decide. I'm always here for it. I've been writing seriously for twenty years and have the receipts to prove it. I'm also an early adopter of technology and plan to use it to take me to the next echelon, where I can make a career change and afford the higher tier—the human editors and skilled artisans who can help me make my book what it deserves to be.</p>
+  </section>
+
+  <section id="espanol" lang="es">
+    <h2>Yo escribo. La IA es mi equipo de edición.</h2>
+    <div class="byline">De Sebastian Aguilar (El Preceptor)</div>
+<p>Los mismos que dicen que los autores no deberían usar la IA para editar andan por ahí usando calculadoras en lugar de aprender cálculo mental, usando QuickBooks en lugar de contratar a un contador, usando el corrector ortográfico en lugar de aprender a escribir bien o de contratar a un corrector de estilo, usando diccionarios, Google y enciclopedias en lugar de pasar horas metidos en los libros de la biblioteca, pagando servicios de streaming mientras veían morir a Blockbuster Video, pidiendo cosas en Amazon en lugar de manejar hasta la tienda. Yo mismo hago todas estas cosas, porque me ahorran dinero, me hacen la vida más fácil y me dejan más tiempo y energía para invertir en mis pasatiempos. Mi impresión general es que todas estas tecnologías modernas le han costado el empleo a mucha gente, y aun así seguimos adelante, ¿no? Me parece hipócrita que ahora la gente le tire a la IA por los cambios que provoca en la industria, que a menudo cuestan empleos. No es que no me duela por esas personas y sus familias. De verdad que sí. Y ha afectado a gente muy cercana a mí, que perdió su trabajo. Pero lo hemos hablado. Esta tecnología es inevitable. No es que venga. Ya está aquí. Por lo general soy de los que les gusta innovar y explorar, así que, la mayoría de las veces, soy de los que prueban las cosas primero y cometen los errores para que otros no tengan que cometerlos. Pero, como les digo a mis alumnos de primer grado, no puede haber un gran aprendizaje si no lo intentamos por miedo a equivocarnos.</p>
+<p>En cuanto a qué hace a un verdadero artista creativo, entiendo que hacer que la IA genere prosa, e incluso libros enteros, no es arte. En el mejor de los casos, es saber dar buenas instrucciones, y ahí se podrían dar cumplidos. Pero no cumplidos al humano por la escritura. Dicho esto, no se debe meter a todos los artistas y escritores en el mismo saco. Hay un espectro muy real. Yo estoy cerca del otro extremo. Yo escribo mi prosa. Yo planeo mi trama. Yo planeo mis giros. Leo libros sobre el oficio, tomo notas y las uso para mejorar mi oficio. Voy a talleres de escritura, lleno cuadernos de notas, uso herramientas de escritura sin distracciones de Astrohaus, voy a sesiones de crítica, uso lectores beta. Yo escribo.</p>
+<p>Pero soy maestro con sueldo de maestro. No puedo pagar lo que cuesta la edición profesional, pero sí puedo pagar un compañero de IA que me ayude por un precio de verdad accesible. Esto es simplemente la evolución de la tecnología en la vida real. Igual que en los viejos tiempos, los campesinos no gastaban las escasas ganancias de toda su familia en comprar un libro. En cambio, iban a una iglesia a leer una Biblia que estaba encadenada a una iglesia. En aquellos días, esa era la tecnología. Lo mismo que cuando la gente compraba ropa hecha en fábricas en lugar de invertir en máquinas de algodón que les procesaran el algodón, para hacerse su propia ropa. Mismas razones: ahorro y comodidad.</p>
+<p>La gente también perdió empleos entonces. Las empresas también se volvieron monopolios entonces. Con cada ola de tecnología nueva, pasó lo mismo. No tenemos que ir muy lejos. Miren a Amazon y su efecto en los negocios familiares. Y sí, cuando se puede, es genial comprar en las tiendas locales y en los negocios familiares, pero la verdad es que nunca lo hacemos a costa de pagar las cuentas. Tampoco decimos: "Bueno, no voy a cenar en Thanksgiving porque no me alcanza para el pavo del negocio familiar del barrio". No, lo que hacen es usar un cupón, ir a HEB y comprar un pavo con descuento, producido en masa y definitivamente no orgánico. Y disfrutas Thanksgiving sin ninguna culpa. Fuiste responsable e hiciste realidad tu sueño de una reunión familiar.</p>
+<p>Eso es lo que yo estoy haciendo con mi sueldo de maestro, con una hipoteca, con cuentas y con hijas en la universidad. Me niego a esperar otros 10 a 30 años para ahorrar "responsablemente", "como siempre lo han hecho los demás", solo para llevarle la contraria al avance de la tecnología por los costos que trae. Quienes dicen lo contrario convenientemente miran hacia otro lado ante todas las maneras en que usan otras tecnologías de la misma forma y con los mismos resultados que describí arriba. Así que quizás —no, seguramente— es una opinión impopular, pero voy a seguir usando la IA para organizar ideas QUE SE ME OCURRIERON A MÍ —NO A LA IA—, para corregir gramática y ortografía como otros usan tecnología más lenta para lo mismo, para ayudarme con mejores palabras y sintaxis como otros usan tecnología más lenta para lo mismo, y para revisar la estructura por etapas según las pautas que enseño en textos que he escrito para enseñarles a mis alumnos el oficio de escribir, y según las notas que he tomado de docenas de libros sobre el oficio. Todo esto lo hace accesible para mí. No tengo que sacrificar mi sueño de convertir mis borradores en manuscritos finales que puedan enviarse para publicación.</p>
+<p>Pero no soy tonto. Sé que muchos de los líderes del medio van a hacer lo que hoy está de moda culturalmente: negarse a trabajar con gente como yo. Y están en su derecho; no los juzgo por eso. Tuve clientes de fotografía de bodas (fui fotógrafo de bodas durante 15 años en Houston, NYC y California) que empezaron a pedirme los archivos raw porque Photoshop podía editarlos por ellos, y me pedían precios más bajos. Créanme, lo entiendo. Pero así es la vida. Tuve que reinventarme. Así es la vida. Los sabios saben que es verdad. You're riding high in April, shot down in May. Sinatra lo sabía. Y nadie dice que estaba equivocado.</p>
+<p>Cuando leen lo que escribo, están leyendo mi trama, mis giros, mi prosa, mi historia, no algo generado por la IA. Pero la IA me ayudó a quitar la barrera financiera que antes ponían los precios de los editores. Y ellos tenían derecho a cobrar lo que cobraban. Oferta y demanda. Pero ese panorama ha cambiado. YA NO pueden cobrar por servicios exclusivos, porque la IA ahora puede hacer gran parte de lo que ellos hacen. Sin embargo, como hice yo con la fotografía, SÍ pueden cobrar por el proceso y la calidad que ofrecen, y eso lo respeto, lo promuevo y lo animo de todo corazón. Pero tenemos que entender que el panorama ha evolucionado, y a muchos autores que tienen historias reales que contar, que el mundo debería escuchar y disfrutar, ahora se les ha abierto el paso; las barreras financieras se han levantado. Las únicas barreras que nos frenan son culturales. Barreras impulsadas por el miedo a ser reemplazados. Es lo que siempre ha pasado.</p>
+<p>Esto es lo que pido. Si las editoriales pueden estar de acuerdo con mi lógica, y darles una oportunidad a mis libros, y ven (como estoy seguro de que una mente abierta verá) que mi trabajo es mayormente humano, y la IA es mínima (los servicios de edición), y disfrutan la historia por la historia y por la prosa, entonces creo que verán que mi historia se sostiene sola como una verdadera obra de arte. ¿Qué tan buena? Eso depende de la editorial. La belleza está en los ojos de quien la mira.</p>
+<p>Y si las editoriales pueden abrirse a la realidad de que el uso de la IA es un espectro, no una realidad única para todos, y que no todo el que la usa está necesariamente cometiendo el gran escándalo que la cultura moderna parece estar promoviendo, entonces quizás puedan descubrir algunas joyas que, de otro modo, habrían quedado para siempre atrapadas tras una barrera financiera. Y si les gusta la escritura y el autor, podrían trabajar con ellos de la manera tradicional después de descubrirlos, igual que hacen con quienes sí pudieron pagar el camino tradicional.</p>
+<p>Pero tampoco me voy a esconder detrás del miedo. No voy a ocultar mi proceso. Lo voy a documentar y a llevarlo como una medalla de honor.</p>
+<p>Y mi declaración final es esta. En el momento en que el dinero esté ahí — venga del respaldo de una editorial, de las ventas de mis libros o de cualquier otra cosa que yo construya — lo primero va para las personas: editores humanos, artistas humanos, agentes humanos. No es un deseo para algún día. Es una responsabilidad que tengo con esta obra, y pienso pagarla en ese orden. Igual que la gente con más dinero compra ese pavo artesanal carísimo para Thanksgiving, el Rolex, los tacos de fútbol elegantes en lugar de la marca de $15… Porque hacemos lo que podemos con lo que tenemos, pero nos negamos a dejar que las finanzas nos impidan ver nuestros sueños y nuestro trabajo salir a la luz del mundo, y nos negamos a impedir que el mundo vea lo que hemos creado.</p>
+<p>Si todavía crees que un autor es un fraude, haz esto en lugar de ser solo alguien que critica a gritos: rétalo a un duelo de escritura. En persona. En público. Con las mismas herramientas — papel y pluma, si quieres. Las mismas limitaciones. Luego, que un juez objetivo e imparcial decida. Siempre estoy dispuesto. Llevo veinte años escribiendo en serio y tengo las pruebas para demostrarlo. También soy de los primeros en adoptar la tecnología y pienso usarla para llegar al siguiente nivel, donde pueda cambiar de carrera y pagar el nivel superior: los editores humanos y los artesanos expertos que pueden ayudarme a hacer de mi libro lo que merece ser.</p>
+  </section>
+
+  <div class="ask">
+    <h3>The book, when it opens</h3>
+    <p>Both editions are in proof now. Join the launch list on the home page and you will hear the moment they open — and nothing before it is worth your inbox.</p>
+    <a class="btn" href="index.html">Join the launch list</a>
+  </div>
+
+  <section class="factions-soon" aria-label="Factions — coming soon" style="border-top:1px solid #7e141b;margin-top:56px;padding:30px 20px 8px;text-align:center"><p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:29px;font-weight:600;letter-spacing:.04em;color:#f6ecd4;margin:0">Coming Soon: Factions — Expandable Card Game</p></section>
+<footer>© 2026 Montavera Press · Montavera Games · Human-written. AI-edited. Nothing hidden.<p><a href="about-the-author.html#how-i-write">How My Books Are Written</a></p></footer>
+</div>
+
+  <script src="montavera-calendar.js"></script>
+  <script src="montavera-theme.js"></script>
+<script>
+(function () {
+  var en = document.getElementById('english'), es = document.getElementById('espanol');
+  var bEn = document.getElementById('btn-en'), bEs = document.getElementById('btn-es');
+  function show(lang) {
+    var isEs = lang === 'es';
+    en.hidden = isEs; es.hidden = !isEs;
+    bEn.classList.toggle('on', !isEs); bEs.classList.toggle('on', isEs);
+    bEn.setAttribute('aria-pressed', String(!isEs)); bEs.setAttribute('aria-pressed', String(isEs));
+    document.documentElement.lang = isEs ? 'es' : 'en';
+    try { localStorage.setItem('mg-prologue-lang', lang); } catch (e) {}
+    window.scrollTo(0, 0);
+  }
+  bEn.addEventListener('click', function () { show('en'); });
+  bEs.addEventListener('click', function () { show('es'); });
+  var initial = 'en';
+  try {
+    if (location.hash === '#espanol') initial = 'es';
+    else if (localStorage.getItem('mg-prologue-lang') === 'es') initial = 'es';
+  } catch (e) {}
+  if (initial === 'es') show('es'); else { es.hidden = true; }
+})();
+</script>
+
+<script>
+/* ---- mobile hamburger nav (added 2026-11-05) ---- */
+(function () {
+  var burger = document.querySelector('.navburger');
+  if (!burger) return;
+  var top = burger.closest('.top');
+  burger.addEventListener('click', function () {
+    var open = top.classList.toggle('nav-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { top.classList.remove('nav-open'); burger.setAttribute('aria-expanded', 'false'); }
+  });
+})();
+</script>
+</body>
+</html>
